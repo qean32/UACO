@@ -3,9 +3,9 @@
 
 import { Admin } from '@/components/case/info';
 import { AddEvent } from '@/components/case/modal';
-import { AdminEventTable } from '@/components/case/table';
+import { AdminTable } from '@/components/case/table';
 import { PersonalAccountTitle } from '@/components/ui';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib"
 import React from 'react';
 
 interface Props {
@@ -25,7 +25,7 @@ export default function Page({ className }: Props) {
                         <p className='text-lg font-medium'>Мероприятия</p>
                         <AddEvent />
                     </div>
-                    <AdminEventTable />
+                    <AdminTable />
                 </div>
             </div>
         </div>

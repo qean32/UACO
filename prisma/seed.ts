@@ -6,9 +6,6 @@ const create = async () => {
     await prisma.department.createMany({
         data: data.departmens
     })
-    await prisma.course.createMany({
-        data: data.courses
-    })
     await prisma.group.createMany({
         data: data.groups
     })

@@ -3,7 +3,7 @@
 import { CustomButton, Title } from '@/components/ui';
 import { Input } from '@/components/ui/input';
 import React from 'react';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib"
 
 interface Props {
     className?: string

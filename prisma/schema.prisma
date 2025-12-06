@@ -14,12 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Course {
-  id    Int @id @default(autoincrement())
-
-  students Student[]
-}
-
 // mb add couse???????? real debatable
 model Group {
   id       Int       @id @default(autoincrement())
@@ -45,14 +39,16 @@ model Department {
 // mb delete couse???
 model Student {
   id Int @id @default(autoincrement())
+  semester Int
+
 
   User   User? @relation(fields: [UserId], references: [id])
   UserId Int?
 
-  Course    Course? @relation(fields: [CourseId], references: [id])
-  CourseId  Int?
   Group     Group?  @relation(fields: [GroupCode], references: [code])
   GroupCode String?
+  
+  gradeEvents GradeEvent[]
 }
 
 model Supervisor {
@@ -83,6 +79,18 @@ model User {
   supervisors Supervisor[]
 }
 
+model GradeEvent {
+  id Int @id @default(autoincrement())
+
+  grade Int
+  presence Boolean
+
+  Student     Student? @relation(fields: [StudentId], references: [id])
+  StudentId Int?
+  Event     Event? @relation(fields: [EventId], references: [id])
+  EventId Int?
+}
+
 model Event {
   id           Int         @id @default(autoincrement())
   name         String
@@ -90,6 +98,8 @@ model Event {
   createdAt    DateTime    @default(now())
   Supervisor   Supervisor? @relation(fields: [SupervisorId], references: [id])
   SupervisorId Int?
+
+  gradeEvents GradeEvent[]
 }
 
 enum Role {

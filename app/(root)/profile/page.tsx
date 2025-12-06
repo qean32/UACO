@@ -2,10 +2,10 @@
 
 
 import { Student } from '@/components/case/info';
-import { StudentEventTable } from '@/components/case/table';
+import { EventStudentTable } from '@/components/case/table';
 import { PersonalAccountTitle } from '@/components/ui';
 import { SelectPeriod } from '@/components/case/select';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib"
 import React from 'react';
 
 interface Props {
@@ -26,7 +26,7 @@ export default function Page({ className }: Props) {
                         <p className='font-medium'>Период</p>
                         <SelectPeriod />
                     </div>
-                    <StudentEventTable />
+                    <EventStudentTable />
                 </div>
             </div>
         </div>

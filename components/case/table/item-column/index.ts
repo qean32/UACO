@@ -1,5 +1,8 @@
-export { EventItem } from './event-item'
-export { EventColumn } from './event-column'
+export { AdminTableItem } from './admin-table-item'
+export { EventTableColumn } from './event-table-column'
 
-export { GradeColumn } from './grade-column'
-export { GradeItem } from './grade-item'
+export { GradeTableColumn } from './grade-table-column'
+export { GradeTableItem } from './grade-table-item'
+
+export { FEventStudentTableColumnItem } from './f-event-student-table-column-item'
+export { FEventStudentTableItem } from './f-event-student-table-item'

@@ -1,15 +1,16 @@
-'use client'
+'use server'
 
 
 import { GradeEventTable } from '@/components/case/table';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib"
 import React from 'react';
 
 interface Props {
     className?: string
 }
 
-export default function Main({ className }: Props) {
+export default async function Main({ className }: Props) {
+
 
     return (
         <div className={cn('flex-1 px-15 pt-15', className)}>

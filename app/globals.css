@@ -1,23 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./app.css";
 
 @custom-variant dark (&:is(.dark *));
-
-.text-sm- {
-  font-size: 16px;
-}
-
-.table-column- {
-  &:hover {
-    & p {
-      max-width: fit-content !important;
-    }
-  }
-}
-
-.table-::-webkit-scrollbar {
-  width: auto !important;
-}
 
 @theme inline {
   --color-background: var(--background);
@@ -57,10 +42,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-}
-
-*::-webkit-scrollbar {
-  width: 0;
 }
 
 :root {

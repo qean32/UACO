@@ -1,0 +1,1 @@
+export type { FEventStudentTableItemDto } from './full-events-student'

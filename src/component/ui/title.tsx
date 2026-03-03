@@ -7,7 +7,7 @@ import { ComponentProps, ReactNode } from 'react';
 interface Props {
     className?: string
     children: string | ReactNode
-    size?: 'text-sm' | 'text-xl' | 'text-2xl'
+    size?: 'text-sm' | 'text-xl' | 'text-2xl' | 'text-md'
     props?: ComponentProps<"p">
     color?: string
 }

@@ -42,17 +42,19 @@ function Button({
   variant,
   size,
   asChild = false,
+  isDefault = true,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
+    isDefault?: boolean
   }) {
   const Comp = asChild ? Slot : "button"
 
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }), 'px-3 cursor-pointer')}
+      className={cn(buttonVariants({ variant, size, className }), 'cursor-pointer', (isDefault && "px-3 py-5 button "))}
       {...props}
     />
   )

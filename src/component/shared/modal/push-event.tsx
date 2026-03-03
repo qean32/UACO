@@ -24,8 +24,8 @@ export function PushEvent() {
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle><Title>Добавление мероприятия</Title></DialogTitle>
-                        <DialogDescription>Введите название , выберите дату и организатора</DialogDescription>
+                        <DialogTitle><Title>Добавить мероприятие</Title></DialogTitle>
+                        <DialogDescription>Введите название, дату и организатора</DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4">
                         <Input placeholder="Название" className="h-[40px]" />
@@ -34,7 +34,7 @@ export function PushEvent() {
                     </div>
                     <DialogFooter className="pt-8">
                         <DialogClose asChild>
-                            <Button variant="outline" className="cursor-pointer">Отмена</Button>
+                            <Button variant="outline" className="text-dark">Отмена</Button>
                         </DialogClose>
                         <Button className="bg-green-600 hover:bg-green-700 cursor-pointer">Сохранить</Button>
                     </DialogFooter>

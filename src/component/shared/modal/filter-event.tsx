@@ -23,7 +23,7 @@ export function FilterEvent() {
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle><Title>Фильтры</Title></DialogTitle>
-                    <DialogDescription>Выберите курс, отделение или группу, выберите промежуток дат</DialogDescription>
+                    <DialogDescription>Выберите курс, отделение, группу, или дату</DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4">
                     <PickCourse />
@@ -31,9 +31,9 @@ export function FilterEvent() {
                     <PickGroup />
                     <DatePicker />
                 </div>
-                <DialogFooter className="pt-8">
+                <DialogFooter className="pt-8 justify-start">
                     <DialogClose asChild>
-                        <Button variant="outline" className="cursor-pointer">Отмена</Button>
+                        <Button variant="outline" className="text-dark">Отмена</Button>
                     </DialogClose>
                     <Button className="bg-green-600 hover:bg-green-700 cursor-pointer">Фильтр</Button>
                 </DialogFooter>

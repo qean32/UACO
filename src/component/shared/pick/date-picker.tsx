@@ -20,6 +20,7 @@ export function DatePicker() {
         <Popover>
             <PopoverTrigger asChild>
                 <Button
+                    isDefault={false}
                     variant="outline"
                     data-empty={!date}
                     className="data-[empty=true]:text-muted-foreground w-full h-[40px] justify-start text-left font-normal cursor-pointer"

@@ -5,14 +5,13 @@ import { EstimationTableItem } from './item'
 import { EstimationColumn } from './column'
 
 
-export function EstimationEventTable() {
-
+export function EstimationTable() {
 
     return (
         <div className='overflow-hidden'>
             <EstimationColumn />
-            {[].map((item, index) => {
-                return <EstimationTableItem index={index + 1} />
+            {[].map((_, index) => {
+                return <EstimationTableItem even={!!(index + 1 % 2)} />
             })}
         </div>
     )

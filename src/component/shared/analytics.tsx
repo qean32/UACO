@@ -12,8 +12,8 @@ interface Props {
 export const Analytics: React.FC<Props> = ({ }: Props) => {
 
     return (
-        <div className='w-full flex max-h-[400px] gap-5 bg-gray-200 pt-15'>
-            <div className='flex justify-center w-1/3 -translate-y-1/5'>
+        <div className='w-full flex max-h-[400px] gap-5 bg-gray-200 pt-15 px-15'>
+            <div className='w-1/3 -translate-y-1/3'>
                 <CustomActiveShapePieChart data={fakeGrapch} />
             </div>
             <div className='flex w-2/4 justify-around gap-5'>

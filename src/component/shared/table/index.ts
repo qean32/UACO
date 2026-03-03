@@ -1,2 +1,3 @@
 export { AdminTable } from './admin-table'
-export { EstimationEventTable } from './estimation-event'
+export { EstimationTable } from './estimation-table'
+export { GeneralTable } from './general-table'

@@ -7,12 +7,11 @@ import { AdminColumn } from './column'
 
 export function AdminTable() {
 
-
     return (
         <>
             <AdminColumn />
             {[].map((item, index) => {
-                return <AdminTableItem event={item} index={index + 1} value={12} />
+                return <AdminTableItem event={item} even={!!(index + 1 % 2)} />
             })}
         </>
     )

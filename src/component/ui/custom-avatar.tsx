@@ -18,11 +18,11 @@ export const CustomAvatar: React.FC<Props> = ({ sureName, firstName, lastName, r
         <Link href={'/profile'}>
             <Avatar>
                 <div className="flex gap-4 items-center">
-                    <div>
-                        <Title color='' size='text-md' className='translate-y-0.5 font-medium'>{lastName} {firstName.at(0)}. {sureName.at(0)}.</Title>
-                        <Title color='' size='text-sm' className='font-medium'>{role}</Title>
+                    <div className='font-medium'>
+                        <p className='translate-y-0.5'>{firstName} {lastName.at(0)}.</p>
+                        <p className='text-sm'>{role}</p>
                     </div>
-                    <AvatarImage src="/ava.png" className='rounded-full aspect-square w-[50px]' />
+                    <AvatarImage src="/ava.png" className='rounded-full aspect-square w-[45px]' />
                     <AvatarFallback></AvatarFallback>
                 </div>
             </Avatar>

@@ -25,7 +25,6 @@ export default function Page({ className }: Props) {
                         <p className='font-medium'>Период</p>
                         <PickPeriod />
                     </div>
-                    {/* <EventStudentTable /> */}
                 </div>
             </div>
         </div>

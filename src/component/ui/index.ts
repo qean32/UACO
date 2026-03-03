@@ -1,6 +1,7 @@
 export { CustomAvatar } from './custom-avatar'
 export { PersonalAccountTitle } from './personal-account-title'
 export { Title } from './title'
+export { ArrowBack } from './arrow-back'
 
 export * as Dialog from './alert-dialog'
 export { Avatar, AvatarFallback, AvatarImage } from './avatar'

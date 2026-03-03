@@ -109,7 +109,8 @@ export default function CustomActiveShapePieChart({
                 cy="50%"
                 innerRadius="60%"
                 outerRadius="80%"
-                fill="lab(44.0605% 29.0279 -86.0352)"
+                fill="#239601"
+                // className='primary-bg'
                 dataKey="value"
                 isAnimationActive={isAnimationActive}
             />

@@ -1,20 +1,20 @@
 'use client'
 
 import { cn } from "@/lib/helpers"
-import React from 'react';
+import { ComponentProps, ReactNode } from 'react';
 
 
 interface Props {
     className?: string
-    children: string
-    size?: 'text-sm' | 'text-xl' | '' | 'text-2xl'
-    props?: any
-    color?: 'text-blue-600' | 'text-black'
+    children: string | ReactNode
+    size?: 'text-sm' | 'text-xl' | 'text-2xl'
+    props?: ComponentProps<"p">
+    color?: string
 }
 
-export const Title: React.FC<Props> = ({ className, children, size = 'text-xl', props, color = 'text-blue-600' }: Props) => {
+export const Title: React.FC<Props> = ({ className, children, size = 'text-xl', props, color = 'primary-color' }: Props) => {
 
     return (
-        <p {...props} className={cn('font-bold cursor-pointer', className, size, color)}>{children}</p>
+        <p {...props} className={cn('font-bold cursor-pointer transition-colors duration-300', className, size, color)}>{children}</p>
     );
 }

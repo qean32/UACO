@@ -9,7 +9,7 @@ export function EstimationEventTable() {
 
 
     return (
-        <div className='rounded-sm overflow-hidden'>
+        <div className='overflow-hidden'>
             <EstimationColumn />
             {[].map((item, index) => {
                 return <EstimationTableItem index={index + 1} />

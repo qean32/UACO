@@ -20,7 +20,7 @@ export function PushEvent() {
         <Dialog>
             <form>
                 <DialogTrigger asChild>
-                    <Button asChild className='cursor-pointer bg-blue-600 hover:bg-blue-700 rounded-sm' size={'lg'}><p>Добавить Мероприятие</p></Button>
+                    <Button variant={'primary'}>Добавить мероприятие</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>

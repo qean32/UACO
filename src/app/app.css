@@ -1,21 +1,28 @@
-.text-sm- {
-    font-size: 16px;
-}
-
-.table-prime :last-child {
-    max-width: fit-content !important;
-}
-
-.table-prime::-webkit-scrollbar {
-    width: auto !important;
-    display: none;
-}
-
-.transition-300 {
-    transition: .3s;
-}
-
 *::-webkit-scrollbar {
     width: 0;
     display: none;
+}
+
+.primary-color {
+    color: var(--main);
+}
+
+.primary-bg {
+    background-color: var(--main);
+}
+
+.primary-bg-dark {
+    background-color: var(--main);
+}
+
+* {
+    color: rgb(19, 19, 19);
+}
+
+button {
+    color: white;
+
+    &>p {
+        color: white !important;
+    }
 }

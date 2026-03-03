@@ -14,8 +14,8 @@ export const InfoItem: React.FC<Props> = ({ className, title, value }: Props) =>
 
     return (
         <div className={cn('pb-4', className)}>
-            <p className='font-medium text-sm'>{title}:</p>
-            <p className='font-medium'>{value}</p>
+            <p className='font-bold text-sm'>{title}</p>
+            <p className='font-medium text-sm'>{value}</p>
         </div>
     );
 }

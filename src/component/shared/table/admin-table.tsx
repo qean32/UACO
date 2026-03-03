@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { AdminTableItem } from './item'
-import { EventColumn } from './column'
+import { AdminColumn } from './column'
 
 
 export function AdminTable() {
@@ -10,7 +10,7 @@ export function AdminTable() {
 
     return (
         <>
-            <EventColumn />
+            <AdminColumn />
             {[].map((item, index) => {
                 return <AdminTableItem event={item} index={index + 1} value={12} />
             })}

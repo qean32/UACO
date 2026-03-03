@@ -9,7 +9,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/component/ui/select"
-import { fakeSuperviser } from "@/config"
 
 export function PickSupervisor() {
     return (
@@ -20,7 +19,7 @@ export function PickSupervisor() {
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Организатор</SelectLabel>
-                    {fakeSuperviser.map(item => <SelectItem key={item} value={item}>{item}</SelectItem>)}
+                    {[].map(item => <SelectItem key={item} value={item}>{item}</SelectItem>)}
                 </SelectGroup>
             </SelectContent>
         </Select>

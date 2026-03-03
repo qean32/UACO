@@ -14,12 +14,18 @@ export const Header: React.FC<Props> = ({ }: Props) => {
 
     return (
         <header className="flex justify-around items-center py-2">
-            <Link href={'/'}><h2 className="font-bold text-xl">LOGO</h2></Link>
+            <Link href={'/'}><img src='/logo.svg' className='w-20' /></Link>
             <div className="flex gap-4">
-                <Link href={'/'}><Title size='text-xl' color={!(pathname == '/') ? 'text-black' : 'text-blue-600'}>Основная таблица</Title></Link>
-                <Link href={'/estimation'}><Title size='text-xl' color={!(pathname == '/estimation') ? 'text-black' : 'text-blue-600'}>Оценка мероприятий</Title></Link>
+                <Link href={'/estimation'}>
+                    <Title size='text-xl' color={!(pathname == '/estimation') ? '' : 'primary-color'}>
+                        Мои оценки</Title>
+                </Link>
+                <Link href={'/'}>
+                    <Title size='text-xl' color={!(pathname == '/') ? '' : 'primary-color'}>
+                        Основная таблица</Title>
+                </Link>
             </div>
-            <CustomAvatar />
+            <CustomAvatar firstName='Генадий' sureName='Евгеньевич' />
         </header>
     );
 }

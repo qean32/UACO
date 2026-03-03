@@ -1,2 +1,2 @@
 export { EstimationColumn } from './estimation-column'
-export { EventColumn } from './event-column'
+export { AdminColumn } from './admin-column'

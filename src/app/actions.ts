@@ -1,8 +1,8 @@
 'use server'
 
-import { FEventStudentTableItemDto } from "@/src/@types"
-import { Event } from "@/src/lib/generated/prisma/browser"
-import { prisma } from "@/prisma/prisma"
+import { generalAttendanceTableItem } from "@/@types"
+import { Event } from "@root/prisma/generated/prisma/browser"
+import { prisma } from "@root/prisma/prisma"
 
 
 export const createEvent = async (data: Event) => {
@@ -24,48 +24,18 @@ export const GET_FEventStudent = async ({ course, date, department, group }: {
     group?: number
     department?: number
     course?: number
-}): Promise<FEventStudentTableItemDto[]> => {
+}): Promise<generalAttendanceTableItem[]> => {
     try {
         const events = await prisma.event.findMany()
-        const students = await prisma.student.findMany({
+        const students = await prisma.user.findMany({
             select: {
-                gradeEvents: { select: { presence: true, EventId: true } },
-                User: { select: { first_name: true, last_name: true, sure_name: true } },
-                UserId: true
+                estimationsEvents: { select: { EventId: true } },
+                firstName: true, lastName: true, sureName: true,
+                id: true
             },
             take: 20,
         })
         let data: any[] = [...students]
-
-
-        events.forEach(item_event => {
-            students.forEach(item_student => {
-                if (!item_student.gradeEvents.find((item_grade: any) => item_event.id == item_grade.EventId)) {
-                    data = [
-                        ...data.filter(item => item.UserId != item_student.UserId),
-                        {
-                            ...item_student,
-                            gradeEvents: [
-                                ...data.find(item => item.UserId == item_student.UserId).gradeEvents,
-                                {
-                                    EventId: item_event.id,
-                                    presence: false,
-                                }
-                            ]
-                        }
-                    ]
-                }
-                else {
-                    data = [
-                        ...data.filter(item => item.UserId != item_student.UserId),
-                        {
-                            ...data.find(item => item.UserId == item_student.UserId)
-                        }
-                    ]
-                }
-            }
-            )
-        })
 
         return data
     } catch (error) {
@@ -74,7 +44,7 @@ export const GET_FEventStudent = async ({ course, date, department, group }: {
     }
 }
 
-export const GET_myGrade = async (userId: number) => {
-    const myGrade = await prisma.gradeEvent.findMany({ where: {} })
+export const GET_myEstimation = async (userId: number) => {
+    const myEstimation = await prisma.estimationEvent.findMany({ where: {} })
     const events = await prisma.event.findMany()
 }

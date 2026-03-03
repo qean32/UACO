@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from "@/src/lib/helpers"
+import { cn } from "@/lib/helpers"
 import React from 'react';
 
 

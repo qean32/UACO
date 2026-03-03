@@ -2,8 +2,8 @@
 
 
 import { Admin } from '@/components/shared/info';
-import { AddEvent } from '@/components/shared/modals';
-import { AdminTable } from '@/components/shared/tables';
+import { PushEvent } from '@/components/shared/modal';
+import { AdminTable } from '@/components/shared/table';
 import { PersonalAccountTitle } from '@/components/ui';
 import { cn } from "@/lib/helpers"
 import React from 'react';
@@ -23,7 +23,7 @@ export default function Page({ className }: Props) {
                 <div className="flex flex-col px-5 rounded-md w-3/4">
                     <div className='pb-6 flex justify-between'>
                         <p className='text-lg font-medium'>Мероприятия</p>
-                        <AddEvent />
+                        <PushEvent />
                     </div>
                     <AdminTable />
                 </div>

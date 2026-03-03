@@ -2,10 +2,9 @@
 
 
 import { Student } from '@/components/shared/info';
-import { EventStudentTable } from '@/components/shared/tables';
-import { PersonalAccountTitle } from '@/src/components/ui';
-import { SelectPeriod } from '@/components/shared/select';
-import { cn } from "@/src/lib/helpers"
+import { PersonalAccountTitle } from '@/components/ui';
+import { PickPeriod } from '@/components/shared/pick';
+import { cn } from "@/lib/helpers"
 import React from 'react';
 
 interface Props {
@@ -24,9 +23,9 @@ export default function Page({ className }: Props) {
                     <p className='text-lg font-medium'>Мероприятия</p>
                     <div className='flex gap-4 py-4'>
                         <p className='font-medium'>Период</p>
-                        <SelectPeriod />
+                        <PickPeriod />
                     </div>
-                    <EventStudentTable />
+                    {/* <EventStudentTable /> */}
                 </div>
             </div>
         </div>

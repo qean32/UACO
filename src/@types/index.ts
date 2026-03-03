@@ -1,1 +1,1 @@
-export type { FEventStudentTableItemDto } from './full-events-student'
+export type { generalAttendanceTableItem } from './general-attendance-table-item'

@@ -1,9 +1,9 @@
 'use client'
 
-import { fakeGroup, fakeSuperviser } from '@/export';
+import { fakeGroup, fakeSuperviser } from '@/config';
 import React from 'react';
 import { Title } from '../ui';
-import { CustomActiveShapePieChart } from '@/src/components/ui';
+import { CustomActiveShapePieChart } from '@/components/ui';
 
 
 interface Props {
@@ -26,16 +26,16 @@ export const MainUpperPart: React.FC<Props> = ({ }: Props) => {
                 <div className='flex flex-col w-1/3'>
                     <Title size='text-2xl'>Список лучших групп</Title>
                     <ol className='pt-5'>
-                        {fakeGroup.map((item, _) => {
-                            return <div key={_} className='grid' style={{ gridTemplateColumns: '1fr 2fr' }}><Title size='' className='w-[100px]'>{item}</Title> <p>200 Баллов</p></div>
+                        {fakeGroup.map((item, index) => {
+                            return <div key={index} className='grid' style={{ gridTemplateColumns: '1fr 2fr' }}><Title size='' className='w-[100px]'>{item}</Title> <p>200 Баллов</p></div>
                         })}
                     </ol>
                 </div>
                 <div className='flex flex-col w-2/3'>
                     <Title size='text-2xl'>Список лучших организаторов</Title>
                     <ol className='pt-5'>
-                        {fakeSuperviser.map((item, _) => {
-                            return <div key={_} className='grid' style={{ gridTemplateColumns: '1fr 1fr' }}><Title size='' className='w-[300px]'>{item}</Title> <p>2 Мероприятия</p></div>
+                        {fakeSuperviser.map((item, index) => {
+                            return <div key={index} className='grid' style={{ gridTemplateColumns: '1fr 1fr' }}><Title size='' className='w-[300px]'>{item}</Title> <p>2 Мероприятия</p></div>
                         })}
                     </ol>
                 </div>

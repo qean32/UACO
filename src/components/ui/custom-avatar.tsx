@@ -1,6 +1,6 @@
 'use client'
 
-import { Title } from '@/src/components/ui';
+import { Title } from '@/components/ui';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
 import Link from 'next/link';
 import React from 'react';
@@ -21,7 +21,7 @@ export const CustomAvatar: React.FC<Props> = ({ }: Props) => {
                         <Title size='text-sm'>Евгеньевич</Title>
                     </div>
                     <AvatarImage src="https://github.com/shadcn.png" className='rounded-full aspect-square w-[50px]' />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback></AvatarFallback>
                 </div>
             </Avatar>
         </Link>

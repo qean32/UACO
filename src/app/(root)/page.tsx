@@ -1,14 +1,13 @@
 'use server'
 
-import { MainUpperPart } from '@/src/components/shared';
+import { MainUpperPart } from '@/components/shared';
 import { FilterEvent } from '@/components/shared/modal'
-import { FEventStudentTable } from '@/components/shared/tables';
-import { CustomButton } from '@/src/components/ui';
-import { Button } from '@/src/components/ui/button';
-import { cn } from "@/src/lib/helpers"
+import { CustomButton } from '@/components/ui';
+import { Button } from '@/components/ui/button';
+import { cn } from "@/lib/helpers"
 import React from 'react';
-import { GET_FEventStudent } from '@/src/app/actions';
-import { prisma } from '@/prisma/prisma';
+import { GET_FEventStudent } from '@/app/actions';
+import { prisma } from '@root/prisma/prisma';
 
 
 interface Props {
@@ -31,11 +30,11 @@ export default async function Main({ className }: Props) {
                     </div>
                 </div>
                 <div className="">
-                    <FEventStudentTable
+                    {/* <FEventStudentTable
                         events={await prisma.event.findMany({ take: 20 })}
                         // @ts-ignore
                         students={await GET_FEventStudent({})}
-                    />
+                    /> */}
                 </div>
             </div>
         </div>

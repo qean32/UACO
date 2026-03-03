@@ -17,7 +17,7 @@ export const Header: React.FC<Props> = ({ }: Props) => {
             <Link href={'/'}><h2 className="font-bold text-xl">LOGO</h2></Link>
             <div className="flex gap-4">
                 <Link href={'/'}><Title size='text-xl' color={!(pathname == '/') ? 'text-black' : 'text-blue-600'}>Основная таблица</Title></Link>
-                <Link href={'/grade'}><Title size='text-xl' color={!(pathname == '/grade') ? 'text-black' : 'text-blue-600'}>Оценка мероприятий</Title></Link>
+                <Link href={'/estimation'}><Title size='text-xl' color={!(pathname == '/estimation') ? 'text-black' : 'text-blue-600'}>Оценка мероприятий</Title></Link>
             </div>
             <CustomAvatar />
         </header>

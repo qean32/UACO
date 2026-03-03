@@ -1,9 +1,9 @@
 'use client'
 
-import { CustomButton, Title } from '@/src/components/ui';
-import { Input } from '@/src/components/ui/input';
+import { CustomButton, Title } from '@/components/ui';
+import { Input } from '@/components/ui/input';
 import React from 'react';
-import { cn } from "@/src/lib/helpers"
+import { cn } from "@/lib/helpers"
 
 interface Props {
     className?: string

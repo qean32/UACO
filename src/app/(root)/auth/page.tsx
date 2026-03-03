@@ -1,7 +1,7 @@
 'use client'
 
-import { CustomButton, Title } from '@/components/ui';
-import { Input } from '@/components/ui/input';
+import { CustomButton, Title } from '@/component/ui';
+import { Input } from '@/component/ui/input';
 import React from 'react';
 import { cn } from "@/lib/helpers"
 

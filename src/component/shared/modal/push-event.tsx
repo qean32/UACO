@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/component/ui/button"
 import {
     Dialog,
     DialogClose,
@@ -10,10 +10,10 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
+} from "@/component/ui/dialog"
+import { Input } from "@/component/ui/input"
 import { Title } from "../../ui"
-import { PickSupervisor, DatePicker } from "@/components/shared/pick"
+import { PickSupervisor, DatePicker } from "@/component/shared/pick"
 
 export function PushEvent() {
     return (

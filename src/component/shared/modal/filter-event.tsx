@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/component/ui/button"
 import {
     Dialog,
     DialogClose,
@@ -10,9 +10,9 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/component/ui/dialog"
 import { DatePicker, Title } from "../../ui"
-import { PickCourse, PickGroup, PickDepartment } from "@/components/shared/pick"
+import { PickCourse, PickGroup, PickDepartment } from "@/component/shared/pick"
 
 export function FilterEvent() {
     return (

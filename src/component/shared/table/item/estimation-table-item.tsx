@@ -1,6 +1,6 @@
 'use client'
 
-import { Input } from '@/components/ui';
+import { Input } from '@/component/ui';
 import { EstimationEvent } from '@root/prisma/generated/prisma/browser';
 import { cn } from "@/lib/helpers"
 import React from 'react';

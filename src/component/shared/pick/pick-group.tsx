@@ -8,19 +8,17 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
-import { fakeSuperviser } from "@/config"
+} from "@/component/ui/select"
 
-export function PickSupervisor() {
+export function PickGroup() {
     return (
         <Select>
             <SelectTrigger className="w-full h-[40px] cursor-pointer">
-                <SelectValue placeholder="Организатор" />
+                <SelectValue placeholder="Группа" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectLabel>Организатор</SelectLabel>
-                    {fakeSuperviser.map(item => <SelectItem key={item} value={item}>{item}</SelectItem>)}
+                    <SelectLabel>Группа</SelectLabel>
                 </SelectGroup>
             </SelectContent>
         </Select>

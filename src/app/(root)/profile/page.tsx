@@ -1,9 +1,9 @@
 'use client'
 
 
-import { Student } from '@/components/shared/info';
-import { PersonalAccountTitle } from '@/components/ui';
-import { PickPeriod } from '@/components/shared/pick';
+import { Student } from '@/component/shared/info';
+import { PersonalAccountTitle } from '@/component/ui';
+import { PickPeriod } from '@/component/shared/pick';
 import { cn } from "@/lib/helpers"
 import React from 'react';
 

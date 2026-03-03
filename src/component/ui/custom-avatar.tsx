@@ -1,6 +1,6 @@
 'use client'
 
-import { Title } from '@/components/ui';
+import { Title } from '@/component/ui';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
 import Link from 'next/link';
 import React from 'react';

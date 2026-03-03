@@ -1,9 +1,9 @@
 'use server'
 
-import { MainUpperPart } from '@/components/shared';
-import { FilterEvent } from '@/components/shared/modal'
-import { CustomButton } from '@/components/ui';
-import { Button } from '@/components/ui/button';
+import { MainUpperPart } from '@/component/shared';
+import { FilterEvent } from '@/component/shared/modal'
+import { CustomButton } from '@/component/ui';
+import { Button } from '@/component/ui/button';
 import { cn } from "@/lib/helpers"
 import React from 'react';
 import { GET_FEventStudent } from '@/app/actions';

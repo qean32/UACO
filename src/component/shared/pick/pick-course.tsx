@@ -8,17 +8,17 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "@/component/ui/select"
 
-export function PickGroup() {
+export function PickCourse() {
     return (
         <Select>
             <SelectTrigger className="w-full h-[40px] cursor-pointer">
-                <SelectValue placeholder="Группа" />
+                <SelectValue placeholder="Курс" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectLabel>Группа</SelectLabel>
+                    <SelectLabel>Курс</SelectLabel>
                 </SelectGroup>
             </SelectContent>
         </Select>

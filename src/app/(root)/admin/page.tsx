@@ -1,10 +1,10 @@
 'use client'
 
 
-import { Admin } from '@/components/shared/info';
-import { PushEvent } from '@/components/shared/modal';
-import { AdminTable } from '@/components/shared/table';
-import { PersonalAccountTitle } from '@/components/ui';
+import { Admin } from '@/component/shared/info';
+import { PushEvent } from '@/component/shared/modal';
+import { AdminTable } from '@/component/shared/table';
+import { PersonalAccountTitle } from '@/component/ui';
 import { cn } from "@/lib/helpers"
 import React from 'react';
 

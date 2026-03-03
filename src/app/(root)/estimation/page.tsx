@@ -1,7 +1,7 @@
 'use server'
 
 
-import { EstimationEventTable } from '@/components/shared/table';
+import { EstimationEventTable } from '@/component/shared/table';
 import { cn } from "@/lib/helpers"
 import React from 'react';
 

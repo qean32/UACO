@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prod": "next dev",
+    "collage": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "push": "npx prisma db push --force-reset",
-    "seed": "npx prisma db seed"
+    "seed": "npx prisma db seed",
+    "view": "npx prisma studio"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

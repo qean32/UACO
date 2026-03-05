@@ -1,0 +1,61 @@
+*::-webkit-scrollbar {
+    width: 0;
+    display: none;
+}
+
+.primary-color {
+    color: var(--main);
+}
+
+.primary-bg {
+    background-color: var(--main);
+}
+
+.primary-bg-dark {
+    background-color: var(--main);
+}
+
+p {
+    color: rgb(19, 19, 19);
+}
+
+.text-dark {
+    color: rgb(19, 19, 19) !important;
+}
+
+.button {
+    color: white;
+
+    &>* {
+        color: white !important;
+    }
+}
+
+th {
+    text-align: start;
+    text-wrap: nowrap;
+}
+
+th,
+td {
+    padding-block: 10px;
+    border-left: 1px solid rgb(160 160 160);
+    border-top: 1px solid rgb(160 160 160);
+}
+
+thead>tr:first-child {
+    padding-left: 20px;
+}
+
+.hidden-cell {
+    position: relative;
+}
+
+.hidden-cell::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 90px;
+    height: 100%;
+    width: 10px;
+}

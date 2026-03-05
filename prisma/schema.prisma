@@ -1,12 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
-  output   = "../lib/generated/prisma"
+  output   = "./generated/prisma"
 }
 
 datasource db {
@@ -14,10 +8,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// mb add couse???????? real debatable
 model Group {
-  id       Int       @id @default(autoincrement())
-  code String @unique
+  code     String @id @unique
+  semester Int?   @default(1)
 
   createdAt  DateTime @default(now())
   updateadAt DateTime @updatedAt
@@ -25,47 +18,23 @@ model Group {
   Department     Department? @relation(fields: [DepartmentCode], references: [code])
   DepartmentCode String?
 
-  students Student[]
+  students User[]
 }
 
 model Department {
-  id       Int       @id @default(autoincrement())
-  code String @unique
+  code String @id @unique
   name String @unique
 
   groups Group[]
 }
 
-// mb delete couse???
-model Student {
-  id Int @id @default(autoincrement())
-  semester Int
-
-
-  User   User? @relation(fields: [UserId], references: [id])
-  UserId Int?
-
-  Group     Group?  @relation(fields: [GroupCode], references: [code])
-  GroupCode String?
-  
-  gradeEvents GradeEvent[]
-}
-
-model Supervisor {
-  id     Int   @id @default(autoincrement())
-  User   User? @relation(fields: [UserId], references: [id])
-  UserId Int?
-
-  events Event[]
-}
-
 model User {
   id Int @id @default(autoincrement())
 
-  first_name    String
-  last_name     String
-  sure_name     String
-  date_of_birth DateTime
+  firstName   String
+  lastName    String
+  sureName    String
+  dateOfBirth DateTime
 
   role Role @default(STUDENT)
   sex  Sex  @default(MALE)
@@ -73,33 +42,38 @@ model User {
   email    String
   password String
 
-  createdAt   DateTime     @default(now())
-  updateadAt  DateTime     @updatedAt
-  students    Student[]
-  supervisors Supervisor[]
+  Group     Group?  @relation(fields: [GroupCode], references: [code])
+  GroupCode String?
+
+  createdAt  DateTime @default(now())
+  updateadAt DateTime @updatedAt
+
+  organizedEvents   Event[]
+  estimationsEvents EstimationEvent[]
 }
 
-model GradeEvent {
-  id Int @id @default(autoincrement())
+model EstimationEvent {
+  id         Int @id @default(autoincrement())
+  estimation Int @default(0)
 
-  grade Int
-  presence Boolean
+  User   User @relation(fields: [UserId], references: [id])
+  UserId Int
 
-  Student     Student? @relation(fields: [StudentId], references: [id])
-  StudentId Int?
-  Event     Event? @relation(fields: [EventId], references: [id])
-  EventId Int?
+  Event   Event @relation(fields: [EventId], references: [id])
+  EventId Int
 }
 
 model Event {
-  id           Int         @id @default(autoincrement())
-  name         String
-  date         DateTime
-  createdAt    DateTime    @default(now())
-  Supervisor   Supervisor? @relation(fields: [SupervisorId], references: [id])
+  id   Int    @id @default(autoincrement())
+  name String
+
+  date      DateTime
+  createdAt DateTime @default(now())
+
+  Supervisor   User? @relation(fields: [SupervisorId], references: [id])
   SupervisorId Int?
 
-  gradeEvents GradeEvent[]
+  estimationsEvents EstimationEvent[]
 }
 
 enum Role {

@@ -3,13 +3,15 @@
 import { Input } from '@/component/ui';
 import React from 'react';
 import { TableItem } from './';
+import { EstimationEvent } from '@root/prisma/generated/prisma/browser';
 
 
 interface Props {
     even: boolean
+    item: Pick<EstimationEvent, "EventId" | "estimation">
 }
 
-export const EstimationTableItem: React.FC<Props> = ({ even }: Props) => {
+export const EstimationTableItem: React.FC<Props> = ({ even, item }: Props) => {
 
     return (
         <TableItem even={even} style={{ gridTemplateColumns: '9fr 1fr 1fr 1fr 1fr' }} >

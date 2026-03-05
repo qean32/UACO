@@ -10,12 +10,12 @@ interface Props {
 
 export const TableItem: React.FC<Props> = ({ even, children, style }: Props) => {
     return (
-        <div className={cn(
-            "text-sm- font-medium grid py-3 pl-7",
+        <tr className={cn(
+            "",
             ((even) ? 'bg-gray-200' : 'bg-gray-100'))}
             style={style}
         >
             {children}
-        </div>
+        </tr>
     )
 }

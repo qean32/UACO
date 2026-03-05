@@ -24,7 +24,7 @@ export default async function Main({ className }: Props) {
                     </div>
                     <div className='flex gap-2 items-center'>
                         <FilterEvent />
-                        <Button variant={'primary'}>Экспорт в Exel</Button>
+                        <Button variant={'primary'}>Экспорт в Excel</Button>
                     </div>
                 </div>
                 <GeneralTable />

@@ -19,25 +19,40 @@ export const getDepartments = async () => {
     return prisma.department.findMany()
 }
 
-export const GET_FEventStudent = async ({ course, date, department, group }: {
+export const getGeneralData = async ({ course, date, department, group }: {
     date?: string,
     group?: number
     department?: number
     course?: number
-}): Promise<generalAttendanceTableItem[]> => {
+}): Promise<{ items: generalAttendanceTableItem[], column: Pick<Event, "name" | "id">[] }> => {
     try {
-        const events = await prisma.event.findMany()
+        const events = await prisma.event.findMany({
+            select: {
+                id: true,
+                name: true
+            }
+        })
         const students = await prisma.user.findMany({
             select: {
-                estimationsEvents: { select: { EventId: true } },
+                estimationsEvents: { select: { EventId: true, estimation: true } },
                 firstName: true, lastName: true, sureName: true,
                 id: true
             },
             take: 20,
         })
-        let data: any[] = [...students]
+        let items: generalAttendanceTableItem[] = students.map(student_item => {
+            return {
+                User: { firstName: student_item.firstName, sureName: student_item.sureName, lastName: student_item.lastName, id: student_item.id, },
+                estimationsEvent: Array.from(new Set([
+                    ...student_item.estimationsEvents,
+                    ...events.map(event_item => {
+                        return { EventId: event_item.id, estimation: 0 }
+                    }).filter(filter_item => !student_item.estimationsEvents.some(some_item => some_item.EventId == filter_item.EventId))
+                ]))
+            }
+        })
 
-        return data
+        return { items, column: events }
     } catch (error) {
         console.log('[GetEvent] Server error', error);
         throw (error)

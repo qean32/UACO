@@ -1,6 +1,6 @@
 'use server'
 
-import { generalAttendanceTableItem } from "@/@types"
+import { generalTableItem, adminTableItem, estimationTableItem } from "@/@types"
 import { Event } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
@@ -19,12 +19,12 @@ export const getDepartments = async () => {
     return prisma.department.findMany()
 }
 
-export const getGeneralData = async ({ course, date, department, group }: {
+export const GeneralTable = async ({ course, date, department, group }: {
     date?: string,
     group?: number
     department?: number
     course?: number
-}): Promise<{ items: generalAttendanceTableItem[], column: Pick<Event, "name" | "id">[] }> => {
+}): Promise<{ items: generalTableItem[], column: Pick<Event, "name" | "id">[] }> => {
     try {
         const events = await prisma.event.findMany({
             select: {
@@ -40,7 +40,7 @@ export const getGeneralData = async ({ course, date, department, group }: {
             },
             take: 20,
         })
-        let items: generalAttendanceTableItem[] = students.map(student_item => {
+        let items: generalTableItem[] = students.map(student_item => {
             return {
                 User: { firstName: student_item.firstName, sureName: student_item.sureName, lastName: student_item.lastName, id: student_item.id, },
                 estimationsEvent: Array.from(new Set([
@@ -59,7 +59,49 @@ export const getGeneralData = async ({ course, date, department, group }: {
     }
 }
 
-export const GET_myEstimation = async (userId: number) => {
-    const myEstimation = await prisma.estimationEvent.findMany({ where: {} })
-    const events = await prisma.event.findMany()
+export const EstimationTable = async (userId: number): Promise<
+    estimationTableItem[]
+    |
+    undefined
+> => {
+    try {
+        const user = await prisma.user.findFirst(
+            {
+                where: { id: userId },
+                select: {
+                    estimationsEvents: {
+                        select: {
+                            Event: { select: { name: true, id: true, date: true } },
+                            estimation: true
+                        },
+                    }
+                }
+            },
+        )
+
+        if (user) {
+            return user?.estimationsEvents
+        }
+    } catch (error) {
+        console.log('[GetEvent] Server error', error);
+        throw (error)
+    }
+}
+
+export const AdminTable = async (): Promise<adminTableItem[] | undefined> => {
+    try {
+        const events = await prisma.event.findMany({
+            select: {
+                name: true,
+                id: true,
+                date: true
+            }
+        })
+
+        if (events)
+            return events
+    } catch (error) {
+        console.log('[GetEvent] Server error', error);
+        throw (error)
+    }
 }

@@ -35,7 +35,7 @@ export default function RootLayout({
           <Link href='/auth'><p>auth</p></Link>
         </div>
 
-        <main className="min-h-[100vh] flex flex-col bg-gray-100">
+        <main className="min-h-[100vh] flex flex-col bg-gray-50">
           {children}
         </main>
 

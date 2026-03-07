@@ -1,6 +1,6 @@
 'use server'
 
-import { generalTableItem, adminTableItem, estimationTableItem } from "@/@types"
+import { generalTableItem, adminTableItem, estimationTableItem, studentTableItem } from "@/@types"
 import { Event } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
@@ -19,7 +19,7 @@ export const getDepartments = async () => {
     return prisma.department.findMany()
 }
 
-export const GeneralTable = async ({ course, date, department, group }: {
+export const getGeneralTable = async ({ course, date, department, group }: {
     date?: string,
     group?: number
     department?: number
@@ -59,7 +59,7 @@ export const GeneralTable = async ({ course, date, department, group }: {
     }
 }
 
-export const EstimationTable = async (userId: number): Promise<
+export const getEstimationTable = async (userId: number): Promise<
     estimationTableItem[]
     |
     undefined
@@ -88,7 +88,7 @@ export const EstimationTable = async (userId: number): Promise<
     }
 }
 
-export const AdminTable = async (): Promise<adminTableItem[] | undefined> => {
+export const getAdminTable = async (): Promise<adminTableItem[] | undefined> => {
     try {
         const events = await prisma.event.findMany({
             select: {
@@ -100,6 +100,35 @@ export const AdminTable = async (): Promise<adminTableItem[] | undefined> => {
 
         if (events)
             return events
+    } catch (error) {
+        console.log('[GetEvent] Server error', error);
+        throw (error)
+    }
+}
+
+export const getStudentTable = async (userId: number): Promise<
+    studentTableItem[]
+    |
+    undefined
+> => {
+    try {
+        const user = await prisma.user.findFirst(
+            {
+                where: { id: userId },
+                select: {
+                    estimationsEvents: {
+                        select: {
+                            Event: { select: { name: true, id: true, date: true } },
+                            estimation: true
+                        },
+                    }
+                }
+            },
+        )
+
+        if (user) {
+            return user?.estimationsEvents
+        }
     } catch (error) {
         console.log('[GetEvent] Server error', error);
         throw (error)

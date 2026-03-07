@@ -1,4 +1,4 @@
-'use client'
+'use server'
 
 
 import { Student } from '@/component/shared/info';
@@ -6,12 +6,13 @@ import { PersonalAccountTitle } from '@/component/ui';
 import { PickPeriod } from '@/component/shared/pick';
 import { cn } from "@/lib/helpers"
 import React from 'react';
+import { StudentTable } from '@/component/shared/table';
 
 interface Props {
     className?: string
 }
 
-export default function Page({ className }: Props) {
+export default async function Page({ className }: Props) {
 
     return (
         <div className={cn('flex-1', className)}>
@@ -25,6 +26,7 @@ export default function Page({ className }: Props) {
                         <p className='font-medium'>Период</p>
                         <PickPeriod />
                     </div>
+                    <StudentTable />
                 </div>
             </div>
         </div>

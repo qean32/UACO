@@ -5,3 +5,10 @@ export const fakeGrapch = [
     { name: '23-тэп-1', value: 7 },
     { name: '22п-2', value: 7 },
 ]
+
+export const dataTimeOption = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    timezone: "UTC",
+}

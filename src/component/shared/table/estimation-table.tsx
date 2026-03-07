@@ -1,18 +1,24 @@
-'use client'
+'use server'
 
 import React from 'react'
 import { EstimationTableItem } from './item'
 import { EstimationColumn } from './column'
+import { getEstimationTable } from '@/app/actions'
+import { Table } from './table'
 
 
-export function EstimationTable() {
+export async function EstimationTable() {
+    const items = await getEstimationTable(1)
 
     return (
-        <div className='overflow-hidden'>
+        <Table>
             <EstimationColumn />
-            {[].map((_, index) => {
-                return <EstimationTableItem even={!!(index + 1 % 2)} />
-            })}
-        </div>
+
+            <tbody>
+                {!!items?.length && items.map((item, index) => {
+                    return <EstimationTableItem even={!!((index + 1) % 2 == 0)} item={item} />
+                })}
+            </tbody>
+        </Table>
     )
 }

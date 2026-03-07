@@ -4,16 +4,14 @@ import { CSSProperties, ReactNode } from 'react'
 interface Props {
     even: boolean
     children: ReactNode
-    style: CSSProperties
 }
 
 
-export const TableItem: React.FC<Props> = ({ even, children, style }: Props) => {
+export const TableItem: React.FC<Props> = ({ even, children }: Props) => {
     return (
         <tr className={cn(
-            "hover:outline-2 outline-green-700 transition-all duration-75 hover:bg-gray-50",
-            ((even) ? 'bg-gray-200' : 'bg-gray-50'))}
-            style={style}
+            "transition-all duration-75 hover:bg-gray-100 hover-h h-[50px]",
+            (!even ? 'bg-gray-200' : 'bg-gray-50'))}
         >
             {children}
         </tr>

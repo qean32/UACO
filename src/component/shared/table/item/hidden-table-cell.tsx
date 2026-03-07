@@ -9,9 +9,6 @@ interface Props {
 export const HiddentTableCall: React.FC<Props> = ({ width }: Props) => {
     return (
         <div className={cn('overflow-hidden', width)}>
-            <div>
-
-            </div>
         </div>
     )
 }

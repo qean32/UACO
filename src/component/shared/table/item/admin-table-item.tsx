@@ -3,20 +3,22 @@
 import { Button } from '@/component/ui/button';
 import React from 'react';
 import { TableItem } from './';
+import { adminTableItem } from '@/@types';
+import { formatDate } from '@/lib/helpers';
 
 
 interface Props {
-    event: { date: string, name: string }
+    item: adminTableItem
     even: boolean
 }
 
-export const AdminTableItem: React.FC<Props> = ({ event: { date, name }, even }: Props) => {
+export const AdminTableItem: React.FC<Props> = ({ item: { date, name }, even }: Props) => {
 
     return (
-        <TableItem even={even} style={{ gridTemplateColumns: '9fr 1fr 1fr' }}>
-            <p>{name}</p>
-            <p>{date}</p>
-            <Button className='bg-red-700 hover:bg-red-600 mx-2 px-0'>Удалить</Button>
+        <TableItem even={even}>
+            <td>{name}</td>
+            <td>{formatDate(date)}</td>
+            <td><Button variant='danger'>Удалить</Button></td>
         </TableItem>
     );
 }

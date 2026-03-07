@@ -1,4 +1,4 @@
-'use client'
+'use server'
 
 
 import { Admin } from '@/component/shared/info';
@@ -12,7 +12,7 @@ interface Props {
     className?: string
 }
 
-export default function Page({ className }: Props) {
+export default async function Page({ className }: Props) {
 
     return (
         <div className={cn('flex-1', className)}>

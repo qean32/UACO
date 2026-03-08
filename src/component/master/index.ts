@@ -1,1 +1,1 @@
-export { ReduxProvider } from './ReduxProvider'
+export { Root } from './root'

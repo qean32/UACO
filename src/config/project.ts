@@ -8,7 +8,8 @@ export enum Color {
 
 export const convertRu: Record<Role, string> = {
     "STUDENT": "Студент",
-    "SUPERVISOR": "Организатор"
+    "SUPERVISOR": "Организатор",
+    "ADMIN": "Администратор",
 }
 
 export const RTKQKEY = {

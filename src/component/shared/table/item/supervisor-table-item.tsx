@@ -2,20 +2,18 @@
 
 import { Button } from '@/component/ui/button';
 import React from 'react';
-import { TableItem } from './';
-import { adminTableItem } from '@/@types';
+import { TableItem } from '.';
+import { SupervisorTableItemType } from '@/@types';
 import { formatDate } from '@/lib/helpers';
 
 
-interface Props {
-    item: adminTableItem
-    even: boolean
+interface Props extends SupervisorTableItemType {
 }
 
-export const AdminTableItem: React.FC<Props> = ({ item: { date, name }, even }: Props) => {
+export const SupervisorTableItem: React.FC<Props> = ({ date, name }: Props) => {
 
     return (
-        <TableItem even={even}>
+        <TableItem>
             <td>{name}</td>
             <td>4.1</td>
             <td>{formatDate(date)}</td>

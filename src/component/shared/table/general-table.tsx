@@ -15,8 +15,8 @@ export async function GeneralTable() {
             <GeneralColumn events={column} />
 
             <tbody>
-                {items.map((item, index) => {
-                    return <GeneralTableItem item={item} even={!!((index + 1) % 2 == 0)} key={item.User.id} />
+                {items.map(item => {
+                    return <GeneralTableItem {...item} key={item.User.id} />
                 })}
             </tbody>
         </Table>

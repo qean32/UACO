@@ -4,18 +4,16 @@
 import { Student } from '@/component/shared/info';
 import { PersonalAccountTitle } from '@/component/ui';
 import { PickPeriod } from '@/component/shared/pick';
-import { cn } from "@/lib/helpers"
 import React from 'react';
 import { StudentTable } from '@/component/shared/table';
 
 interface Props {
-    className?: string
 }
 
-export default async function Page({ className }: Props) {
+export default async function Page({ }: Props) {
 
     return (
-        <div className={cn('flex-1', className)}>
+        <div className='flex-1'>
             <PersonalAccountTitle title='Личная карточка студента' />
 
             <div className="flex justify-center gap-7">

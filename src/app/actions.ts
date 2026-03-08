@@ -1,6 +1,6 @@
 'use server'
 
-import { generalTableItem, adminTableItem, estimationTableItem, studentTableItem } from "@/@types"
+import { generalTableItem, SupervisorTableItem, estimationTableItem, studentTableItem } from "@/@types"
 import { Event } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
@@ -106,7 +106,7 @@ export const getEstimationTable = async (userId: number): Promise<
     }
 }
 
-export const getAdminTable = async (): Promise<adminTableItem[] | undefined> => {
+export const getSupervisorTable = async (): Promise<SupervisorTableItem[] | undefined> => {
     try {
         const events = await prisma.event.findMany({
             select: {

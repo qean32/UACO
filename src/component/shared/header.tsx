@@ -25,7 +25,7 @@ export const Header: React.FC<Props> = ({ }: Props) => {
                         Оценки</Title>
                 </Link>
             </div>
-            <CustomAvatar firstName='Генадий' lastName='Михаил' sureName='Евгеньевич' role='Организатор' />
+            <CustomAvatar />
         </header>
     );
 }

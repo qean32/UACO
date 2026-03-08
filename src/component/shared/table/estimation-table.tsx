@@ -15,8 +15,8 @@ export async function EstimationTable() {
             <EstimationColumn />
 
             <tbody>
-                {!!items?.length && items.map((item, index) => {
-                    return <EstimationTableItem even={!!((index + 1) % 2 == 0)} item={item} key={item.Event.id} />
+                {!!items?.length && items.map(item => {
+                    return <EstimationTableItem {...item} key={item.Event.id} />
                 })}
             </tbody>
         </Table>

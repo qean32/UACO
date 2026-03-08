@@ -1,4 +1,4 @@
-export { AdminTable } from './admin-table'
+export { SupervisorTable } from './supervisor-table'
 export { EstimationTable } from './estimation-table'
 export { GeneralTable } from './general-table'
 export { Table } from './table'

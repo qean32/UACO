@@ -18,8 +18,7 @@ export const GeneralTableItem: React.FC<Props> = ({ even, item: { User, estimati
             {!!estimationsEvent.length &&
                 estimationsEvent.map(item =>
 
-                    <td key={item.EventId}
-                        className='text-center max-w-[100px] hover:px-5 overflow-hidden hover:max-w-[500px] transition-all duration-200 cursor-pointer'>
+                    <td key={item.EventId}>
                         {Number(!!item.estimation)}
                     </td>
                 )

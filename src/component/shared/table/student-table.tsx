@@ -16,7 +16,7 @@ export async function StudentTable() {
 
             <tbody>
                 {!!items?.length && items.map((item, index) => {
-                    return <StudentTableItem even={!!((index + 1) % 2 == 0)} item={item} />
+                    return <StudentTableItem even={!!((index + 1) % 2 == 0)} item={item} key={item.Event.id} />
                 })}
             </tbody>
         </Table>

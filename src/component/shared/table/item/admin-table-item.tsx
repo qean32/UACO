@@ -17,6 +17,7 @@ export const AdminTableItem: React.FC<Props> = ({ item: { date, name }, even }: 
     return (
         <TableItem even={even}>
             <td>{name}</td>
+            <td>4.1</td>
             <td>{formatDate(date)}</td>
             <td><Button variant='danger'>Удалить</Button></td>
         </TableItem>

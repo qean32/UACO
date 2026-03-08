@@ -21,7 +21,7 @@ export const ArrowBack: React.FC<Props> = ({ className }: Props) => {
                 "rounded-full aspect-square cursor-pointer bg-gray-300 p-3 hover:-translate-x-0.5 transition-all duration-300",
                 className)}
         >
-            <ArrowBigLeft stroke={'white'} />
+            <ArrowBigLeft stroke={'white'} fill={'white'} />
         </div>
     )
 }

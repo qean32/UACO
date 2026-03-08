@@ -65,6 +65,13 @@ export const getEstimationTable = async (userId: number): Promise<
     undefined
 > => {
     try {
+        const events = await prisma.event.findMany({
+            select: {
+                id: true,
+                name: true,
+                date: true
+            }
+        })
         const user = await prisma.user.findFirst(
             {
                 where: { id: userId },
@@ -78,9 +85,20 @@ export const getEstimationTable = async (userId: number): Promise<
                 }
             },
         )
+        const map = new Map(user?.estimationsEvents.map(item => [item.Event.id, item]))
+        // @ts-ignore
+        let items: estimationTableItem[] = events.map(event_item => {
+            if (!map.get(event_item.id)) {
+                return {
+                    estimation: 0,
+                    Event: event_item
+                }
+            }
+            return map.get(event_item.id)
+        })
 
-        if (user) {
-            return user?.estimationsEvents
+        if (items) {
+            return items
         }
     } catch (error) {
         console.log('[GetEvent] Server error', error);

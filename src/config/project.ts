@@ -10,3 +10,9 @@ export const convertRu: Record<Role, string> = {
     "STUDENT": "Студент",
     "SUPERVISOR": "Организатор"
 }
+
+export const RTKQKEY = {
+    getDepartments: "getDepartments",
+    getSupervisors: "getSupervisors",
+    getGroups: "getGroups",
+}

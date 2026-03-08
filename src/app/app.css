@@ -54,7 +54,7 @@ p {
     border-left: 0;
 }
 
-tr {
+.table tr {
     height: 50px !important;
 }
 

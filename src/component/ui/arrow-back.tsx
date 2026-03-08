@@ -4,7 +4,6 @@ import React from 'react'
 import { cn } from '@/lib/helpers'
 import { useRouter } from 'next/navigation'
 import { ArrowBigLeft } from 'lucide-react'
-import { Color } from '@/config'
 
 interface Props {
     className?: string

@@ -6,6 +6,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/component/ui/select"
+import { pick_estimations } from "@/config"
 
 export function PickEstimation() {
     return (
@@ -15,11 +16,9 @@ export function PickEstimation() {
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectItem value="1">1</SelectItem>
-                    <SelectItem value="2">2</SelectItem>
-                    <SelectItem value="3">3</SelectItem>
-                    <SelectItem value="4">4</SelectItem>
-                    <SelectItem value="5">5</SelectItem>
+                    {pick_estimations.map(item => {
+                        return <SelectItem value={item}>{item}</SelectItem>
+                    })}
                 </SelectGroup>
             </SelectContent>
         </Select>

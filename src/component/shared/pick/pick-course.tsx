@@ -7,6 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/component/ui/select"
+import { pick_courses } from "@/config"
 
 export function PickCourse() {
     return (
@@ -17,6 +18,9 @@ export function PickCourse() {
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Курс</SelectLabel>
+                    {pick_courses.map(item => {
+                        return <SelectItem value={item}>{item}</SelectItem>
+                    })}
                 </SelectGroup>
             </SelectContent>
         </Select>

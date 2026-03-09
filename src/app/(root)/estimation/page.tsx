@@ -4,11 +4,7 @@
 import { EstimationTable } from '@/component/shared/table';
 import React from 'react';
 
-interface Props {
-    className?: string
-}
-
-export default async function Main({ }: Props) {
+export default async function Main() {
 
 
     return (

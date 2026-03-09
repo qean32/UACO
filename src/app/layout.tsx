@@ -33,7 +33,7 @@ export default function RootLayout({
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-lg`}>
           <div className="fixed bottom-0 right-0 z-50 flex gap-4 text-sm p-5">
             <Link href='/'><p>главная</p></Link>
-            <Link href='/profile'><p>профиль</p></Link>
+            <Link href='/profile/5'><p>профиль</p></Link>
             <Link href='/admin'><p>admin</p></Link>
             <Link href='/supervisor'><p>supervisor</p></Link>
             <Link href='/auth'><p>auth</p></Link>

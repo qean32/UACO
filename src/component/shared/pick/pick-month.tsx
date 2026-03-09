@@ -19,7 +19,7 @@ export function PickMounth() {
                 <SelectGroup>
                     <SelectLabel>Месяц</SelectLabel>
                     {pick_months.map(item => {
-                        return <SelectItem value={item.value}>{item.title}</SelectItem>
+                        return <SelectItem key={item.value} value={item.value}>{item.title}</SelectItem>
                     })}
                 </SelectGroup>
             </SelectContent>

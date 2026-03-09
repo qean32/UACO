@@ -19,7 +19,7 @@ export function PickPeriod() {
                 <SelectGroup>
                     <SelectLabel>Период</SelectLabel>
                     {pick_periods.map(item => {
-                        return <SelectItem value={item.value}>{item.title}</SelectItem>
+                        return <SelectItem key={item.value} value={item.value}>{item.title}</SelectItem>
                     })}
                 </SelectGroup>
             </SelectContent>

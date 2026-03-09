@@ -15,7 +15,8 @@ export const EstimationTableItem: React.FC<Props> = ({ Event: { date, id, name }
     return (
         <TableItem>
             <td>{name}</td>
-            <td className='px-5 bg-gray-50'><PickEstimation /></td>
+            <td className='px-3'>
+                <PickEstimation id={id} estimation={estimation} /></td>
             <td>4.1</td>
             <td>{formatDate(date)}</td>
             <td>52</td>

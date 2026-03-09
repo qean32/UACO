@@ -6,9 +6,12 @@ import { StudentColumn } from './column'
 import { getStudentTable } from '@/app/actions'
 import { Table } from './table'
 
+interface Props {
+    id: number
+}
 
-export async function StudentTable() {
-    const items = await getStudentTable(1)
+export async function StudentTable({ id }: Props) {
+    const items = await getStudentTable(id)
 
     return (
         <Table>

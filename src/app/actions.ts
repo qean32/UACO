@@ -1,7 +1,7 @@
 'use server'
 
-import { generalTableItem, SupervisorTableItem, estimationTableItem, studentTableItem } from "@/@types"
-import { Event } from "@root/prisma/generated/prisma/browser"
+import { generalTableItem, SupervisorTableItemType, estimationTableItem, studentTableItem } from "@/@types"
+import { Event, Role, User } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
 
@@ -15,8 +15,20 @@ export const createEvent = async (data: Event) => {
     }
 }
 
-export const getDepartments = async () => {
-    return prisma.department.findMany()
+export const getUserInfo = async (id: number): Promise<any | null> => {
+    return prisma.user.findFirst(
+        {
+            where: { id: Number(id) },
+            omit: { password: true, createdAt: true, updateadAt: true },
+            include: {
+                Group: { select: { semester: true, Department: { select: { code: true, name: true } } } }
+            },
+        }
+    )
+}
+
+export const getRole = async (id: number): Promise<{ role: Role } | null> => {
+    return prisma.user.findFirst({ where: { id: Number(id) }, select: { role: true } })
 }
 
 export const getGeneralTable = async ({ course, date, department, group }: {
@@ -106,13 +118,14 @@ export const getEstimationTable = async (userId: number): Promise<
     }
 }
 
-export const getSupervisorTable = async (): Promise<SupervisorTableItem[] | undefined> => {
+export const getSupervisorTable = async (): Promise<SupervisorTableItemType[] | undefined> => {
     try {
         const events = await prisma.event.findMany({
             select: {
                 name: true,
                 id: true,
-                date: true
+                date: true,
+                SupervisorId: true
             }
         })
 
@@ -132,7 +145,7 @@ export const getStudentTable = async (userId: number): Promise<
     try {
         const user = await prisma.user.findFirst(
             {
-                where: { id: userId },
+                where: { id: Number(userId) },
                 select: {
                     estimationsEvents: {
                         select: {
@@ -151,4 +164,14 @@ export const getStudentTable = async (userId: number): Promise<
         console.log('[GetEvent] Server error', error);
         throw (error)
     }
+}
+
+export const estimationEvent = async ({ estimation, EventId, UserId }: { UserId: number, EventId: number, estimation: number }) => {
+    await prisma.estimationEvent.create({
+        data: {
+            estimation: estimation,
+            EventId: EventId,
+            UserId: UserId
+        }
+    })
 }

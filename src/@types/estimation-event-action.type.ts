@@ -1,0 +1,1 @@
+export type estimationEventAction = { UserId: number, EventId: number, estimation: number }

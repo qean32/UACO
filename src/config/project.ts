@@ -1,4 +1,4 @@
-import { Role } from '@prisma'
+import { Role, Sex } from '@prisma'
 
 export enum Color {
     "primary" = "#208800",
@@ -6,10 +6,12 @@ export enum Color {
     "dark" = "rgb(19, 19, 19)",
 }
 
-export const convertRu: Record<Role, string> = {
+export const convertRu: Record<Role | Sex, string> = {
     "STUDENT": "Студент",
     "SUPERVISOR": "Организатор",
     "ADMIN": "Администратор",
+    "FEMALE": "Ж",
+    "MALE": "М"
 }
 
 export const RTKQKEY = {

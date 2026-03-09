@@ -19,7 +19,7 @@ export function PickCourse() {
                 <SelectGroup>
                     <SelectLabel>Курс</SelectLabel>
                     {pick_courses.map(item => {
-                        return <SelectItem value={item}>{item}</SelectItem>
+                        return <SelectItem key={item} value={item}>{item}</SelectItem>
                     })}
                 </SelectGroup>
             </SelectContent>

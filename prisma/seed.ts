@@ -20,6 +20,18 @@ const create = async () => {
     await prisma.event.createMany({
         data: data.events
     })
+    await prisma.user.createMany({
+        data: {
+            "password": hashSync('admin', 6),
+            "dateOfBirth": "1985-10-26T00:00:00Z",
+            "firstName": "Админ",
+            "lastName": "Админ",
+            "email": "admin@gmail.com",
+            "sureName": "Админ",
+            "role": "ADMIN",
+            "sex": "MALE",
+        }
+    })
 }
 
 async function down() {

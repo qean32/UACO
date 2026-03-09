@@ -6,33 +6,27 @@ import React from 'react';
 import { Button } from '@/component/ui/button';
 import { FormProvider } from 'react-hook-form';
 import { formLoginSchema, TformLoginSchema } from '@/@types/schema/';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useMyForm } from '@/lib/hooks';
 
-interface Props {
-}
-
-export default function Page({ }: Props) {
-    const { data: session } = useSession();
-    console.log(session)
-
-    const onSubmit = async (data: TformLoginSchema) => {
-        try {
-            const resp = await signIn('credentials', {
-                ...data,
-                redirect: false,
-            });
-
-            if (!resp?.ok) {
-                throw Error();
-            }
-        } catch (error) {
-            console.error('Error [LOGIN]', error);
-        }
-    };
+export default function Page() {
     const { form, submitHandler } = useMyForm<TformLoginSchema>(
         formLoginSchema,
-        onSubmit
+        async (data: TformLoginSchema) => {
+            try {
+                const resp = await signIn('credentials', {
+                    ...data,
+                    redirect: true,
+                    callbackUrl: "/"
+                });
+
+                if (!resp?.ok) {
+                    throw Error();
+                }
+            } catch (error) {
+                console.error('Error [LOGIN]', error);
+            }
+        }
     );
 
     return (

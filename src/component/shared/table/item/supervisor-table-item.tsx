@@ -5,19 +5,22 @@ import React from 'react';
 import { TableItem } from '.';
 import { SupervisorTableItemType } from '@/@types';
 import { formatDate } from '@/lib/helpers';
+import { Role } from '@root/prisma/generated/prisma/enums';
+import { useUser } from '@/lib/hooks';
 
 
 interface Props extends SupervisorTableItemType {
 }
 
-export const SupervisorTableItem: React.FC<Props> = ({ date, name }: Props) => {
+export const SupervisorTableItem: React.FC<Props> = ({ date, name, SupervisorId }: Props) => {
+    const user = useUser()
 
     return (
         <TableItem>
             <td>{name}</td>
             <td>4.1</td>
             <td>{formatDate(date)}</td>
-            <td><Button variant='danger'>Удалить</Button></td>
+            <td><Button disabled={SupervisorId != user?.id || user?.role == Role.ADMIN} variant='danger'>Удалить</Button></td>
         </TableItem>
     );
 }

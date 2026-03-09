@@ -29,13 +29,11 @@ export const authOptions: AuthOptions = {
                     return null;
                 }
 
-                // const isPasswordValid = await compare(credentials.password, findUser.password);
-                const isPasswordValid = credentials.password == findUser.password;
+                const isPasswordValid = await compare(credentials.password, findUser.password);
 
                 if (!isPasswordValid) {
                     return null;
                 }
-
 
                 return {
                     id: findUser.id,
@@ -71,7 +69,7 @@ export const authOptions: AuthOptions = {
                 await prisma.user.create({
                     data: {
                         email: user.email,
-                        password: hashSync(user.id.toString(), 10),
+                        password: hashSync(user.id.toString(), 6),
                         dateOfBirth: "",
                         firstName: "",
                         lastName: "",
@@ -112,6 +110,7 @@ export const authOptions: AuthOptions = {
         },
         session({ session, token }) {
             if (session?.user) {
+                session.user.id = token.id;
                 session.user.email = token.email;
                 session.user.firstName = token.firstName;
                 session.user.lastName = token.lastName;

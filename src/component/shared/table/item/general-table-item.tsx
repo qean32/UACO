@@ -2,22 +2,23 @@
 
 import React from 'react';
 import { TableItem } from './table-item';
-import { generalAttendanceTableItem } from '@/@types';
+import { generalTableItem } from '@/@types';
 
 
-interface Props {
-    even: boolean
-    item: generalAttendanceTableItem
+interface Props extends generalTableItem {
 }
 
-export const GeneralTableItem: React.FC<Props> = ({ even, item: { User, estimationsEvent } }: Props) => {
+export const GeneralTableItem: React.FC<Props> = ({ User, estimationsEvent }: Props) => {
 
     return (
-        <TableItem even={even} style={{}}>
-            <th className='pl-5 pr-7'>{User.firstName} {User.lastName} {User.sureName}</th>
+        <TableItem>
+            <td>{User.firstName} {User.lastName} {User.sureName}</td>
             {!!estimationsEvent.length &&
-                estimationsEvent.map((item, _) =>
-                    <td key={item.EventId} className='text-center font-medium'>{Number(!!item.estimation)}</td>
+                estimationsEvent.map(item =>
+
+                    <td key={item.EventId}>
+                        {Number(!!item.estimation)}
+                    </td>
                 )
             }
         </TableItem>

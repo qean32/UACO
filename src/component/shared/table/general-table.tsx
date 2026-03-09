@@ -3,21 +3,22 @@
 import React from 'react'
 import { GeneralTableItem } from './item'
 import { GeneralColumn } from './column'
-import { getGeneralData } from '@/app/actions'
+import { getGeneralTable } from '@/app/actions'
+import { Table } from './table'
 
 
 export async function GeneralTable() {
-    const { column, items } = await getGeneralData({})
+    const { column, items } = await getGeneralTable({})
 
     return (
-        <div className='overflow-hidden'>
+        <Table>
             <GeneralColumn events={column} />
-            <tbody>
 
-                {items.map((item, index) => {
-                    return <GeneralTableItem item={item} even={!!((index + 1) % 2 == 0)} />
+            <tbody>
+                {items.map(item => {
+                    return <GeneralTableItem {...item} key={item.User.id} />
                 })}
             </tbody>
-        </div>
+        </Table>
     )
 }

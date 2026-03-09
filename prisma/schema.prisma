@@ -79,6 +79,7 @@ model Event {
 enum Role {
   STUDENT
   SUPERVISOR
+  ADMIN
 }
 
 enum Sex {

@@ -11,15 +11,18 @@ interface Props {
 export const GeneralColumn: React.FC<Props> = ({ events }: Props) => {
 
     return (
-        <thead>
-            <tr className="rounded-t-sm bg-gray-300 py-3">
-                <th className='pl-5'>Студент</th>
+        <thead className="py-3 bg-gray-200">
+            <tr>
+                <th className="bg-gray-200">Студент</th>
                 {!!events.length &&
                     events.map(({ id, name }) => {
-                        return <th
-                            key={id}
-                            className='px-3 text-center max-w-[100px] hover:px-5 overflow-hidden hover:max-w-[500px] transition-all duration-200 cursor-pointer hidden-cell'
-                        >{name}</th>
+                        return <th key={id}
+                            className='hover-th relative max-w-[100px] hover:max-w-[500px] transition-all duration-200'
+                        >
+                            <div className="overflow-hidden px-2 w-full hover:px-5">
+                                {name}
+                            </div>
+                        </th>
                     })
                 }
             </tr>

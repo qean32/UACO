@@ -5,3 +5,40 @@ export const fakeGrapch = [
     { name: '23-тэп-1', value: 7 },
     { name: '22п-2', value: 7 },
 ]
+
+export const dataTimeOption = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    timezone: "UTC",
+}
+
+export const pick_courses = [
+    "1", "2", "3", "4", "5"
+]
+
+export const pick_estimations = [
+    "1", "2", "3", "4", "5"
+]
+
+export const pick_months = [
+    { value: "1", title: "Январь" },
+    { value: "2", title: "Февраль" },
+    { value: "3", title: "Март" },
+    { value: "4", title: "Апрель" },
+    { value: "5", title: "Май" },
+    { value: "6", title: "Июнь" },
+    { value: "7", title: "Июль" },
+    { value: "8", title: "Август" },
+    { value: "9", title: "Сентябрь" },
+    { value: "10", title: "Октябрь" },
+    { value: "11", title: "Ноябрь" },
+    { value: "12", title: "Декабрь" },
+
+]
+
+export const pick_periods = [
+    { value: "1", title: "Месяц" },
+    { value: "2", title: "Год" },
+    { value: "3", title: "Все время" },
+]

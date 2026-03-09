@@ -1,20 +1,13 @@
-import { cn } from '@/lib/helpers'
-import { CSSProperties, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 interface Props {
-    even: boolean
     children: ReactNode
-    style: CSSProperties
 }
 
 
-export const TableItem: React.FC<Props> = ({ even, children, style }: Props) => {
+export const TableItem: React.FC<Props> = ({ children }: Props) => {
     return (
-        <tr className={cn(
-            "",
-            ((even) ? 'bg-gray-200' : 'bg-gray-100'))}
-            style={style}
-        >
+        <tr className="transition-all duration-75 hover:bg-gray-100 hover-h h-[50px]">
             {children}
         </tr>
     )

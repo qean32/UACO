@@ -1,2 +1,7 @@
-export type { generalAttendanceTableItem } from './general-attendance-table-item'
+export type { generalTableItem } from './general-table-item.type'
+export type { SupervisorTableItem as SupervisorTableItemType } from './admin-table-item.type'
+export type { estimationTableItem } from './estimation-table-item.type'
+export type { studentTableItem } from './student-table-item.type'
+export type { GroupType } from './shared-group.interface'
 export type { ruRole } from './ru-role.type'
+export type { estimationEventAction } from './estimation-event-action.type'

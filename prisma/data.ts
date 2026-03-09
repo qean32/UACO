@@ -1,7 +1,9 @@
+import { hashSync } from "bcrypt"
+
 export const students = [
     {
         "email": "zxc123@zxc.com",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Андрей",
         "lastName": "Галонов",
@@ -12,7 +14,7 @@ export const students = [
     },
     {
         "email": "qwe789@abc.net",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Елена",
         "lastName": "Васильева",
@@ -23,7 +25,7 @@ export const students = [
     },
     {
         "email": "thjyyt7676asd@def.org",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Дмитрий",
         "lastName": "Сергеев",
@@ -34,7 +36,7 @@ export const students = [
     },
     {
         "email": "fgh789@ghi.biz",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Анна",
         "lastName": "Петрова",
@@ -45,7 +47,7 @@ export const students = [
     },
     {
         "email": "qwe1231@jkl.info",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Иван",
         "lastName": "Иванов",
@@ -56,7 +58,7 @@ export const students = [
     },
     {
         "email": "werwer32423@mno.ru",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Светлана",
         "lastName": "Смирнова",
@@ -67,7 +69,7 @@ export const students = [
     },
     {
         "email": "qweqweewqweqwe21312@pqr.co.uk",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Алексей",
         "lastName": "Николаев",
@@ -78,7 +80,7 @@ export const students = [
     },
     {
         "email": "qweqwgfdgeqwe23@stu.pl",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Ольга",
         "lastName": "Попова",
@@ -89,7 +91,7 @@ export const students = [
     },
     {
         "email": "weqwqweeq@vwx.ca",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Михаил",
         "lastName": "Кузнецов",
@@ -100,7 +102,7 @@ export const students = [
     },
     {
         "email": "qweqweqqwe@yzb.au",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Наталья",
         "lastName": "Волкова",
@@ -111,7 +113,7 @@ export const students = [
     },
     {
         "email": "abc12eqqwe3@abc.de",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Сергей",
         "lastName": "Федоров",
@@ -122,7 +124,7 @@ export const students = [
     },
     {
         "email": "def456@def.jp",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Марина",
         "lastName": "Орлова",
@@ -133,7 +135,7 @@ export const students = [
     },
     {
         "email": "asd13221sd@ghi.us",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Артём",
         "lastName": "Громов",
@@ -144,7 +146,7 @@ export const students = [
     },
     {
         "email": "rgefg2434@jkl.cn",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Анастасия",
         "lastName": "Антонова",
@@ -155,7 +157,7 @@ export const students = [
     },
     {
         "email": "sfgwrt234@mno.fr",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Максим",
         "lastName": "Андреев",
@@ -166,7 +168,7 @@ export const students = [
     },
     {
         "email": "qweqweqweqwe21312@pqr.it",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Дарья",
         "lastName": "Романова",
@@ -177,7 +179,7 @@ export const students = [
     },
     {
         "email": "qweqweqwe23@stu.nl",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Кирилл",
         "lastName": "Зайцев",
@@ -188,7 +190,7 @@ export const students = [
     },
     {
         "email": "vwx4weqweq56@vwx.br",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Оксана",
         "lastName": "Миронова",
@@ -199,7 +201,7 @@ export const students = [
     },
     {
         "email": "edasdaw324@yzb.in",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Денис",
         "lastName": "Горшков",
@@ -210,7 +212,7 @@ export const students = [
     },
     {
         "email": "aqbc123321@abc.es",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Тамара",
         "lastName": "Левина",
@@ -221,7 +223,7 @@ export const students = [
     },
     {
         "email": "deqwef456@def.ch",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Владимир",
         "lastName": "Соловьёв",
@@ -232,7 +234,7 @@ export const students = [
     },
     {
         "email": "ghiqweqw789@ghi.be",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Юлия",
         "lastName": "Комарова",
@@ -243,7 +245,7 @@ export const students = [
     },
     {
         "email": "jqwekl213123@jkl.hr",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Александр",
         "lastName": "Колосов",
@@ -254,7 +256,7 @@ export const students = [
     },
     {
         "email": "mno453126@mno.ro",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Екатерина",
         "lastName": "Суханова",
@@ -265,7 +267,7 @@ export const students = [
     },
     {
         "email": "pqsaqwedr789@pqr.se",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Евгений",
         "lastName": "Белкин",
@@ -276,7 +278,7 @@ export const students = [
     },
     {
         "email": "stasdu123@stu.cz",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Людмила",
         "lastName": "Ермолаева",
@@ -287,7 +289,7 @@ export const students = [
     },
     {
         "email": "vwxthjyyt7676@vwx.pt",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Николай",
         "lastName": "Морозов",
@@ -298,7 +300,7 @@ export const students = [
     },
     {
         "email": "324yzqweqweb789@yzb.fi",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Татьяна",
         "lastName": "Щукина",
@@ -312,7 +314,7 @@ export const students = [
 export const supervisors = [
     {
         "email": "yzb789@yzb.fi",
-        "password": "zxc",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1985-10-26T00:00:00Z",
         "firstName": "Татьяна",
         "lastName": "Щукина",
@@ -322,7 +324,7 @@ export const supervisors = [
     },
     {
         "email": "abc123@abc.ru",
-        "password": "qwe",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1990-05-12T00:00:00Z",
         "firstName": "Иван",
         "lastName": "Иванов",
@@ -332,7 +334,7 @@ export const supervisors = [
     },
     {
         "email": "def456@def.com",
-        "password": "asd",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1995-08-18T00:00:00Z",
         "firstName": "Анна",
         "lastName": "Петрова",
@@ -342,7 +344,7 @@ export const supervisors = [
     },
     {
         "email": "ghi789@ghi.org",
-        "password": "fgh",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1980-03-05T00:00:00Z",
         "firstName": "Сергей",
         "lastName": "Смирнов",
@@ -352,7 +354,7 @@ export const supervisors = [
     },
     {
         "email": "jkl123@jkl.net",
-        "password": "jkl",
+        "password": hashSync('zxczxc12', 6),
         "dateOfBirth": "1975-12-24T00:00:00Z",
         "firstName": "Елена",
         "lastName": "Кузнецова",

@@ -8,6 +8,6 @@ interface Props {
 
 export const Logo: React.FC<Props> = ({ className }: Props) => {
     return (
-        <img className={cn('w-20', className)} src='./logo.svg' />
+        <img className={cn('w-20', className)} src='/logo.svg' />
     )
 }

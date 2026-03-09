@@ -1,25 +1,25 @@
 'use client'
 
-import { Input } from '@/component/ui';
 import React from 'react';
 import { TableItem } from './';
-import { EstimationEvent } from '@root/prisma/generated/prisma/browser';
+import { estimationTableItem } from '@/@types';
+import { formatDate } from '@/lib/helpers';
+import { PickEstimation } from '@/component/shared/pick';
 
 
-interface Props {
-    even: boolean
-    item: Pick<EstimationEvent, "EventId" | "estimation">
+interface Props extends estimationTableItem {
 }
 
-export const EstimationTableItem: React.FC<Props> = ({ even, item }: Props) => {
+export const EstimationTableItem: React.FC<Props> = ({ Event: { date, id, name }, estimation }: Props) => {
 
     return (
-        <TableItem even={even} style={{ gridTemplateColumns: '9fr 1fr 1fr 1fr 1fr' }} >
-            <p>название</p>
-            <p><Input type="text" className='w-[60px]' defaultValue={'value'} /></p>
-            <p>ср оценка</p>
-            <p>дата</p>
-            <p>Посещений</p>
+        <TableItem>
+            <td>{name}</td>
+            <td className='px-3'>
+                <PickEstimation id={id} estimation={estimation} /></td>
+            <td>4.1</td>
+            <td>{formatDate(date)}</td>
+            <td>52</td>
         </TableItem>
     );
 }

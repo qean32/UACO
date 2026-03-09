@@ -1,5 +1,3 @@
-import * as React from "react"
-
 import {
     Select,
     SelectContent,
@@ -9,6 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/component/ui/select"
+import { pick_periods } from "@/config"
 
 export function PickPeriod() {
     return (
@@ -19,9 +18,9 @@ export function PickPeriod() {
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Период</SelectLabel>
-                    <SelectItem value="1">Месяц</SelectItem>
-                    <SelectItem value="2">Год</SelectItem>
-                    <SelectItem value="3">Все время</SelectItem>
+                    {pick_periods.map(item => {
+                        return <SelectItem key={item.value} value={item.value}>{item.title}</SelectItem>
+                    })}
                 </SelectGroup>
             </SelectContent>
         </Select>

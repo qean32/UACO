@@ -1,3 +1,6 @@
-export { AdminTable } from './admin-table'
+export { SupervisorTable } from './supervisor-table'
 export { EstimationTable } from './estimation-table'
 export { GeneralTable } from './general-table'
+export { Table } from './table'
+export { StudentTable } from './student-table'
+export { UserTable } from './user-table'

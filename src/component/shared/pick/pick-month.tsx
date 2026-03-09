@@ -1,5 +1,3 @@
-import * as React from "react"
-
 import {
     Select,
     SelectContent,
@@ -9,6 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/component/ui/select"
+import { pick_months } from "@/config"
 
 export function PickMounth() {
     return (
@@ -19,18 +18,9 @@ export function PickMounth() {
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Месяц</SelectLabel>
-                    <SelectItem value="1">Январь</SelectItem>
-                    <SelectItem value="2">Февраль</SelectItem>
-                    <SelectItem value="3">Март</SelectItem>
-                    <SelectItem value="4">Апрель</SelectItem>
-                    <SelectItem value="5">Май</SelectItem>
-                    <SelectItem value="6">Июнь</SelectItem>
-                    <SelectItem value="7">Июль</SelectItem>
-                    <SelectItem value="8">Август</SelectItem>
-                    <SelectItem value="9">Сентябрь</SelectItem>
-                    <SelectItem value="10">Октябрь</SelectItem>
-                    <SelectItem value="11">Ноябрь</SelectItem>
-                    <SelectItem value="12">Декабрь</SelectItem>
+                    {pick_months.map(item => {
+                        return <SelectItem key={item.value} value={item.value}>{item.title}</SelectItem>
+                    })}
                 </SelectGroup>
             </SelectContent>
         </Select>

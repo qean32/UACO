@@ -1,8 +1,10 @@
 'use server'
 
 import { generalTableItem, SupervisorTableItemType, estimationTableItem, studentTableItem } from "@/@types"
-import { Event, Role, User } from "@root/prisma/generated/prisma/browser"
+import { Event, Role } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
+
+const DEFAULT_TAKE = 20
 
 
 export const createEvent = async (data: Event) => {
@@ -31,13 +33,15 @@ export const getRole = async (id: number): Promise<{ role: Role } | null> => {
     return prisma.user.findFirst({ where: { id: Number(id) }, select: { role: true } })
 }
 
-export const getGeneralTable = async ({ course, date, department, group }: {
+export const getGeneralTable = async ({ course, date, department, group, page }: {
     date?: string,
     group?: number
     department?: number
     course?: number
-}): Promise<{ items: generalTableItem[], column: Pick<Event, "name" | "id">[] }> => {
+    page?: number
+}): Promise<{ items: generalTableItem[], column: Pick<Event, "name" | "id">[], end: boolean }> => {
     try {
+        const skip = page ? page * DEFAULT_TAKE : 0
         const events = await prisma.event.findMany({
             select: {
                 id: true,
@@ -50,7 +54,8 @@ export const getGeneralTable = async ({ course, date, department, group }: {
                 firstName: true, lastName: true, sureName: true,
                 id: true
             },
-            take: 20,
+            take: DEFAULT_TAKE,
+            skip
         })
         let items: generalTableItem[] = students.map(student_item => {
             return {
@@ -64,7 +69,7 @@ export const getGeneralTable = async ({ course, date, department, group }: {
             }
         })
 
-        return { items, column: events }
+        return { items, column: events, end: skip >= await prisma.user.count() }
     } catch (error) {
         console.log('[GetEvent] Server error', error);
         throw (error)

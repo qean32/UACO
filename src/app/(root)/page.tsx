@@ -3,19 +3,14 @@
 import { FilterEvent } from '@/component/shared/modal'
 import { GeneralTable } from '@/component/shared/table';
 import { Button } from '@/component/ui/button';
-import { cn } from "@/lib/helpers"
 import React from 'react';
 
 const Analytics = React.lazy(() => import("@/component/shared/analytics"))
 
 
-interface Props {
-    className?: string
-}
-
-export default async function Main({ className }: Props) {
+export default async function Main() {
     return (
-        <div className={cn('flex-1 flex flex-col', className)}>
+        <div className='flex-1 flex flex-col'>
             <Analytics />
             <div className='w-full min-h-[400px] px-15 pt-10'>
                 <div className="flex justify-between pb-7">

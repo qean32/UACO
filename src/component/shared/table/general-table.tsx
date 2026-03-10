@@ -1,10 +1,10 @@
 'use server'
 
 import React from 'react'
-import { GeneralTableItem } from './item'
 import { GeneralColumn } from './column'
 import { getGeneralTable } from '@/app/actions'
 import { Table } from './table'
+import { UnwrapGeneral } from '.'
 
 
 export async function GeneralTable() {
@@ -13,12 +13,7 @@ export async function GeneralTable() {
     return (
         <Table>
             <GeneralColumn events={column} />
-
-            <tbody>
-                {items.map(item => {
-                    return <GeneralTableItem {...item} key={item.User.id} />
-                })}
-            </tbody>
+            <UnwrapGeneral inicialState={items} />
         </Table>
     )
 }

@@ -13,8 +13,9 @@ import {
 import { Input } from "@/component/ui/input"
 import { RTKQKEY } from "@/config";
 import { useGetGroupsQuery } from "@/store/group";
+import { setValueFormProps, TformFilterSchema } from "@/@types/schema";
 
-export function PickGroup() {
+export function PickGroup({ setValue }: setValueFormProps<TformFilterSchema>) {
     const { data } = useGetGroupsQuery(RTKQKEY.getGroups);
     const [search, setSearch] = useState("");
 
@@ -23,7 +24,7 @@ export function PickGroup() {
     );
 
     return (
-        <Select>
+        <Select onValueChange={(e) => setValue("group", e.toString())}>
             <SelectTrigger className="w-full h-[40px] cursor-pointer">
                 <SelectValue placeholder="Группа" />
             </SelectTrigger>

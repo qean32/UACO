@@ -35,18 +35,33 @@ export const getRole = async (id: number): Promise<{ role: Role } | null> => {
 
 export const getGeneralTable = async ({ course, date, department, group, page }: {
     date?: string,
-    group?: number
-    department?: number
+    group?: string
+    department?: string
     course?: number
     page?: number
 }): Promise<{ items: generalTableItem[], column: Pick<Event, "name" | "id">[], end: boolean }> => {
     try {
         const skip = page ? page * DEFAULT_TAKE : 0
+        const filter = {
+            AND: [
+                {
+                    ...(course ? {
+                        OR: [
+                            { Group: { semester: course * 2 } },
+                            { Group: { semester: course * 2 - 1 } }
+                        ]
+                    } : null)
+                },
+                { ...(department ? { Group: { Department: { name: department } } } : null) },
+                { ...(group ? { GroupCode: group } : null) },
+            ],
+        }
         const events = await prisma.event.findMany({
             select: {
                 id: true,
                 name: true
-            }
+            },
+            where: { ...(date ? { date } : null) }
         })
         const students = await prisma.user.findMany({
             select: {
@@ -55,21 +70,23 @@ export const getGeneralTable = async ({ course, date, department, group, page }:
                 id: true
             },
             take: DEFAULT_TAKE,
-            skip
+            skip,
+            where: filter,
+            orderBy: { firstName: "asc" }
         })
         let items: generalTableItem[] = students.map(student_item => {
             return {
                 User: { firstName: student_item.firstName, sureName: student_item.sureName, lastName: student_item.lastName, id: student_item.id, },
-                estimationsEvent: Array.from(new Set([
+                estimationsEvent: [
                     ...student_item.estimationsEvents,
                     ...events.map(event_item => {
                         return { EventId: event_item.id, estimation: 0 }
                     }).filter(filter_item => !student_item.estimationsEvents.some(some_item => some_item.EventId == filter_item.EventId))
-                ]))
+                ]
             }
         })
 
-        return { items, column: events, end: skip >= await prisma.user.count() }
+        return { items, column: events, end: skip >= await prisma.user.count({ where: filter }) }
     } catch (error) {
         console.log('[GetEvent] Server error', error);
         throw (error)

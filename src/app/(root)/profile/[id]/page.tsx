@@ -2,8 +2,7 @@
 
 
 import { Information } from '@/component/shared/info';
-import { PushEvent } from '@/component/shared/modal';
-import { SupervisorTable, UserTable } from '@/component/shared/table';
+import { UserTable } from '@/component/shared/table';
 import { PersonalAccountTitle } from '@/component/ui';
 import React from 'react';
 

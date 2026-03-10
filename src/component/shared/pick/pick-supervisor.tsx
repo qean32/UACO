@@ -8,6 +8,7 @@ import {
     SelectValue,
 } from "@/component/ui/select"
 import { RTKQKEY } from "@/config";
+import { formatFio } from "@/lib/helpers";
 import { useGetSupervisorsQuery } from "@/store/supervisor";
 
 export function PickSupervisor() {
@@ -22,7 +23,7 @@ export function PickSupervisor() {
                 <SelectGroup>
                     <SelectLabel>Организатор</SelectLabel>
                     {!!data?.length && data.map(({ firstName, lastName, sureName, id }) => {
-                        return <SelectItem key={id} value={id.toString()}>{firstName} {sureName.at(0)}. {lastName.at(0)}.</SelectItem>
+                        return <SelectItem key={id} value={id.toString()}>{formatFio({ firstName, lastName, sureName })}</SelectItem>
                     })}
                 </SelectGroup>
             </SelectContent>

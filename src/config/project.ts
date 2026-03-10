@@ -17,5 +17,7 @@ export const convertRu: Record<Role | Sex, string> = {
 export const RTKQKEY = {
     getDepartments: "getDepartments",
     getSupervisors: "getSupervisors",
+    bestSupervisors: "bestSupervisors",
     getGroups: "getGroups",
+    bestGroups: "bestGroups",
 }

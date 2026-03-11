@@ -4,8 +4,9 @@ import React from 'react'
 import { GeneralColumn } from './column'
 import { getGeneralTable } from '@/app/actions'
 import { Table } from './table'
-import { UnwrapGeneral } from '.'
 import { TformFilterSchema } from '@/@types/schema'
+import { DynamicPagination } from '@/component/master'
+import { GeneralTableItem } from './item'
 
 
 export async function GeneralTable({ queries }: { queries: TformFilterSchema }) {
@@ -15,7 +16,12 @@ export async function GeneralTable({ queries }: { queries: TformFilterSchema }) 
     return (
         <Table>
             <GeneralColumn events={column} />
-            <UnwrapGeneral initialState={items} />
+            <DynamicPagination
+                initialState={items}
+                _fetch={getGeneralTable}
+                fillQueries
+                RenderItem={GeneralTableItem}
+            />
         </Table>
     )
 }

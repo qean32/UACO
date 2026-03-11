@@ -11,7 +11,7 @@ export const BestGroups: React.FC = () => {
         <Title size='text-2xl'>Активные группы</Title>
         <ol className='pt-5'>
             {!!data?.length && data.map(item => {
-                return <div key={item.code} className='grid' style={{ gridTemplateColumns: '1fr 2fr' }}>
+                return <div key={item.GroupCode} className='grid' style={{ gridTemplateColumns: '1fr 2fr' }}>
                     <Title className='w-[100px]'>{item.GroupCode}</Title>
                 </div>
             })}

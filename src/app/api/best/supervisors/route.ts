@@ -6,7 +6,7 @@ export async function GET() {
         orderBy: { organizedEvents: { _count: "asc" } },
         where: { role: "SUPERVISOR" },
         take: 5,
-        select: { organizedEvents: { select: { _count: true } }, firstName: true, lastName: true, sureName: true }
+        select: { organizedEvents: { select: { _count: true } }, firstName: true, lastName: true, sureName: true, id: true }
     })
 
     return NextResponse.json(supervisors)

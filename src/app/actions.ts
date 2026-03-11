@@ -1,36 +1,45 @@
 'use server'
 
-import { generalTableItem, SupervisorTableItemType, estimationTableItem, studentTableItem } from "@/@types"
-import { Event, Role } from "@root/prisma/generated/prisma/browser"
+import { generalTableItem, supervisorTableItemType, estimationTableItem, studentTableItem, tableResponse } from "@/@types"
+import { Event, Role, User } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
 const DEFAULT_TAKE = 20
 
-
 export const createEvent = async (data: Event) => {
     try {
         const event = await prisma.event.create({ data })
-
         return event
     } catch (error) {
         console.log('[CreateEvent] Server error', error);
     }
 }
 
-export const getUserInfo = async (id: number): Promise<any | null> => {
-    return prisma.user.findFirst(
-        {
-            where: { id: Number(id) },
-            omit: { password: true, createdAt: true, updateadAt: true },
-            include: {
-                Group: { select: { semester: true, Department: { select: { code: true, name: true } } } }
-            },
-        }
-    )
+export const getUserInfo = async (id: number): Promise<User | null> => {
+    try {
+        // @ts-ignore
+        return prisma.user.findFirstOrThrow(
+            {
+                where: { id: Number(id) },
+                omit: { password: true, createdAt: true, updateadAt: true },
+                include: {
+                    Group: { select: { semester: true, Department: { select: { code: true, name: true } } } }
+                },
+            }
+        )
+    } catch (error) {
+        console.log('[CreateEvent] Server error', error);
+        throw (error)
+    }
 }
 
 export const getRole = async (id: number): Promise<{ role: Role } | null> => {
-    return prisma.user.findFirst({ where: { id: Number(id) }, select: { role: true } })
+    try {
+        return prisma.user.findFirst({ where: { id: Number(id) }, select: { role: true } })
+    } catch (error) {
+        console.log('[CreateEvent] Server error', error);
+        throw (error)
+    }
 }
 
 export const getGeneralTable = async ({ course, date, department, group, page }: {
@@ -93,95 +102,88 @@ export const getGeneralTable = async ({ course, date, department, group, page }:
     }
 }
 
-export const getEstimationTable = async (userId: number): Promise<
-    estimationTableItem[]
-    |
-    undefined
-> => {
+export const getEstimationTable = async ({ page, userId }: { userId: number, page: number }): Promise<tableResponse<estimationTableItem[]>> => {
     try {
+        const skip = page ? page * DEFAULT_TAKE : 0
         const events = await prisma.event.findMany({
             select: {
                 id: true,
                 name: true,
                 date: true
-            }
-        })
-        const user = await prisma.user.findFirst(
-            {
-                where: { id: userId },
-                select: {
-                    estimationsEvents: {
-                        select: {
-                            Event: { select: { name: true, id: true, date: true } },
-                            estimation: true
-                        },
-                    }
-                }
             },
+            take: DEFAULT_TAKE,
+            skip,
+            orderBy: { createdAt: "asc" }
+        })
+        const estimations = await prisma.estimationEvent.findMany(
+            {
+                where: { UserId: userId },
+                select: {
+                    Event: { select: { name: true, id: true, date: true } },
+                    estimation: true,
+                },
+                take: DEFAULT_TAKE,
+                skip,
+            }
         )
-        const map = new Map(user?.estimationsEvents.map(item => [item.Event.id, item]))
+        const map = new Map(estimations.map(item => [item.Event.id, item]))
         // @ts-ignore
         let items: estimationTableItem[] = events.map(event_item => {
             if (!map.get(event_item.id)) {
                 return {
                     estimation: 0,
-                    Event: event_item
+                    Event: event_item,
+                    id: event_item.id
                 }
             }
             return map.get(event_item.id)
         })
 
-        if (items) {
-            return items
-        }
+        return { items, end: skip >= await prisma.estimationEvent.count() }
     } catch (error) {
         console.log('[GetEvent] Server error', error);
         throw (error)
     }
 }
 
-export const getSupervisorTable = async (): Promise<SupervisorTableItemType[] | undefined> => {
+export const getSupervisorTable = async ({ page }: { page: number }): Promise<tableResponse<supervisorTableItemType[]>> => {
     try {
+        const skip = page ? page * DEFAULT_TAKE : 0
         const events = await prisma.event.findMany({
             select: {
                 name: true,
                 id: true,
                 date: true,
                 SupervisorId: true
-            }
+            },
+            take: DEFAULT_TAKE,
+            skip
         })
 
-        if (events)
-            return events
+        return { items: events, end: skip >= await prisma.event.count() }
     } catch (error) {
         console.log('[GetEvent] Server error', error);
         throw (error)
     }
 }
 
-export const getStudentTable = async (userId: number): Promise<
-    studentTableItem[]
-    |
-    undefined
-> => {
+export const getStudentTable = async ({ page, userId }: { userId: number, page: number }): Promise<tableResponse<studentTableItem[]>> => {
     try {
-        const user = await prisma.user.findFirst(
+        const skip = page ? page * DEFAULT_TAKE : 0
+        const estimations = await prisma.estimationEvent.findMany(
             {
-                where: { id: Number(userId) },
+                where: { UserId: Number(userId) },
                 select: {
-                    estimationsEvents: {
-                        select: {
-                            Event: { select: { name: true, id: true, date: true } },
-                            estimation: true
-                        },
-                    }
-                }
+                    Event: { select: { name: true, id: true, date: true } },
+                    estimation: true,
+                    id: true
+                },
+                take: DEFAULT_TAKE,
+                skip
             },
         )
 
-        if (user) {
-            return user?.estimationsEvents
-        }
+        return { items: estimations, end: skip >= await prisma.estimationEvent.count({ where: { UserId: Number(userId) } }) }
     } catch (error) {
         console.log('[GetEvent] Server error', error);
         throw (error)
@@ -189,11 +191,16 @@ export const getStudentTable = async (userId: number): Promise<
 }
 
 export const estimationEvent = async ({ estimation, EventId, UserId }: { UserId: number, EventId: number, estimation: number }) => {
-    await prisma.estimationEvent.create({
-        data: {
-            estimation: estimation,
-            EventId: EventId,
-            UserId: UserId
-        }
-    })
+    try {
+        await prisma.estimationEvent.create({
+            data: {
+                estimation: estimation,
+                EventId: EventId,
+                UserId: UserId
+            }
+        })
+    } catch (error) {
+        console.log('[CreateEvent] Server error', error);
+        throw (error);
+    }
 }

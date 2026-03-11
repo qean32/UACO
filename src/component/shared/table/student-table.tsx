@@ -5,23 +5,24 @@ import { StudentTableItem } from './item'
 import { StudentColumn } from './column'
 import { getStudentTable } from '@/app/actions'
 import { Table } from './table'
+import { DynamicPagination } from '@/component/master'
 
 interface Props {
     id: number
 }
 
 export async function StudentTable({ id }: Props) {
-    const items = await getStudentTable(id)
+    const { items } = await getStudentTable({ userId: id, page: 0 })
 
     return (
         <Table>
             <StudentColumn />
-
-            <tbody>
-                {!!items?.length && items.map(item => {
-                    return <StudentTableItem {...item} key={item.Event.id} />
-                })}
-            </tbody>
+            <DynamicPagination
+                initialState={items}
+                staticParam={{ userId: id }}
+                _fetch={getStudentTable}
+                RenderItem={StudentTableItem}
+            />
         </Table>
     )
 }

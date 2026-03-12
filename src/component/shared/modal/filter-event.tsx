@@ -13,30 +13,49 @@ import {
 } from "@/component/ui/dialog"
 import { DatePicker, Title } from "../../ui"
 import { PickCourse, PickGroup, PickDepartment } from "@/component/shared/pick"
+import { FormProvider } from "react-hook-form"
+import { useMyForm, useFilterEvent } from "@/lib/hooks"
+import { formFilterSchema, TformFilterSchema } from "@/@types/schema"
 
 export function FilterEvent() {
+    const { push } = useFilterEvent()
+
+    const { form, submitHandler, setValue } = useMyForm<TformFilterSchema>(
+        formFilterSchema,
+        (data: TformFilterSchema) => {
+            push(data)
+            form.reset()
+        }
+    )
+
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant={'default'}>Фильтр</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                    <DialogTitle><Title>Фильтры</Title></DialogTitle>
-                    <DialogDescription>Выберите курс, отделение, группу, или дату</DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4">
-                    <PickCourse />
-                    <PickDepartment />
-                    <PickGroup />
-                    <DatePicker />
-                </div>
-                <DialogFooter className="pt-8 justify-start">
-                    <DialogClose asChild>
-                        <Button variant="outline" className="text-dark">Отмена</Button>
-                    </DialogClose>
-                    <Button className="bg-green-600 hover:bg-green-700 cursor-pointer">Фильтр</Button>
-                </DialogFooter>
+                <FormProvider {...form}>
+                    <form onSubmit={submitHandler}>
+                        <DialogHeader>
+                            <DialogTitle><Title>Фильтры</Title></DialogTitle>
+                            <DialogDescription>Выберите курс, отделение, группу, или дату</DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4">
+                            <PickCourse setValue={setValue} />
+                            <PickDepartment setValue={setValue} />
+                            <PickGroup setValue={setValue} />
+                            <DatePicker setValue={setValue} />
+                        </div>
+                        <DialogFooter className="pt-8 justify-start">
+                            <DialogClose asChild>
+                                <Button variant="outline" className="text-dark">Отмена</Button>
+                            </DialogClose>
+                            <DialogClose asChild>
+                                <Button type="submit" className="bg-green-600 hover:bg-green-700 cursor-pointer">Фильтр</Button>
+                            </DialogClose>
+                        </DialogFooter>
+                    </form>
+                </FormProvider>
             </DialogContent>
         </Dialog>
     )

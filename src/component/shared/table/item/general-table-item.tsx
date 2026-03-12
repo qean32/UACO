@@ -5,15 +5,13 @@ import { TableItem } from './table-item';
 import { generalTableItem } from '@/@types';
 
 
-interface Props {
-    even: boolean
-    item: generalTableItem
+interface Props extends generalTableItem {
 }
 
-export const GeneralTableItem: React.FC<Props> = ({ even, item: { User, estimationsEvent } }: Props) => {
+export const GeneralTableItem: React.FC<Props> = ({ User, estimationsEvent }: Props) => {
 
     return (
-        <TableItem even={even}>
+        <TableItem>
             <td>{User.firstName} {User.lastName} {User.sureName}</td>
             {!!estimationsEvent.length &&
                 estimationsEvent.map(item =>

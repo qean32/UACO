@@ -17,7 +17,7 @@ export const GeneralColumn: React.FC<Props> = ({ events }: Props) => {
                 {!!events.length &&
                     events.map(({ id, name }) => {
                         return <th key={id}
-                            className='hover-th relative max-w-[100px] hover:max-w-[500px] transition-all duration-200'
+                            className='hover-th relative max-w-[100px] hover:max-w-[500px] transition-all duration-300'
                         >
                             <div className="overflow-hidden px-2 w-full hover:px-5">
                                 {name}

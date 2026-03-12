@@ -6,22 +6,32 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/component/ui/select"
+import { pick_estimations } from "@/config"
+import { useUser } from "@/lib/hooks"
+import { usePostEstimationMutation } from "@/store/estimation"
 
-export function PickEstimation() {
+export function PickEstimation(props: { estimation: number, id: number }) {
+    const user = useUser()
+    const [trigger] = usePostEstimationMutation()
+
+    const changeHandler = (e: string) => {
+
+        trigger(JSON.stringify({ estimation: e, EventId: props.id, UserId: user?.id }))
+    }
     return (
-        <Select>
+        <Select onValueChange={changeHandler}
+            {...props?.estimation && { defaultValue: props?.estimation?.toString() }}
+        >
             <SelectTrigger className="w-full h-[40px] cursor-pointer bg-gray-50">
                 <SelectValue placeholder="Оценить" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectItem value="1">1</SelectItem>
-                    <SelectItem value="2">2</SelectItem>
-                    <SelectItem value="3">3</SelectItem>
-                    <SelectItem value="4">4</SelectItem>
-                    <SelectItem value="5">5</SelectItem>
+                    {pick_estimations.map(item => {
+                        return <SelectItem key={item} value={item}>{item}</SelectItem>
+                    })}
                 </SelectGroup>
             </SelectContent>
-        </Select>
+        </Select >
     )
 }

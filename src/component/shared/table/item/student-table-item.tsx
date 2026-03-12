@@ -6,15 +6,13 @@ import { studentTableItem } from '@/@types';
 import { formatDate } from '@/lib/helpers';
 
 
-interface Props {
-    even: boolean
-    item: studentTableItem
+interface Props extends studentTableItem {
 }
 
-export const StudentTableItem: React.FC<Props> = ({ even, item: { Event: { date, id, name }, estimation } }: Props) => {
+export const StudentTableItem: React.FC<Props> = ({ Event: { date, id, name }, estimation }: Props) => {
 
     return (
-        <TableItem even={even}>
+        <TableItem>
             <td>{name}</td>
             <td>{formatDate(date)}</td>
             <td>{Number(!!estimation)}</td>

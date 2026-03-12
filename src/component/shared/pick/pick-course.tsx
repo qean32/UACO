@@ -1,3 +1,4 @@
+import { setValueFormProps, TformFilterSchema } from "@/@types/schema"
 import {
     Select,
     SelectContent,
@@ -7,16 +8,20 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/component/ui/select"
+import { pick_courses } from "@/config"
 
-export function PickCourse() {
+export function PickCourse({ setValue }: setValueFormProps<TformFilterSchema>) {
     return (
-        <Select>
+        <Select name="date" onValueChange={(e) => { setValue('course', e.toString()) }}>
             <SelectTrigger className="w-full h-[40px] cursor-pointer">
                 <SelectValue placeholder="Курс" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Курс</SelectLabel>
+                    {pick_courses.map(item => {
+                        return <SelectItem key={item} value={item}>{item}</SelectItem>
+                    })}
                 </SelectGroup>
             </SelectContent>
         </Select>

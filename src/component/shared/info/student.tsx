@@ -1,25 +1,30 @@
 'use client'
 
-import { cn } from "@/lib/helpers"
+
 import React from 'react';
 import { InfoItem } from './info-item';
+import { SignOut } from "..";
+import { User } from "@root/prisma/generated/prisma/browser";
+import { formatDate } from '@/lib/helpers';
+import { convertRu } from '@/config';
+import { GroupType } from '@/@types';
 
-
-interface Props {
-    className?: string
+interface Props extends Pick<User, "firstName" | "lastName" | "sureName" | "sex" | "dateOfBirth" | "GroupCode"> {
+    Group: GroupType
 }
 
-export const Student: React.FC<Props> = ({ className }: Props) => {
+export const Student: React.FC<Props> = ({ dateOfBirth, firstName, lastName, sex, sureName, GroupCode, Group }: Props) => {
 
     return (
-        <div className={cn("flex h-fit flex-col rounded-md w-1/6 bg-gray-200 p-5", className)}>
+        <div className="flex h-fit flex-col rounded-md w-1/6 bg-gray-100 p-5">
             <p className='pb-5 text-lg font-bold'>Информация</p>
-            <InfoItem title='ФИО' value='Адрей Евгеньевич Шарапин' />
-            <InfoItem title='Группа' value='22адс-2' />
-            <InfoItem title='Отделение' value='Информационные сети' />
-            <InfoItem title='Семестр' value='3' />
-            <InfoItem title='Пол' value='Муж' />
-            <InfoItem title='Дата рождения' value='20.06.2006' />
+            <InfoItem title='ФИО' value={`${firstName} ${lastName} ${sureName}`} />
+            <InfoItem title='Группа' value={GroupCode?.toString() ?? ""} />
+            <InfoItem title='Отделение' value={`${Group.Department.code} ${Group.Department.name}`} />
+            <InfoItem title='Семестр' value={Group.semester?.toString() ?? ""} />
+            <InfoItem title='Пол' value={convertRu[sex]} />
+            <InfoItem title='Дата рождения' value={formatDate(dateOfBirth)} />
+            <SignOut />
         </div>
     );
 }

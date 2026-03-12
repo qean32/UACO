@@ -2,20 +2,15 @@
 
 
 import { EstimationTable } from '@/component/shared/table';
-import { cn } from "@/lib/helpers"
 import React from 'react';
 
-interface Props {
-    className?: string
-}
-
-export default async function Main({ className }: Props) {
-
+export default async function Page({ params }: { params: any }) {
+    const { id } = await params
 
     return (
-        <div className={cn('flex-1 px-15 pt-15', className)}>
+        <div className='flex-1 px-15 pt-15'>
             <div className='w-full min-h-[400px]'>
-                <EstimationTable />
+                <EstimationTable id={id} />
             </div>
         </div>
     );

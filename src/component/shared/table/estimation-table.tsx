@@ -12,13 +12,14 @@ type Props = {
 }
 
 export async function EstimationTable({ id }: Props) {
-    const { items } = await getEstimationTable({ page: 0, userId: id })
+    const { items, end } = await getEstimationTable({ page: 0, userId: id })
 
     return (
         <Table>
             <EstimationColumn />
             <DynamicPagination
                 initialState={items}
+                initEnd={end}
                 staticParam={{ userId: id }}
                 _fetch={getEstimationTable}
                 RenderItem={EstimationTableItem}

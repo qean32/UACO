@@ -12,6 +12,7 @@ export type useDynamicPaginationType = {
     initialState: any[]
     _fetch: Function
     staticParam?: any
+    initEnd: boolean
 }
 
 export const useDynamicPagination = <T,>(
@@ -19,14 +20,15 @@ export const useDynamicPagination = <T,>(
         fillQueries = false,
         initialState,
         _fetch,
-        staticParam
+        staticParam,
+        initEnd,
     }:
         useDynamicPaginationType
 ) => {
     const [items, setItems] = useState<T[]>(initialState)
     const queries = useSearchParams()
     const [page, setPage] = useState(1)
-    const [end, _, on, off] = useBoolean(false)
+    const [end, _, on, off] = useBoolean(initEnd)
 
     if (fillQueries) {
         useMountEvent(() => {

@@ -11,13 +11,14 @@ import { GeneralTableItem } from './item'
 
 export async function GeneralTable({ queries }: { queries: TformFilterSchema }) {
     // @ts-ignore
-    const { column, items } = await getGeneralTable(queries)
+    const { column, items, end } = await getGeneralTable(queries)
 
     return (
         <Table>
             <GeneralColumn events={column} />
             <DynamicPagination
                 initialState={items}
+                initEnd={end}
                 _fetch={getGeneralTable}
                 fillQueries
                 RenderItem={GeneralTableItem}

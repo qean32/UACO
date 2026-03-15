@@ -7,8 +7,8 @@ interface Props extends useDynamicPaginationType {
     RenderItem: React.FC<any>
 }
 
-export const DynamicPagination: React.FC<Props> = ({ _fetch, fillQueries, initialState, RenderItem, staticParam }: Props) => {
-    const { inViewRef, items } = useDynamicPagination({ _fetch, fillQueries, initialState, staticParam })
+export const DynamicPagination: React.FC<Props> = ({ _fetch, fillQueries, initialState, RenderItem, staticParam, initEnd }: Props) => {
+    const { inViewRef, items } = useDynamicPagination({ _fetch, fillQueries, initialState, staticParam, initEnd })
 
     return (
         <>

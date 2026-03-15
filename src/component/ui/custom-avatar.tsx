@@ -6,6 +6,7 @@ import { useUser } from '@/lib/hooks';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
 import Link from 'next/link';
 import React from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 
 interface Props {
@@ -24,7 +25,7 @@ export const CustomAvatar: React.FC<Props> = ({ }: Props) => {
                     </div>
                     <AvatarImage src="/ava.png" className='rounded-full aspect-square w-[45px]' />
                     <AvatarFallback>
-                        <AvatarImage src="/ava.png" className='rounded-full aspect-square w-[45px]' />
+                        <Skeleton height={55} width={180} />
                     </AvatarFallback>
                 </div>
             </Avatar>

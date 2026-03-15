@@ -1,3 +1,4 @@
+import { setValueFormProps, TformCreateEvent } from "@/@types/schema";
 import {
     Select,
     SelectContent,
@@ -11,11 +12,11 @@ import { RTKQKEY } from "@/config";
 import { formatFio } from "@/lib/helpers";
 import { useGetSupervisorsQuery } from "@/store/supervisor";
 
-export function PickSupervisor() {
+export function PickSupervisor({ setValue }: setValueFormProps<TformCreateEvent>) {
     const { data } = useGetSupervisorsQuery(RTKQKEY.getSupervisors);
 
     return (
-        <Select>
+        <Select onValueChange={(e) => setValue("SupervisorId", e.toString())}>
             <SelectTrigger className="w-full h-[40px] cursor-pointer">
                 <SelectValue placeholder="Организатор" />
             </SelectTrigger>

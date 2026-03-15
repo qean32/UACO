@@ -4,7 +4,7 @@ import { getRole } from "@/app/actions"
 import { Role } from "@root/prisma/generated/prisma/enums"
 import { StudentTable } from "./student-table"
 import { SupervisorTable } from "./supervisor-table"
-import { PushEvent } from "../modal"
+import { CreateEvent } from "../modal"
 import { PickPeriod } from "../pick"
 
 export const UserTable: React.FC<{ id: number }> = async ({ id }: { id: number }) => {
@@ -12,7 +12,7 @@ export const UserTable: React.FC<{ id: number }> = async ({ id }: { id: number }
 
     if (user?.role == Role.STUDENT) {
         return (
-            <div className="flex flex-col px-5 rounded-md w-3/4">
+            <div className="flex flex-col px-5 rounded-md w-full ml-5">
                 <p className='text-lg font-medium'>Мероприятия</p>
                 <div className='flex gap-4 py-4'>
                     <p className='font-medium'>Период</p>
@@ -25,10 +25,10 @@ export const UserTable: React.FC<{ id: number }> = async ({ id }: { id: number }
 
     if (user?.role == Role.SUPERVISOR) {
         return (
-            <div className="flex flex-col px-5 rounded-md w-3/4">
+            <div className="flex flex-col px-5 rounded-md w-full ml-5">
                 <div className='pb-6 flex justify-between'>
                     <p className='text-lg font-medium'>Мероприятия</p>
-                    <PushEvent />
+                    <CreateEvent />
                 </div>
                 <SupervisorTable />
             </div>
@@ -37,10 +37,10 @@ export const UserTable: React.FC<{ id: number }> = async ({ id }: { id: number }
 
     if (user?.role == Role.ADMIN) {
         return (
-            <div className="flex flex-col px-5 rounded-md w-3/4">
+            <div className="flex flex-col px-5 rounded-md w-full ml-5">
                 <div className='pb-6 flex justify-between'>
                     <p className='text-lg font-medium'>Мероприятия</p>
-                    <PushEvent />
+                    <CreateEvent />
                 </div>
                 <SupervisorTable />
             </div>

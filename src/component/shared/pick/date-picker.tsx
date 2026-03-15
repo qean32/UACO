@@ -12,13 +12,15 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/component/ui/popover"
-import { setValueFormProps, TformFilterSchema } from "@/@types/schema"
+import { setValueFormProps } from "@/@types/schema"
 
-export function DatePicker({ setValue }: setValueFormProps<TformFilterSchema>) {
+export function DatePicker({ setValue }: setValueFormProps<any>) {
     const [date, setDate] = React.useState<Date>()
     React.useEffect(() => {
-        if (date)
-            setValue("date", date.toString())
+        if (date) {
+
+            setValue("date", date)
+        }
     }, [date])
 
     return (

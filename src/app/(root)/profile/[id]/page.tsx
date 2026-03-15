@@ -10,9 +10,9 @@ export default async function Page({ params }: any) {
     const { id } = await params
 
     return (
-        <div className='flex-1'>
+        <div className='flex-1 px-15'>
             <PersonalAccountTitle id={id} />
-            <div className="flex justify-center gap-7">
+            <div className="flex justify-between">
                 <Information id={id} />
                 <UserTable id={id} />
             </div>

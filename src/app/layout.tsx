@@ -4,6 +4,7 @@ import "./globals.css";
 import "./style/app.css";
 import Link from "next/link";
 import { Root } from "@/component/master";
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 const geistSans = Geist({

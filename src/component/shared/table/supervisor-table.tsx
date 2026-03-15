@@ -9,13 +9,14 @@ import { DynamicPagination } from '@/component/master'
 
 
 export async function SupervisorTable() {
-    const { items } = await getSupervisorTable({ page: 0 })
+    const { items, end } = await getSupervisorTable({ page: 0 })
 
     return (
         <Table>
             <AdminColumn />
             <DynamicPagination
                 initialState={items}
+                initEnd={end}
                 _fetch={getSupervisorTable}
                 RenderItem={SupervisorTableItem}
             />

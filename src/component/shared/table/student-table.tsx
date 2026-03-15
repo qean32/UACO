@@ -12,13 +12,14 @@ interface Props {
 }
 
 export async function StudentTable({ id }: Props) {
-    const { items } = await getStudentTable({ userId: id, page: 0 })
+    const { items, end } = await getStudentTable({ userId: id, page: 0 })
 
     return (
         <Table>
             <StudentColumn />
             <DynamicPagination
                 initialState={items}
+                initEnd={end}
                 staticParam={{ userId: id }}
                 _fetch={getStudentTable}
                 RenderItem={StudentTableItem}

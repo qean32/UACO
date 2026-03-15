@@ -1,24 +1,24 @@
 'use server'
 
-import { generalTableItem, supervisorTableItemType, estimationTableItem, studentTableItem, tableResponse } from "@/@types"
-import { Event, Role, User } from "@root/prisma/generated/prisma/browser"
+import { generalTableItem, supervisorTableItemType, estimationTableItem, studentTableItem, tableResponse, userInfo } from "@/@types"
+import { Event, Role } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
 const DEFAULT_TAKE = 20
 
-export const createEvent = async (data: Event) => {
+export const createEventAction = async (data: Pick<Event, "SupervisorId" | "date" | "name">) => {
     try {
-        const event = await prisma.event.create({ data })
+        const event = await prisma.event.create({ data: { ...data, SupervisorId: Number(data.SupervisorId) } })
         return event
     } catch (error) {
-        console.log('[CreateEvent] Server error', error);
+        console.log('[createEvent] Server error', error);
     }
 }
 
-export const getUserInfo = async (id: number): Promise<User | null> => {
+export const getUserInfo = async (id: number): Promise<userInfo | null> => {
     try {
         // @ts-ignore
-        return prisma.user.findFirstOrThrow(
+        return prisma.user.findFirst(
             {
                 where: { id: Number(id) },
                 omit: { password: true, createdAt: true, updateadAt: true },
@@ -28,7 +28,7 @@ export const getUserInfo = async (id: number): Promise<User | null> => {
             }
         )
     } catch (error) {
-        console.log('[CreateEvent] Server error', error);
+        console.log('[getUserInfo] Server error', error);
         throw (error)
     }
 }
@@ -37,18 +37,21 @@ export const getRole = async (id: number): Promise<{ role: Role } | null> => {
     try {
         return prisma.user.findFirst({ where: { id: Number(id) }, select: { role: true } })
     } catch (error) {
-        console.log('[CreateEvent] Server error', error);
+        console.log('[getRole] Server error', error);
         throw (error)
     }
 }
 
+type getGeneralTableResponse = {
+    column: Pick<Event, "name" | "id">[]
+} & tableResponse<generalTableItem[]>
 export const getGeneralTable = async ({ course, date, department, group, page }: {
     date?: string,
     group?: string
     department?: string
     course?: number
     page?: number
-}): Promise<{ items: generalTableItem[], column: Pick<Event, "name" | "id">[], end: boolean }> => {
+}): Promise<getGeneralTableResponse> => {
     try {
         const skip = page ? page * DEFAULT_TAKE : 0
         const filter = {
@@ -70,7 +73,8 @@ export const getGeneralTable = async ({ course, date, department, group, page }:
                 id: true,
                 name: true
             },
-            where: { ...(date ? { date } : null) }
+            where: { ...(date ? { date } : null) },
+            orderBy: { date: "desc" }
         })
         const students = await prisma.user.findMany({
             select: {
@@ -97,7 +101,7 @@ export const getGeneralTable = async ({ course, date, department, group, page }:
 
         return { items, column: events, end: skip >= await prisma.user.count({ where: filter }) }
     } catch (error) {
-        console.log('[GetEvent] Server error', error);
+        console.log('[getGeneralTable] Server error', error);
         throw (error)
     }
 }
@@ -113,7 +117,7 @@ export const getEstimationTable = async ({ page, userId }: { userId: number, pag
             },
             take: DEFAULT_TAKE,
             skip,
-            orderBy: { createdAt: "asc" }
+            orderBy: { createdAt: "desc" }
         })
         const estimations = await prisma.estimationEvent.findMany(
             {
@@ -129,19 +133,20 @@ export const getEstimationTable = async ({ page, userId }: { userId: number, pag
         const map = new Map(estimations.map(item => [item.Event.id, item]))
         // @ts-ignore
         let items: estimationTableItem[] = events.map(event_item => {
-            if (!map.get(event_item.id)) {
+            const search = map.get(event_item.id)
+            if (!search) {
                 return {
                     estimation: 0,
                     Event: event_item,
                     id: event_item.id
                 }
             }
-            return map.get(event_item.id)
+            return { ...search, id: search.Event.id }
         })
 
         return { items, end: skip >= await prisma.estimationEvent.count() }
     } catch (error) {
-        console.log('[GetEvent] Server error', error);
+        console.log('[getEstimationTable] Server error', error);
         throw (error)
     }
 }
@@ -157,12 +162,13 @@ export const getSupervisorTable = async ({ page }: { page: number }): Promise<ta
                 SupervisorId: true
             },
             take: DEFAULT_TAKE,
-            skip
+            skip,
+            orderBy: { date: "desc" }
         })
 
         return { items: events, end: skip >= await prisma.event.count() }
     } catch (error) {
-        console.log('[GetEvent] Server error', error);
+        console.log('[getSupervisorTable] Server error', error);
         throw (error)
     }
 }
@@ -179,13 +185,14 @@ export const getStudentTable = async ({ page, userId }: { userId: number, page: 
                     id: true
                 },
                 take: DEFAULT_TAKE,
-                skip
+                skip,
+                // orderBy: { createdAt: "asc" }
             },
         )
 
         return { items: estimations, end: skip >= await prisma.estimationEvent.count({ where: { UserId: Number(userId) } }) }
     } catch (error) {
-        console.log('[GetEvent] Server error', error);
+        console.log('[getStudentTable] Server error', error);
         throw (error)
     }
 }
@@ -200,7 +207,7 @@ export const estimationEvent = async ({ estimation, EventId, UserId }: { UserId:
             }
         })
     } catch (error) {
-        console.log('[CreateEvent] Server error', error);
+        console.log('[estimationEvent] Server error', error);
         throw (error);
     }
 }

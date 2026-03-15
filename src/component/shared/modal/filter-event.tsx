@@ -36,7 +36,7 @@ export function FilterEvent() {
             <DialogContent className="sm:max-w-[425px]">
                 <FormProvider {...form}>
                     <form onSubmit={submitHandler}>
-                        <DialogHeader>
+                        <DialogHeader className="pb-5">
                             <DialogTitle><Title>Фильтры</Title></DialogTitle>
                             <DialogDescription>Выберите курс, отделение, группу, или дату</DialogDescription>
                         </DialogHeader>
@@ -51,7 +51,7 @@ export function FilterEvent() {
                                 <Button variant="outline" className="text-dark">Отмена</Button>
                             </DialogClose>
                             <DialogClose asChild>
-                                <Button type="submit" className="bg-green-600 hover:bg-green-700 cursor-pointer">Фильтр</Button>
+                                <Button type="submit" variant={'primary'}>Фильтр</Button>
                             </DialogClose>
                         </DialogFooter>
                     </form>

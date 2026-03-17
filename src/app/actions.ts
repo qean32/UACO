@@ -109,6 +109,7 @@ export const getGeneralTable = async ({ course, date, department, group, page }:
 export const getEstimationTable = async ({ page, userId }: { userId: number, page: number }): Promise<tableResponse<estimationTableItem[]>> => {
     try {
         const skip = page ? page * DEFAULT_TAKE : 0
+
         const events = await prisma.event.findMany({
             select: {
                 id: true,
@@ -117,34 +118,54 @@ export const getEstimationTable = async ({ page, userId }: { userId: number, pag
             },
             take: DEFAULT_TAKE,
             skip,
-            orderBy: { createdAt: "desc" }
+            orderBy: { date: "desc" }
         })
+
         const estimations = await prisma.estimationEvent.findMany(
             {
-                where: { UserId: userId },
+                where: { UserId: Number(userId) },
                 select: {
                     Event: { select: { name: true, id: true, date: true } },
                     estimation: true,
                 },
                 take: DEFAULT_TAKE,
                 skip,
+                orderBy: { createdAt: "desc" }
             }
         )
+
+        const avgAndCount = await prisma.estimationEvent.groupBy({
+            by: "EventId",
+            _avg: { estimation: true },
+            _count: true,
+        })
+
+        const _map = new Map(avgAndCount.map(item => [item.EventId, item]))
         const map = new Map(estimations.map(item => [item.Event.id, item]))
+
         // @ts-ignore
         let items: estimationTableItem[] = events.map(event_item => {
             const search = map.get(event_item.id)
+            const _search = _map.get(event_item.id)
+
             if (!search) {
                 return {
                     estimation: 0,
                     Event: event_item,
-                    id: event_item.id
+                    id: event_item.id,
+                    avg: _search?._avg.estimation ?? 0,
+                    count: _search?._count ?? 0
                 }
             }
-            return { ...search, id: search.Event.id }
+            return {
+                ...search,
+                id: search?.Event.id,
+                avg: _search?._avg.estimation ?? 0,
+                count: _search?._count ?? 0
+            }
         })
 
-        return { items, end: skip >= await prisma.estimationEvent.count() }
+        return { items, end: skip >= await prisma.event.count() }
     } catch (error) {
         console.log('[getEstimationTable] Server error', error);
         throw (error)

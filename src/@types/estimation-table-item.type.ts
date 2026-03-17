@@ -4,4 +4,6 @@ export type estimationTableItem = {
     estimation: number;
     id: number
     Event: Pick<Event, "id" | "date" | "name">;
+    avg: number
+    count: number
 }

@@ -3,6 +3,7 @@ export { PersonalAccountTitle } from './personal-account-title'
 export { Title } from './title'
 export { ArrowBack } from './arrow-back'
 export { Logo } from './logo'
+export { DangerText } from './danger-text'
 
 export * as Dialog from './alert-dialog'
 export { Avatar, AvatarFallback, AvatarImage } from './avatar'

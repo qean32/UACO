@@ -6,6 +6,7 @@ import { StudentTable } from "./student-table"
 import { SupervisorTable } from "./supervisor-table"
 import { CreateEvent } from "../modal"
 import { PickPeriod } from "../pick"
+import { QueryDrop } from ".."
 
 export const UserTable: React.FC<{ id: number }> = async ({ id }: { id: number }) => {
     const user = await getRole(id)
@@ -23,24 +24,15 @@ export const UserTable: React.FC<{ id: number }> = async ({ id }: { id: number }
         )
     }
 
-    if (user?.role == Role.SUPERVISOR) {
+    if (user?.role == Role.SUPERVISOR || user?.role == Role.ADMIN) {
         return (
             <div className="flex flex-col px-5 rounded-md w-full ml-5">
                 <div className='pb-6 flex justify-between'>
                     <p className='text-lg font-medium'>Мероприятия</p>
-                    <CreateEvent />
-                </div>
-                <SupervisorTable />
-            </div>
-        )
-    }
-
-    if (user?.role == Role.ADMIN) {
-        return (
-            <div className="flex flex-col px-5 rounded-md w-full ml-5">
-                <div className='pb-6 flex justify-between'>
-                    <p className='text-lg font-medium'>Мероприятия</p>
-                    <CreateEvent />
+                    <div className="flex gap-2">
+                        <QueryDrop />
+                        <CreateEvent />
+                    </div>
                 </div>
                 <SupervisorTable />
             </div>

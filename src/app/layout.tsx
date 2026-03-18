@@ -5,6 +5,7 @@ import "./style/app.css";
 import Link from "next/link";
 import { Root } from "@/component/master";
 import 'react-loading-skeleton/dist/skeleton.css'
+import { Toaster } from "@/component/ui";
 
 
 const geistSans = Geist({
@@ -18,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "",
+  title: "Ульяновский авиационный колледж - просмотр",
   description: "",
 };
 
@@ -36,6 +37,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
       </head>
       <Root>
+        <Toaster />
 
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-lg`}>
           <div className="fixed bottom-0 right-0 z-50 flex gap-4 text-sm p-5">

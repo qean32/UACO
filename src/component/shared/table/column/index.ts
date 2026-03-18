@@ -1,4 +1,6 @@
 export { EstimationColumn } from './estimation-column'
-export { AdminColumn } from './admin-column'
+export { SupervisorColumn } from './supervisor-column'
 export { GeneralColumn } from './general-column'
+export { GeneralColumnItem } from './general-column-item'
 export { StudentColumn } from './student-column'
+export { SortColumnItem } from './sort-column-item'

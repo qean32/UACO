@@ -1,3 +1,5 @@
 export { cn } from './utils'
 export { formatDate } from './format-date'
 export { formatFio } from './format-fio'
+export { getGataId } from './get-data-id'
+export { toBoolean } from './to-boolean'

@@ -10,20 +10,23 @@ import Skeleton from 'react-loading-skeleton';
 
 
 interface Props {
+    user: ReturnType<typeof useUser>
 }
 
-export const CustomAvatar: React.FC<Props> = ({ }: Props) => {
-    const user = useUser()
+export const CustomAvatar: React.FC<Props> = ({ user }: Props) => {
 
     return (
-        <Link href={`/profile/${user?.id}`} className='h-[60px] w-[300px]'>
+        <Link href={`/profile/${user?.id}`} className='h-[60px] w-[300px] flex items-center'>
             <Avatar>
                 <div className="flex gap-4 items-center">
                     <div className='font-medium'>
-                        {user?.id && <p className='translate-y-0.5'>{formatFio({ firstName: user.firstName, lastName: user.lastName, sureName: user.sureName })}</p>}
+                        {user?.id ?
+                            <p className='translate-y-0.5'>{formatFio({ firstName: user.firstName, lastName: user.lastName, sureName: user.sureName })}</p>
+                            :
+                            <p>Вход</p>}
                         {user?.id && <p className='text-sm'>{convertRu[user.role]}</p>}
                     </div>
-                    <AvatarImage src="/ava.png" className='rounded-full aspect-square w-[45px]' />
+                    <AvatarImage src="/default-ava.webp" className='rounded-full aspect-square w-[44px]' />
                     <AvatarFallback>
                         <Skeleton height={55} width={180} />
                     </AvatarFallback>

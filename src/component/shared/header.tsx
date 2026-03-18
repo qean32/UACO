@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { CustomAvatar, Logo, Title } from '@/component/ui';
 import { usePathname } from 'next/navigation'
+import { useUser } from '@/lib/hooks';
 
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ }: Props) => {
     const pathname = usePathname()
+    const user = useUser()
 
     return (
         <header className="flex justify-around items-center py-2">
@@ -20,12 +22,12 @@ export const Header: React.FC<Props> = ({ }: Props) => {
                     <Title size='text-xl' color={!(pathname == '/') ? '' : 'primary-color'}>
                         Основная таблица</Title>
                 </Link>
-                <Link href={'/estimation'}>
-                    <Title size='text-xl' color={!(pathname == '/estimation') ? '' : 'primary-color'}>
+                <Link href={`/estimation/${user?.id ?? 0}`}>
+                    <Title size='text-xl' color={!(pathname == `/estimation/${user?.id ?? 0}`) ? '' : 'primary-color'}>
                         Оценки</Title>
                 </Link>
             </div>
-            <CustomAvatar />
+            <CustomAvatar user={user} />
         </header>
     );
 }

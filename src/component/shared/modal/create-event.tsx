@@ -26,6 +26,7 @@ export function CreateEvent() {
             // @ts-ignore
             createEventAction(data)
         })
+
     return (
         <Dialog>
 

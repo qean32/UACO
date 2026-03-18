@@ -14,19 +14,18 @@ import {
 import { DatePicker, Title } from "../../ui"
 import { PickCourse, PickGroup, PickDepartment } from "@/component/shared/pick"
 import { FormProvider } from "react-hook-form"
-import { useMyForm, useFilterEvent } from "@/lib/hooks"
+import { useMyForm, usePushQuery } from "@/lib/hooks"
 import { formFilterSchema, TformFilterSchema } from "@/@types/schema"
 
 export function FilterEvent() {
-    const { push } = useFilterEvent()
+    const { push } = usePushQuery()
 
     const { form, submitHandler, setValue } = useMyForm<TformFilterSchema>(
         formFilterSchema,
         (data: TformFilterSchema) => {
             push(data)
             form.reset()
-        }
-    )
+        })
 
     return (
         <Dialog>

@@ -17,7 +17,7 @@ interface Props extends Pick<User, "firstName" | "lastName" | "sureName" | "sex"
 export const Supervisor: React.FC<Props> = ({ dateOfBirth, firstName, lastName, sex, sureName, Group }: Props) => {
 
     return (
-        <div className="flex h-fit flex-col rounded-md w-1/6 bg-gray-100 p-5">
+        <div className="flex h-fit flex-col rounded-md w-1/6 min-w-[220px] bg-gray-100 p-5">
             <p className='pb-5 text-lg font-bold'>Информация</p>
             <InfoItem title='ФИО' value={`${firstName} ${lastName} ${sureName}`} />
             <InfoItem title='Отделение' value={`${Group?.Department?.code} ${Group?.Department?.name}`} />

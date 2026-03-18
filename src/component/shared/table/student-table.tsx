@@ -1,6 +1,5 @@
 'use server'
 
-import React from 'react'
 import { StudentTableItem } from './item'
 import { StudentColumn } from './column'
 import { getStudentTable } from '@/app/actions'
@@ -13,6 +12,7 @@ interface Props {
 
 export async function StudentTable({ id }: Props) {
     const { items, end } = await getStudentTable({ userId: id, page: 0 })
+    console.log(items)
 
     return (
         <Table>

@@ -10,6 +10,10 @@
     background-color: var(--main);
 }
 
-p {
-    color: rgb(19, 19, 19);
+.text-black {
+    color: black !important;
+}
+
+.actionButton {
+    padding-block: 15px !important;
 }

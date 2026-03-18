@@ -14,25 +14,23 @@ export const authOptions: AuthOptions = {
             // @ts-ignore
             async authorize(credentials) {
                 if (!credentials) {
-                    return null;
+                    throw new Error("")
                 }
 
-                const values = {
-                    email: credentials.email,
-                };
-
                 const findUser = await prisma.user.findFirst({
-                    where: values,
+                    where: {
+                        email: credentials.email,
+                    },
                 });
 
                 if (!findUser) {
-                    return null;
+                    throw new Error('Неверный пароль или логин')
                 }
 
                 const isPasswordValid = await compare(credentials.password, findUser.password);
 
                 if (!isPasswordValid) {
-                    return null;
+                    throw new Error('Неверный пароль или логин')
                 }
 
                 return {
@@ -67,16 +65,12 @@ export const authOptions: AuthOptions = {
                 }
 
                 await prisma.user.create({
+                    // @ts-ignore
                     data: {
-                        email: user.email,
-                        password: hashSync(user.id.toString(), 6),
-                        dateOfBirth: "",
-                        firstName: "",
-                        lastName: "",
-                        sureName: "",
-                        GroupCode: "",
                         role: "STUDENT",
                         sex: "FEMALE",
+                        ...user,
+                        password: hashSync(user.id.toString(), 6),
                     },
                 });
 

@@ -2,6 +2,10 @@
 
 import React from 'react';
 import { Event } from '@prisma'
+import { usePushQuery } from '@/lib/hooks';
+import { getGataId } from '@/lib/helpers';
+import { GeneralColumnItem } from '.';
+import { useSearchParams } from 'next/navigation';
 
 
 interface Props {
@@ -9,20 +13,21 @@ interface Props {
 }
 
 export const GeneralColumn: React.FC<Props> = ({ events }: Props) => {
+    const { push } = usePushQuery()
+    const searchParams = useSearchParams()
+    const EventId = searchParams.get("EventId")
+
+    const filter = (e: React.MouseEvent<HTMLDivElement>) => {
+        push({ EventId: getGataId(e) })
+    }
 
     return (
         <thead className="py-3 bg-gray-200">
-            <tr>
+            <tr onClick={filter}>
                 <th className="bg-gray-200">Студент</th>
                 {!!events.length &&
-                    events.map(({ id, name }) => {
-                        return <th key={id}
-                            className='hover-th relative max-w-[100px] hover:max-w-[500px] transition-all duration-300'
-                        >
-                            <div className="overflow-hidden px-2 w-full hover:px-5">
-                                {name}
-                            </div>
-                        </th>
+                    events.map((item) => {
+                        return <GeneralColumnItem key={item.id} {...item} isSort={item.id == (EventId ?? 0)} />
                     })
                 }
             </tr>

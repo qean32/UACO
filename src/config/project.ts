@@ -21,3 +21,11 @@ export const RTKQKEY = {
     getGroups: "getGroups",
     bestGroups: "bestGroups",
 }
+
+export const toastConfig = {
+    classNames: { description: "text-black", actionButton: "actionButton" },
+    action: {
+        label: "Готово",
+        onClick: () => console.log("Undo"),
+    },
+}

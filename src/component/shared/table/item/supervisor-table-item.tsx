@@ -12,15 +12,16 @@ import { useUser } from '@/lib/hooks';
 interface Props extends supervisorTableItemType {
 }
 
-export const SupervisorTableItem: React.FC<Props> = ({ date, name, SupervisorId }: Props) => {
+export const SupervisorTableItem: React.FC<Props> = ({ date, name, SupervisorId, avg, count }: Props) => {
     const user = useUser()
 
     return (
         <TableItem>
             <td>{name}</td>
-            <td>4.1</td>
             <td>{formatDate(date)}</td>
-            <td><Button disabled={SupervisorId != user?.id || user?.role == Role.ADMIN} variant='danger'>Удалить</Button></td>
+            <td>{avg}</td>
+            <td>{count}</td>
+            <td><Button disabled={(SupervisorId != user?.id && user?.role != Role.ADMIN)} variant='danger'>Удалить</Button></td>
         </TableItem>
     );
 }

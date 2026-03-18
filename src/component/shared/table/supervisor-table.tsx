@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { SupervisorTableItem } from './item'
-import { AdminColumn } from './column'
+import { SupervisorColumn } from './column'
 import { getSupervisorTable } from '@/app/actions'
 import { Table } from './table'
 import { DynamicPagination } from '@/component/master'
@@ -13,8 +13,9 @@ export async function SupervisorTable() {
 
     return (
         <Table>
-            <AdminColumn />
+            <SupervisorColumn />
             <DynamicPagination
+                fillQueries={true}
                 initialState={items}
                 initEnd={end}
                 _fetch={getSupervisorTable}

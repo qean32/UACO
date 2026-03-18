@@ -1,10 +1,19 @@
 'use client'
 
-import { useFilterEvent } from "@/lib/hooks"
+import { usePushQuery } from "@/lib/hooks"
 import { Button } from "../ui"
+import { toast } from "sonner"
+import { toastConfig } from "@/config"
 
 export const QueryDrop: React.FC = () => {
-    const { clear } = useFilterEvent()
+    const { clear } = usePushQuery()
 
-    return <Button onClick={() => clear()}>Сбросить фильтр</Button>
+    return <Button onClick={() => {
+        clear();
+        toast("Фильтрация и сортировка сброшена!", {
+            description: "Вы сбросили query",
+            position: "top-center",
+            ...toastConfig
+        })
+    }}>Сбросить фильтр</Button>
 }

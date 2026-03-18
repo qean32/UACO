@@ -42,16 +42,20 @@ export const getRole = async (id: number): Promise<{ role: Role } | null> => {
     }
 }
 
-type getGeneralTableResponse = {
-    column: Pick<Event, "name" | "id">[]
-} & tableResponse<generalTableItem[]>
-export const getGeneralTable = async ({ course, date, department, group, page }: {
+type generalTableFilters = {
     date?: string,
     group?: string
     department?: string
     course?: number
     page?: number
-}): Promise<getGeneralTableResponse> => {
+}
+type generaltableProps = {
+    EventId: number
+} & generalTableFilters
+type getGeneralTableResponse = {
+    column: Pick<Event, "name" | "id">[]
+} & tableResponse<generalTableItem[]>
+export const getGeneralTable = async ({ course, date, department, group, page, EventId }: generaltableProps): Promise<getGeneralTableResponse> => {
     try {
         const skip = page ? page * DEFAULT_TAKE : 0
         const filter = {
@@ -66,6 +70,7 @@ export const getGeneralTable = async ({ course, date, department, group, page }:
                 },
                 { ...(department ? { Group: { Department: { name: department } } } : null) },
                 { ...(group ? { GroupCode: group } : null) },
+                { ...(EventId ? { estimationsEvents: { some: { EventId: Number(EventId) } } } : null) }
             ],
         }
         const events = await prisma.event.findMany({
@@ -99,7 +104,7 @@ export const getGeneralTable = async ({ course, date, department, group, page }:
             }
         })
 
-        return { items, column: events, end: skip >= await prisma.user.count({ where: filter }) }
+        return { items, column: events, end: skip + DEFAULT_TAKE >= await prisma.user.count({ where: filter }) }
     } catch (error) {
         console.log('[getGeneralTable] Server error', error);
         throw (error)
@@ -165,14 +170,14 @@ export const getEstimationTable = async ({ page, userId }: { userId: number, pag
             }
         })
 
-        return { items, end: skip >= await prisma.event.count() }
+        return { items, end: skip + DEFAULT_TAKE >= await prisma.event.count() }
     } catch (error) {
         console.log('[getEstimationTable] Server error', error);
         throw (error)
     }
 }
 
-export const getSupervisorTable = async ({ page }: { page: number }): Promise<tableResponse<supervisorTableItemType[]>> => {
+export const getSupervisorTable = async ({ page, countEstimations, avg }: { page: number, countEstimations?: boolean, avg?: boolean }): Promise<tableResponse<supervisorTableItemType[]>> => {
     try {
         const skip = page ? page * DEFAULT_TAKE : 0
         const events = await prisma.event.findMany({
@@ -184,10 +189,25 @@ export const getSupervisorTable = async ({ page }: { page: number }): Promise<ta
             },
             take: DEFAULT_TAKE,
             skip,
-            orderBy: { date: "desc" }
+            orderBy: { ...(countEstimations ? { estimationsEvents: { _count: "desc" } } : { date: "desc" }) }
         })
+        const avgAndCount = await prisma.estimationEvent.groupBy({
+            by: "EventId",
+            orderBy: { _avg: { estimation: "desc" } },
+            _avg: { estimation: true },
+            _count: true,
+        })
+        const _map = new Map(avgAndCount.map(item => [item.EventId, item]))
+        // @ts-ignore
+        let items: supervisorTableItemType[] = events.map(item => {
+            const search = _map.get(item.id)
+            return { ...item, avg: search?._avg.estimation ?? 0, count: search?._count ?? 0 }
+        })
+        if (avg) {
+            items = items.sort((a, b) => b.avg - a.avg)
+        }
 
-        return { items: events, end: skip >= await prisma.event.count() }
+        return { items, end: skip + DEFAULT_TAKE >= await prisma.event.count() }
     } catch (error) {
         console.log('[getSupervisorTable] Server error', error);
         throw (error)
@@ -207,11 +227,11 @@ export const getStudentTable = async ({ page, userId }: { userId: number, page: 
                 },
                 take: DEFAULT_TAKE,
                 skip,
-                // orderBy: { createdAt: "asc" }
+                orderBy: { createdAt: "asc" }
             },
         )
 
-        return { items: estimations, end: skip >= await prisma.estimationEvent.count({ where: { UserId: Number(userId) } }) }
+        return { items: estimations, end: skip + DEFAULT_TAKE >= await prisma.estimationEvent.count({ where: { UserId: Number(userId) } }) }
     } catch (error) {
         console.log('[getStudentTable] Server error', error);
         throw (error)

@@ -5,6 +5,7 @@ import React from 'react';
 import { CustomAvatar, Logo, Title } from '@/component/ui';
 import { usePathname } from 'next/navigation'
 import { useUser } from '@/lib/hooks';
+import { Role } from '@root/prisma/generated/prisma/enums';
 
 
 interface Props {
@@ -26,6 +27,11 @@ export const Header: React.FC<Props> = ({ }: Props) => {
                     <Title size='text-xl' color={!(pathname == `/estimation/${user?.id ?? 0}`) ? '' : 'primary-color'}>
                         Оценки</Title>
                 </Link>
+                {user?.role == Role.ADMIN &&
+                    <Link href={`/admin`}>
+                        <Title size='text-xl' color={!(pathname == '/admin') ? '' : 'primary-color'}>
+                            Админ</Title>
+                    </Link>}
             </div>
             <CustomAvatar user={user} />
         </header>

@@ -12,6 +12,17 @@ export const createEventAction = async (data: Pick<Event, "SupervisorId" | "date
         return event
     } catch (error) {
         console.log('[createEvent] Server error', error);
+        throw (error)
+    }
+}
+
+export const deleteEventAction = async ({ id }: { id: number }) => {
+    try {
+        const event = await prisma.event.delete({ where: { id } })
+        return true
+    } catch (error) {
+        console.log('[deleteEvent] Server error', error);
+        throw (error)
     }
 }
 

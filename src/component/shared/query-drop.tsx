@@ -12,7 +12,6 @@ export const QueryDrop: React.FC = () => {
         clear();
         toast("Фильтрация и сортировка сброшена!", {
             description: "Вы сбросили query",
-            position: "top-center",
             ...toastConfig
         })
     }}>Сбросить фильтр</Button>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./style/app.css";
 import Link from "next/link";
@@ -7,16 +6,6 @@ import { Root } from "@/component/master";
 import 'react-loading-skeleton/dist/skeleton.css'
 import { Toaster } from "@/component/ui";
 
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Ульяновский авиационный колледж - просмотр",
@@ -37,9 +26,9 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
       </head>
       <Root>
-        <Toaster />
 
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-lg`}>
+        <body className={`antialiased text-lg`}>
+          <Toaster />
           <div className="fixed bottom-0 right-0 z-50 flex gap-4 text-sm p-5">
             <Link href='/'><p>главная</p></Link>
             <Link href='/profile/5'><p>профиль</p></Link>

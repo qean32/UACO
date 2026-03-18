@@ -16,7 +16,7 @@ interface Props {
 export const CustomAvatar: React.FC<Props> = ({ user }: Props) => {
 
     return (
-        <Link href={`/profile/${user?.id}`} className='h-[60px] w-[300px] flex items-center'>
+        <Link href={`/profile/${user?.id}`} className='h-[60px] flex items-center'>
             <Avatar>
                 <div className="flex gap-4 items-center">
                     <div className='font-medium'>

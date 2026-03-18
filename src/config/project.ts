@@ -22,8 +22,10 @@ export const RTKQKEY = {
     bestGroups: "bestGroups",
 }
 
-export const toastConfig = {
-    classNames: { description: "text-black", actionButton: "actionButton" },
+export const toastConfig: {
+} = {
+    classNames: { description: "text-black", actionButton: "actionButton primary-bg" },
+    position: "top-center",
     action: {
         label: "Готово",
         onClick: () => console.log("Undo"),

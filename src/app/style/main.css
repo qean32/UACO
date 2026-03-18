@@ -3,11 +3,11 @@
 }
 
 .primary-bg {
-    background-color: var(--main);
+    background-color: var(--main) !important;
 }
 
 .primary-bg-dark {
-    background-color: var(--main);
+    background-color: var(--main) !important;
 }
 
 .text-black {
@@ -16,4 +16,9 @@
 
 .actionButton {
     padding-block: 15px !important;
+}
+
+
+* {
+    font-family: "Roboto Condensed", sans-serif;
 }

@@ -17,14 +17,18 @@ import { useMyForm } from "@/lib/hooks"
 import { formCreateEvent, TformCreateEvent } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
 import { createEventAction } from "@/app/actions"
+import { toast } from "sonner"
+import { toastConfig } from "@/config"
+import { handleAccess, handleCatch } from "@/lib/helpers"
 
 export function CreateEvent() {
     const { form, setValue, submitHandler } = useMyForm<TformCreateEvent>(
         formCreateEvent,
         (data: TformCreateEvent) => {
-            console.log(data)
             // @ts-ignore
             createEventAction(data)
+                .then(res => handleAccess(res, { title: "Мероприятие добавлено!", description: "Вы добавили мероприятие" }))
+                .catch(handleCatch)
         })
 
     return (
@@ -49,7 +53,9 @@ export function CreateEvent() {
                             <DialogClose asChild>
                                 <Button variant="outline" className="text-dark">Отмена</Button>
                             </DialogClose>
-                            <Button type="submit" variant={'primary'}>Сохранить</Button>
+                            <DialogClose asChild>
+                                <Button type="submit" variant={'primary'}>Добавить</Button>
+                            </DialogClose>
                         </DialogFooter>
                     </form>
                 </FormProvider>

@@ -5,20 +5,21 @@ import { SupervisorTableItem } from './item'
 import { AdminColumn } from './column'
 import { getSupervisorTable } from '@/app/actions'
 import { Table } from './table'
+import { DynamicPagination } from '@/component/master'
 
 
 export async function SupervisorTable() {
-    const events = await getSupervisorTable()
+    const { items, end } = await getSupervisorTable({ page: 0 })
 
     return (
         <Table>
             <AdminColumn />
-
-            <tbody>
-                {!!events?.length && events.map(item => {
-                    return <SupervisorTableItem {...item} key={item.id} />
-                })}
-            </tbody>
+            <DynamicPagination
+                initialState={items}
+                initEnd={end}
+                _fetch={getSupervisorTable}
+                RenderItem={SupervisorTableItem}
+            />
         </Table>
     )
 }

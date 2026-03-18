@@ -29,5 +29,5 @@ export const useMyForm = <T extends FieldValues,>(
     const submitHandler = form.handleSubmit(onSubmit, onError)
 
 
-    return { submitHandler, form, clear: form.reset }
+    return { submitHandler, form, clear: form.reset, setValue: form.setValue }
 }

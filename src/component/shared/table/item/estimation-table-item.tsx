@@ -10,16 +10,16 @@ import { PickEstimation } from '@/component/shared/pick';
 interface Props extends estimationTableItem {
 }
 
-export const EstimationTableItem: React.FC<Props> = ({ Event: { date, id, name }, estimation }: Props) => {
+export const EstimationTableItem: React.FC<Props> = ({ Event: { date, id, name }, estimation, avg, count }: Props) => {
 
     return (
         <TableItem>
             <td>{name}</td>
             <td className='px-3'>
                 <PickEstimation id={id} estimation={estimation} /></td>
-            <td>4.1</td>
+            <td>{avg}</td>
             <td>{formatDate(date)}</td>
-            <td>52</td>
+            <td>{count}</td>
         </TableItem>
     );
 }

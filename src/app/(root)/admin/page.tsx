@@ -1,0 +1,13 @@
+'use server'
+
+
+import React from 'react';
+
+export default async function Page({ params }: { params: any }) {
+    const { id } = await params
+
+    return (
+        <div className='flex-1 px-15 pt-15'>
+        </div >
+    );
+}

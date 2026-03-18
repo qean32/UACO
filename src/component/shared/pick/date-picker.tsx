@@ -12,9 +12,16 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/component/ui/popover"
+import { setValueFormProps } from "@/@types/schema"
 
-export function DatePicker() {
+export function DatePicker({ setValue }: setValueFormProps<any>) {
     const [date, setDate] = React.useState<Date>()
+    React.useEffect(() => {
+        if (date) {
+
+            setValue("date", date)
+        }
+    }, [date])
 
     return (
         <Popover>

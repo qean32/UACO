@@ -4,16 +4,11 @@
 import React from 'react';
 import { InfoItem } from './info-item';
 import { SignOut } from "..";
-import { User } from "@root/prisma/generated/prisma/browser";
 import { formatDate } from '@/lib/helpers';
 import { convertRu } from '@/config';
-import { GroupType } from '@/@types';
+import { userInfo } from '@/@types';
 
-interface Props extends Pick<User, "firstName" | "lastName" | "sureName" | "sex" | "dateOfBirth" | "GroupCode"> {
-    Group: GroupType
-}
-
-export const Student: React.FC<Props> = ({ dateOfBirth, firstName, lastName, sex, sureName, GroupCode, Group }: Props) => {
+export const Student: React.FC<userInfo> = ({ dateOfBirth, firstName, lastName, sex, sureName, GroupCode, Group }: userInfo) => {
 
     return (
         <div className="flex h-fit flex-col rounded-md w-1/6 bg-gray-100 p-5">

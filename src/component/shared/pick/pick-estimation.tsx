@@ -12,7 +12,6 @@ import { usePostEstimationMutation } from "@/store/estimation"
 
 export function PickEstimation(props: { estimation: number, id: number }) {
     const user = useUser()
-    console.log(user)
     const [trigger] = usePostEstimationMutation()
 
     const changeHandler = (e: string) => {

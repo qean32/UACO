@@ -1,18 +1,23 @@
+import { sortingDirectionEnum } from "@/@types"
 import { BookmarkCheck } from "lucide-react"
 import { ReactNode } from "react"
 
 interface Props {
-    sort?: boolean
-    nameSort: string
+    sort: string
+    isCurrent: boolean
+    direction: boolean
     children: ReactNode
-    push: any
+    push: (params: any) => void
 }
 
-export const SortColumnItem: React.FC<Props> = ({ children, nameSort, sort, push }: Props) => {
+export const SortColumnItem: React.FC<Props> = ({ children, isCurrent, sort, push, direction }: Props) => {
     return (
-        <th className='w-1/12  cursor-pointer' onClick={() => { push({ [nameSort]: true }) }}>
+        <th className='w-1/12  cursor-pointer' onClick={() => push({
+            sort, direction: !direction ? sortingDirectionEnum.desc : sortingDirectionEnum.asc
+        })}
+        >
             <div className="flex items-center gap-1 justify-center">
-                {sort && <BookmarkCheck />}
+                {isCurrent && <BookmarkCheck />}
                 {children}
             </div>
         </th>

@@ -11,7 +11,6 @@ export const usePushQuery = <T,>() => {
         router.push(
             // @ts-ignore
             `${Object.entries(data).reduce((prev, curr) => { return prev + `${curr[0]}=${curr[1]}&` }, "?")}`,
-            { scroll: true }
         )
     }
 

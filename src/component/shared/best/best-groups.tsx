@@ -2,7 +2,7 @@
 
 import { useGetBestGroupsQuery } from "@/store/best";
 import { RTKQKEY } from "@/config";
-import { Title } from "../ui";
+import { Title } from "@/component/ui";
 import Skeleton from 'react-loading-skeleton'
 
 

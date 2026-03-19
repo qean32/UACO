@@ -11,40 +11,34 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/component/ui/dialog"
-import { FormInput, Title } from "../../ui"
+import { FormInput, InputFile, InsertCode, Title } from "@/component/ui"
 import { PickSupervisor, DatePicker } from "@/component/shared/pick"
 import { useMyForm } from "@/lib/hooks"
 import { formCreateEvent, TformCreateEvent } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
-import { createEventAction } from "@/app/actions"
 import { handleAccess, handleCatch } from "@/lib/helpers"
+import { guidePushStudents } from "@/config"
 
-export function CreateEvent() {
+export function PushStudents() {
     const { form, setValue, submitHandler } = useMyForm<TformCreateEvent>(
         formCreateEvent,
-        (data: TformCreateEvent) => {
-            // @ts-ignore
-            createEventAction(data)
-                .then(res => handleAccess(res, { title: "Мероприятие добавлено!", description: "Вы добавили мероприятие" }))
-                .catch(handleCatch)
-        })
+        (data: TformCreateEvent) => { })
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant={'primary'}>Добавить мероприятие</Button>
+                <Button variant={'primary'}>Добавить студентов</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <FormProvider {...form}>
                     <form onSubmit={submitHandler}>
                         <DialogHeader className="pb-5">
-                            <DialogTitle><Title>Добавить мероприятие</Title></DialogTitle>
-                            <DialogDescription>Введите название, дату и организатора</DialogDescription>
+                            <DialogTitle><Title>Добавить студентов</Title></DialogTitle>
+                            <DialogDescription>Для добавления новых студентов в систему набходим файл формата ".json" с данными формата</DialogDescription>
+                            <InsertCode className="max-w-[375px]">{guidePushStudents}</InsertCode>
                         </DialogHeader>
                         <div className="grid gap-4">
-                            <FormInput placeholder="Название" className="h-[40px]" name="name" />
-                            <DatePicker setValue={setValue} />
-                            <PickSupervisor setValue={setValue} />
+                            <InputFile />
                         </div>
                         <DialogFooter className="pt-8">
                             <DialogClose asChild>

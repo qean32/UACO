@@ -18,7 +18,17 @@
     padding-block: 15px !important;
 }
 
-
 * {
     font-family: "Roboto Condensed", sans-serif;
+}
+
+pre {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 10px;
+    overflow: auto;
+}
+
+code {
+    font-family: monospace;
 }

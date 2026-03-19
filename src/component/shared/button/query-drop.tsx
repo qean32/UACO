@@ -1,7 +1,7 @@
 'use client'
 
 import { usePushQuery } from "@/lib/hooks"
-import { Button } from "../ui"
+import { Button } from "@/component/ui"
 import { toast } from "sonner"
 import { toastConfig } from "@/config"
 

@@ -31,3 +31,5 @@ export const toastConfig: {
         onClick: () => console.log("Undo"),
     },
 }
+
+export const guidePushStudents = '[\n {\n   firstName    "Иван" \n   lastName     "Иванов" \n   sureName     "Иванович" \n   dateOfBirth  "20.05.2006" \n   sex          "MALE" / "FEMALE" \n   GroupCode    "22ис-2" \n }\n ...\n]'

@@ -1,11 +1,10 @@
 'use server'
 
-import React from 'react'
 import { EstimationTableItem } from './item'
 import { EstimationColumn } from './column'
-import { getEstimationTable } from '@/app/actions'
 import { Table } from './table'
 import { DynamicPagination } from '@/component/master'
+import { getEstimationTable } from '@/app/actions'
 
 type Props = {
     id: number

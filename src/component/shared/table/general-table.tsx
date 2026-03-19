@@ -1,12 +1,11 @@
 'use server'
 
-import React from 'react'
 import { GeneralColumn } from './column'
-import { getGeneralTable } from '@/app/actions'
 import { Table } from './table'
 import { TformFilterSchema } from '@/@types/schema'
 import { DynamicPagination } from '@/component/master'
 import { GeneralTableItem } from './item'
+import { getGeneralTable } from '@/app/actions'
 
 
 export async function GeneralTable({ queries }: { queries: TformFilterSchema }) {

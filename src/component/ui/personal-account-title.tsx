@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { ArrowBack } from '.';
-import { getRole } from '@/app/actions';
 import { Role } from '@root/prisma/generated/prisma/enums';
+import { getRole } from '@/app/actions';
 
 
 interface Props {

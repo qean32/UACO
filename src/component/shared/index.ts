@@ -1,7 +1,8 @@
 export { Header } from './header'
 export * as Analytics from './analytics'
-export { SignOut } from './sing-out'
-export { QueryDrop } from './query-drop'
 export { AboutFilter } from './about-filter'
-export { BestGroups } from './best-groups'
-export { BestSupervisors } from './best-supervisors'
+export { BestGroups } from './best/best-groups'
+export { BestSupervisors } from './best/best-supervisors'
+
+export { StudentContentPage } from './student-content-page'
+export { SupervisorContentPage } from './suprevisor-content-page'

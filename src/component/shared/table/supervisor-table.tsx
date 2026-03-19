@@ -1,11 +1,10 @@
 'use server'
 
-import React from 'react'
 import { SupervisorTableItem } from './item'
 import { SupervisorColumn } from './column'
-import { getSupervisorTable } from '@/app/actions'
 import { Table } from './table'
 import { DynamicPagination } from '@/component/master'
+import { getSupervisorTable } from '@/app/actions'
 
 
 export async function SupervisorTable() {

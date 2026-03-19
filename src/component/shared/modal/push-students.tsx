@@ -11,18 +11,39 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/component/ui/dialog"
-import { FormInput, InputFile, InsertCode, Title } from "@/component/ui"
-import { PickSupervisor, DatePicker } from "@/component/shared/pick"
+import { InputFile, InsertCode, Title } from "@/component/ui"
 import { useMyForm } from "@/lib/hooks"
-import { formCreateEvent, TformCreateEvent } from "@/@types/schema"
+import { formPushStudents, TformPushStudents } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
 import { handleAccess, handleCatch } from "@/lib/helpers"
 import { guidePushStudents } from "@/config"
+import { createStudentsAction } from "@/app/(root)/admin/actions"
+
+const readFile = (file: any) => {
+    const reader = new FileReader()
+
+    return new Promise((resolve, reject) => {
+        reader.readAsText(file)
+        reader.onerror = () => reject()
+        reader.onload = () => resolve(reader.result)
+    })
+}
 
 export function PushStudents() {
-    const { form, setValue, submitHandler } = useMyForm<TformCreateEvent>(
-        formCreateEvent,
-        (data: TformCreateEvent) => { })
+    const { form, submitHandler } = useMyForm<TformPushStudents>(
+        formPushStudents,
+        async (data: TformPushStudents) => {
+            const file = data.file[0]
+
+            const res = await readFile(file)
+
+            if (res) {
+                // @ts-ignore
+                createStudentsAction(JSON.parse(res))
+                    .then(res => handleAccess(res, { title: "Студенты добавлены!", description: "Вы успешно добавили студентов" }))
+                    .catch(handleCatch)
+            }
+        })
 
     return (
         <Dialog>

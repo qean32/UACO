@@ -2,10 +2,10 @@
 
 import { Role } from "@root/prisma/generated/prisma/enums"
 import { StudentContentPage, SupervisorContentPage } from ".."
-import { getRole } from "@/app/actions"
+import { getRoleAction } from "@/app/(root)/profile/actions"
 
 export const UserTable: React.FC<{ id: number }> = async ({ id }: { id: number }) => {
-    const user = await getRole(id)
+    const user = await getRoleAction(id)
 
     if (user?.role == Role.STUDENT) {
         return <StudentContentPage id={id} />

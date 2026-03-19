@@ -7,7 +7,7 @@ import { supervisorTableItemType } from '@/@types';
 import { formatDate, handleAccess, handleCatch } from '@/lib/helpers';
 import { Role } from '@root/prisma/generated/prisma/enums';
 import { useUser } from '@/lib/hooks';
-import { deleteEventAction } from '@/app/actions';
+import { deleteEventAction } from '@/app/(root)/admin/actions';
 
 
 interface Props extends supervisorTableItemType {

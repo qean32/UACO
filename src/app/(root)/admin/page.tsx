@@ -11,8 +11,6 @@ export default async function Page() {
             <div className="flex justify-between pt-10">
                 <div className="flex flex-col gap-2">
                     <PushStudents />
-                    <PushStudents />
-                    <PushStudents />
                 </div>
                 <SupervisorContentPage />
             </div>

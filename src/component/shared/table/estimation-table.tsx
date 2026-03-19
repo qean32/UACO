@@ -4,14 +4,14 @@ import { EstimationTableItem } from './item'
 import { EstimationColumn } from './column'
 import { Table } from './table'
 import { DynamicPagination } from '@/component/master'
-import { getEstimationTable } from '@/app/actions'
+import { getEstimationTableAction } from '@/app/(root)/estimation/actions'
 
 type Props = {
     id: number
 }
 
 export async function EstimationTable({ id }: Props) {
-    const { items, end } = await getEstimationTable({ page: 0, userId: id })
+    const { items, end } = await getEstimationTableAction({ page: 0, userId: id })
 
     return (
         <Table>
@@ -20,7 +20,7 @@ export async function EstimationTable({ id }: Props) {
                 initialState={items}
                 initEnd={end}
                 staticParam={{ userId: id }}
-                _fetch={getEstimationTable}
+                _fetch={getEstimationTableAction}
                 RenderItem={EstimationTableItem}
             />
         </Table>

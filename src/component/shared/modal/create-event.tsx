@@ -16,8 +16,8 @@ import { PickSupervisor, DatePicker } from "@/component/shared/pick"
 import { useMyForm } from "@/lib/hooks"
 import { formCreateEvent, TformCreateEvent } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
-import { createEventAction } from "@/app/actions"
 import { handleAccess, handleCatch } from "@/lib/helpers"
+import { createEventAction } from "@/app/(root)/admin/actions"
 
 export function CreateEvent() {
     const { form, setValue, submitHandler } = useMyForm<TformCreateEvent>(

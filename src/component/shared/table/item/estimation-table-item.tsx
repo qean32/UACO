@@ -17,8 +17,8 @@ export const EstimationTableItem: React.FC<Props> = ({ Event: { date, id, name }
             <td>{name}</td>
             <td className='px-3'>
                 <PickEstimation id={id} estimation={estimation} /></td>
-            <td>{avg}</td>
             <td>{formatDate(date)}</td>
+            <td>{avg}</td>
             <td>{count}</td>
         </TableItem>
     );

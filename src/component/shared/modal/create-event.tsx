@@ -16,19 +16,21 @@ import { PickSupervisor, DatePicker } from "@/component/shared/pick"
 import { useMyForm } from "@/lib/hooks"
 import { formCreateEvent, TformCreateEvent } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
-import { createEventAction } from "@/app/actions"
+import { handleAccess, handleCatch } from "@/lib/helpers"
+import { createEventAction } from "@/app/(root)/admin/actions"
 
 export function CreateEvent() {
     const { form, setValue, submitHandler } = useMyForm<TformCreateEvent>(
         formCreateEvent,
         (data: TformCreateEvent) => {
-            console.log(data)
             // @ts-ignore
             createEventAction(data)
+                .then(res => handleAccess(res, { title: "Мероприятие добавлено!", description: "Вы добавили мероприятие" }))
+                .catch(handleCatch)
         })
+
     return (
         <Dialog>
-
             <DialogTrigger asChild>
                 <Button variant={'primary'}>Добавить мероприятие</Button>
             </DialogTrigger>
@@ -48,7 +50,9 @@ export function CreateEvent() {
                             <DialogClose asChild>
                                 <Button variant="outline" className="text-dark">Отмена</Button>
                             </DialogClose>
-                            <Button type="submit" variant={'primary'}>Сохранить</Button>
+                            <DialogClose asChild>
+                                <Button type="submit" variant={'primary'}>Добавить</Button>
+                            </DialogClose>
                         </DialogFooter>
                     </form>
                 </FormProvider>

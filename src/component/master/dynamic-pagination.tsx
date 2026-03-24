@@ -8,17 +8,17 @@ interface Props extends useDynamicPaginationType {
 }
 
 export const DynamicPagination: React.FC<Props> = ({ _fetch, fillQueries, initialState, RenderItem, staticParam, initEnd }: Props) => {
-    const { inViewRef, items } = useDynamicPagination({ _fetch, fillQueries, initialState, staticParam, initEnd })
+    const { inViewRef, items } = useDynamicPagination<any>({ _fetch, fillQueries, initialState, staticParam, initEnd })
 
     return (
         <>
-            <tbody>
+            <tbody className="min-h-[100vh]">
                 {!!items.length && items.map(item => {
-                    // @ts-ignore
                     return <RenderItem {...item} key={item?.User?.id ? item?.User?.id : item.id} />
                 })}
                 <tr ref={inViewRef} className="h-[100px]"></tr>
             </tbody>
+            {!items.length && <p className="text-nowrap px-1">По параметрам ничего не найденно</p>}
         </>
     )
 }

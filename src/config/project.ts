@@ -21,3 +21,15 @@ export const RTKQKEY = {
     getGroups: "getGroups",
     bestGroups: "bestGroups",
 }
+
+export const toastConfig: {
+} = {
+    classNames: { description: "text-black", actionButton: "actionButton primary-bg" },
+    position: "top-center",
+    action: {
+        label: "Готово",
+        onClick: () => console.log("Undo"),
+    },
+}
+
+export const guidePushStudents = '[\n {\n   firstName    "Иван" \n   lastName     "Иванов" \n   sureName     "Иванович" \n   dateOfBirth  "20.05.2006" \n   sex          "MALE" / "FEMALE" \n   GroupCode    "22ис-2" \n }\n ...\n]'

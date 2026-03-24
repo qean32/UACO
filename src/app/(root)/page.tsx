@@ -1,6 +1,7 @@
 'use server'
 
-import { AboutFilter, QueryDrop } from '@/component/shared';
+import { AboutFilter } from '@/component/shared';
+import { QueryDrop } from '@/component/shared/button';
 import { FilterEvent } from '@/component/shared/modal'
 import { GeneralTable } from '@/component/shared/table';
 import { Button } from '@/component/ui/button';

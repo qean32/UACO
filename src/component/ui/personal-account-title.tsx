@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { ArrowBack } from '.';
-import { getRole } from '@/app/actions';
 import { Role } from '@root/prisma/generated/prisma/enums';
+import { getRoleAction } from '@/app/(root)/profile/actions';
 
 
 interface Props {
@@ -17,7 +17,7 @@ const map = new Map<Role, string>([
 ])
 
 export const PersonalAccountTitle: React.FC<Props> = async ({ id }: Props) => {
-    const role = await getRole(id)
+    const role = await getRoleAction(id)
 
     return (
         <div className='flex h-[200px] items-center justify-around'>

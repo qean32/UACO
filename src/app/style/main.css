@@ -3,13 +3,32 @@
 }
 
 .primary-bg {
-    background-color: var(--main);
+    background-color: var(--main) !important;
 }
 
 .primary-bg-dark {
-    background-color: var(--main);
+    background-color: var(--main) !important;
 }
 
-p {
-    color: rgb(19, 19, 19);
+.text-black {
+    color: black !important;
+}
+
+.actionButton {
+    padding-block: 15px !important;
+}
+
+* {
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+pre {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 10px;
+    overflow: auto;
+}
+
+code {
+    font-family: monospace;
 }

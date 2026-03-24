@@ -3,15 +3,15 @@
 
 import React from 'react';
 import { InfoItem } from './info-item';
-import { SignOut } from "..";
 import { formatDate } from '@/lib/helpers';
 import { convertRu } from '@/config';
 import { userInfo } from '@/@types';
+import { SignOut } from '../button';
 
 export const Student: React.FC<userInfo> = ({ dateOfBirth, firstName, lastName, sex, sureName, GroupCode, Group }: userInfo) => {
 
     return (
-        <div className="flex h-fit flex-col rounded-md w-1/6 bg-gray-100 p-5">
+        <div className="flex h-fit flex-col rounded-md w-1/6 min-w-[300px] bg-gray-100 p-5">
             <p className='pb-5 text-lg font-bold'>Информация</p>
             <InfoItem title='ФИО' value={`${firstName} ${lastName} ${sureName}`} />
             <InfoItem title='Группа' value={GroupCode?.toString() ?? ""} />

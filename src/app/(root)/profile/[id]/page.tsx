@@ -4,7 +4,6 @@
 import { Information } from '@/component/shared/info';
 import { UserTable } from '@/component/shared/table';
 import { PersonalAccountTitle } from '@/component/ui';
-import React from 'react';
 
 export default async function Page({ params }: any) {
     const { id } = await params

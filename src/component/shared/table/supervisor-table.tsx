@@ -1,23 +1,23 @@
 'use server'
 
-import React from 'react'
 import { SupervisorTableItem } from './item'
-import { AdminColumn } from './column'
-import { getSupervisorTable } from '@/app/actions'
+import { SupervisorColumn } from './column'
 import { Table } from './table'
 import { DynamicPagination } from '@/component/master'
+import { getSupervisorTableAction } from '@/app/(root)/admin/actions'
 
 
 export async function SupervisorTable() {
-    const { items, end } = await getSupervisorTable({ page: 0 })
+    const { items, end } = await getSupervisorTableAction({ page: 0 })
 
     return (
         <Table>
-            <AdminColumn />
+            <SupervisorColumn />
             <DynamicPagination
+                fillQueries={true}
                 initialState={items}
                 initEnd={end}
-                _fetch={getSupervisorTable}
+                _fetch={getSupervisorTableAction}
                 RenderItem={SupervisorTableItem}
             />
         </Table>

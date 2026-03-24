@@ -1,27 +1,27 @@
 'use server'
 
-import React from 'react'
 import { StudentTableItem } from './item'
 import { StudentColumn } from './column'
-import { getStudentTable } from '@/app/actions'
 import { Table } from './table'
 import { DynamicPagination } from '@/component/master'
+import { getStudentTableAction } from '@/app/(root)/profile/actions'
 
 interface Props {
     id: number
 }
 
 export async function StudentTable({ id }: Props) {
-    const { items, end } = await getStudentTable({ userId: id, page: 0 })
+    const { items, end } = await getStudentTableAction({ userId: id, page: 0 })
 
     return (
         <Table>
             <StudentColumn />
             <DynamicPagination
+                fillQueries={true}
                 initialState={items}
                 initEnd={end}
                 staticParam={{ userId: id }}
-                _fetch={getStudentTable}
+                _fetch={getStudentTableAction}
                 RenderItem={StudentTableItem}
             />
         </Table>

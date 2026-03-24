@@ -6,6 +6,8 @@ export const fakeGrapch = [
     { name: '22п-2', value: 7 },
 ]
 
+export const DEFAULT_TAKE = 20
+
 export const dataTimeOption = {
     year: "numeric",
     month: "numeric",
@@ -38,7 +40,8 @@ export const pick_months = [
 ]
 
 export const pick_periods = [
-    { value: "1", title: "Месяц" },
-    { value: "2", title: "Год" },
-    { value: "3", title: "Все время" },
+    { value: "1", title: "Неделя" },
+    { value: "2", title: "Месяц" },
+    { value: "3", title: "Год" },
+    { value: "4", title: "Все время" },
 ]

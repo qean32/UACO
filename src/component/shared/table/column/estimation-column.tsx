@@ -13,8 +13,8 @@ export const EstimationColumn: React.FC<Props> = ({ }: Props) => {
             <tr>
                 <th>Мероприятие</th>
                 <th className='w-1/12'>Оценка</th>
-                <th className='w-1/12'>AM</th>
                 <th className='w-1/12'>Дата</th>
+                <th className='w-1/12'>AM</th>
                 <th className='w-1/12'>Посещений</th>
             </tr>
         </thead>

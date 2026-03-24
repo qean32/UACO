@@ -2,7 +2,7 @@
 
 import { useGetBestSupervisorsQuery } from "@/store/best";
 import { RTKQKEY } from "@/config";
-import { Title } from "../ui";
+import { Title } from "@/component/ui";
 import { formatFio } from "@/lib/helpers";
 import Skeleton from "react-loading-skeleton";
 

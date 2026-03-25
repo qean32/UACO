@@ -16,10 +16,10 @@ import { useMyForm } from "@/lib/hooks"
 import { formPushFile, TformPushFile } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
 import { handleAccess, handleCatch, readJson } from "@/lib/helpers"
-import { guidePushStudents } from "@/config"
+import { guidePushDepartments } from "@/config"
 import { createStudentsAction } from "@/app/(root)/admin/actions"
 
-export function PushStudents() {
+export function PushDepartments() {
     const { form, submitHandler } = useMyForm<TformPushFile>(
         formPushFile,
         async (data: TformPushFile) => {
@@ -38,15 +38,15 @@ export function PushStudents() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant={'primary'}>Добавить студентов</Button>
+                <Button variant={'primary'}>Добавить отделение</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <FormProvider {...form}>
                     <form onSubmit={submitHandler}>
                         <DialogHeader className="pb-5">
-                            <DialogTitle><Title>Добавить студентов</Title></DialogTitle>
-                            <DialogDescription>Для добавления новых студентов в систему набходим файл формата &quot;.json&quot; с данными формата</DialogDescription>
-                            <InsertCode className="max-w-[375px]">{guidePushStudents}</InsertCode>
+                            <DialogTitle><Title>Добавить отделение</Title></DialogTitle>
+                            <DialogDescription>Для добавления новых отделений в систему набходим файл формата &quot;.json&quot; с данными формата</DialogDescription>
+                            <InsertCode className="max-w-[375px]">{guidePushDepartments}</InsertCode>
                         </DialogHeader>
                         <div className="grid gap-4">
                             <InputFile />

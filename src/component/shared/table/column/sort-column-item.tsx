@@ -13,7 +13,7 @@ interface Props {
 export const SortColumnItem: React.FC<Props> = ({ children, isCurrent, sort, push, direction }: Props) => {
     return (
         <th className='w-1/12  cursor-pointer' onClick={() => push({
-            sort, direction: !direction ? sortingDirectionEnum.desc : sortingDirectionEnum.asc
+            sort, direction: ((direction && isCurrent)) ? sortingDirectionEnum.asc : sortingDirectionEnum.desc
         })}
         >
             <div className="flex items-center gap-1 justify-center">

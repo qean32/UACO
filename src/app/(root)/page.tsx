@@ -6,12 +6,14 @@ import { FilterEvent } from '@/component/shared/modal'
 import { GeneralTable } from '@/component/shared/table';
 import { Button } from '@/component/ui/button';
 import React from 'react';
+import { getGeneralTableAction } from '../actions';
 
 const Analytics = React.lazy(() => import("@/component/shared/analytics"))
 
 
-export default async function Page({ _, searchParams }: any) {
+export default async function Page({ searchParams }: any) {
     const queries = await searchParams
+    const data = await getGeneralTableAction(queries)
 
     return (
         <div className='flex-1 flex flex-col'>
@@ -28,7 +30,7 @@ export default async function Page({ _, searchParams }: any) {
                         <Button variant={'primary'}>Экспорт в Excel</Button>
                     </div>
                 </div>
-                <GeneralTable queries={queries} />
+                <GeneralTable {...data} />
             </div>
         </div>
     );

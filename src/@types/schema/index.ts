@@ -1,6 +1,6 @@
 export { type TformLoginSchema, formLoginSchema } from './login.schema'
 export { type TformFilterSchema, formFilterSchema } from './filter.schema'
 export { type TformCreateEvent, formCreateEvent } from './create-event.schema'
-export { passwordSchema } from './base'
 export { type setValueFormProps } from './set-value-form-props'
-export { type TformPushStudents, formPushStudents } from './push-students.dto'
+export { type TformPushFile, formPushFile } from './push-file.dto'
+export { passwordSchema } from './base'

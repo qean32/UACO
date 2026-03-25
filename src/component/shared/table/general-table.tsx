@@ -1,16 +1,17 @@
-'use server'
+'use client'
 
 import { GeneralColumn } from './column'
 import { Table } from './table'
-import { TformFilterSchema } from '@/@types/schema'
 import { DynamicPagination } from '@/component/master'
 import { GeneralTableItem } from './item'
 import { getGeneralTableAction } from '@/app/actions'
+import { tableResponse, generalTableItem } from '@/@types'
+import { Event } from '@root/prisma/generated/prisma/browser'
 
 
-export async function GeneralTable({ queries }: { queries: TformFilterSchema }) {
-    // @ts-ignore
-    const { column, items, end } = await getGeneralTableAction(queries)
+export function GeneralTable({ column, items, end }: {
+    column: Pick<Event, "name" | "id">[]
+} & tableResponse<generalTableItem[]>) {
 
     return (
         <Table>

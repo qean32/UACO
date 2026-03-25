@@ -1,3 +1,5 @@
 export { CreateEvent } from './create-event'
 export { FilterEvent } from './filter-event'
 export { PushStudents } from './push-students'
+export { PushDepartments } from './push-departments'
+export { PushGroups } from './push-groups'

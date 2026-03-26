@@ -22,7 +22,7 @@ export default async function middleware(req: NextRequest) {
 
     // @ts-ignore
     if (splitPath.at(-1) != session?.id) {
-        return NextResponse.redirect(new URL('/', req.url))
+        return NextResponse.redirect(new URL('/404', req.url))
     }
 
     return NextResponse.next()

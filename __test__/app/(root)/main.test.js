@@ -6,7 +6,7 @@ import 'intersection-observer';
 describe('main page', () => {
     it('renders a heading', async () => {
         await act(async () => {
-            render(await Page({ searchParams: new URLSearchParams({}) }))
+            render()
         });
     });
 });

@@ -37,7 +37,6 @@ export const getRoleAction = async (id: number): Promise<{ role: Role } | null> 
 
 export const getStudentTableAction = async ({ page, userId, period }: { userId: number, page: number, period?: "Неделя" | "Месяц" }): Promise<tableResponse<studentTableItem[]>> => {
     try {
-        console.log(period)
         const skip = (page || 0) * DEFAULT_TAKE
         const filter = {
             AND: [
@@ -57,7 +56,7 @@ export const getStudentTableAction = async ({ page, userId, period }: { userId: 
                 },
                 take: DEFAULT_TAKE,
                 skip,
-                orderBy: { createdAt: "asc" }
+                orderBy: { createdAt: "desc" }
             },
         )
 

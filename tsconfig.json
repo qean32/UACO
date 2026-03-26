@@ -43,7 +43,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-, "__test__/app/(root)/main.test.ts"  ],
+, "__test__/app/(root)/main.test.js", "__test__/component/zxc.test.js"  ],
   "exclude": [
     "node_modules"
   ]

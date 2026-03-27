@@ -15,7 +15,7 @@ model Group {
   createdAt  DateTime @default(now())
   updateadAt DateTime @updatedAt
 
-  Department     Department? @relation(fields: [DepartmentCode], references: [code])
+  Department     Department? @relation(fields: [DepartmentCode], references: [code], onDelete: Cascade)
   DepartmentCode String?
 
   students User[]
@@ -42,7 +42,7 @@ model User {
   email    String
   password String
 
-  Group     Group?  @relation(fields: [GroupCode], references: [code])
+  Group     Group?  @relation(fields: [GroupCode], references: [code], onDelete: Cascade)
   GroupCode String?
 
   createdAt  DateTime @default(now())
@@ -56,10 +56,10 @@ model EstimationEvent {
   id         Int @id @default(autoincrement())
   estimation Int @default(0)
 
-  User   User @relation(fields: [UserId], references: [id])
+  User   User @relation(fields: [UserId], references: [id], onDelete: Cascade)
   UserId Int
 
-  Event   Event @relation(fields: [EventId], references: [id])
+  Event   Event @relation(fields: [EventId], references: [id], onDelete: Cascade)
   EventId Int
 
   createdAt  DateTime @default(now())
@@ -73,7 +73,7 @@ model Event {
   date      DateTime
   createdAt DateTime @default(now())
 
-  Supervisor   User? @relation(fields: [SupervisorId], references: [id])
+  Supervisor   User? @relation(fields: [SupervisorId], references: [id], onDelete: Cascade)
   SupervisorId Int?
 
   estimationsEvents EstimationEvent[]

@@ -1,7 +1,7 @@
 'use server'
 
 import { studentTableItem, tableResponse, userInfo } from "@/@types";
-import { DEFAULT_TAKE } from "@/config";
+import { DEFAULT_TAKE, Period } from "@/config";
 import { convertDayToSecond } from "@/lib/helpers";
 import { Role } from "@root/prisma/generated/prisma/enums";
 import { prisma } from "@root/prisma/prisma";
@@ -35,14 +35,14 @@ export const getRoleAction = async (id: number): Promise<{ role: Role } | null> 
 }
 
 
-export const getStudentTableAction = async ({ page, userId, period }: { userId: number, page: number, period?: "Неделя" | "Месяц" }): Promise<tableResponse<studentTableItem[]>> => {
+export const getStudentTableAction = async ({ page, userId, period }: { userId: number, page: number, period?: Period }): Promise<tableResponse<studentTableItem[]>> => {
     try {
         const skip = (page || 0) * DEFAULT_TAKE
         const filter = {
             AND: [
                 { UserId: Number(userId) },
-                { ...(period === "Неделя" ? { Event: { date: { gte: new Date(Date.now() - convertDayToSecond(7)) } } } : null) },
-                { ...(period === "Месяц" ? { Event: { date: { gte: new Date(Date.now() - convertDayToSecond(30)) } } } : null) }
+                { ...(period === Period.Week ? { Event: { date: { gte: new Date(Date.now() - convertDayToSecond(7)) } } } : null) },
+                { ...(period === Period.Month ? { Event: { date: { gte: new Date(Date.now() - convertDayToSecond(30)) } } } : null) }
             ]
         }
 

@@ -39,9 +39,13 @@ export const pick_months = [
 
 ]
 
+export enum Period {
+    Month = "Month",
+    Week = "Week"
+}
+
 export const pick_periods = [
-    { value: "1", title: "Неделя" },
-    { value: "2", title: "Месяц" },
-    { value: "3", title: "Год" },
-    { value: "4", title: "Все время" },
+    { value: Period.Week, ru: "Неделя" },
+    { value: Period.Month, ru: "Месяц" },
+    { value: " ", ru: "Все время" },
 ]

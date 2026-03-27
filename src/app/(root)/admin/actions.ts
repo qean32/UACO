@@ -1,7 +1,8 @@
 'use server'
 
 import { sortingDirectionEnum, tableResponse, supervisorTableItemType } from "@/@types";
-import { DEFAULT_TAKE } from "@/config";
+import { DEFAULT_TAKE, Period } from "@/config";
+import { convertDayToSecond } from "@/lib/helpers";
 import { Event, User } from "@root/prisma/generated/prisma/browser";
 import { prisma } from "@root/prisma/prisma";
 var randomEmail = require('random-email');
@@ -28,8 +29,8 @@ export const deleteEventAction = async ({ id }: { id: number }) => {
 }
 
 type getSupervisorTableSortingType = "avg" | "countEstimations"
-export const getSupervisorTableAction = async ({ page, sort, direction = sortingDirectionEnum.desc }
-    : { page: number, sort?: getSupervisorTableSortingType, direction?: sortingDirectionEnum }):
+export const getSupervisorTableAction = async ({ page, sort, direction = sortingDirectionEnum.desc, period }
+    : { page: number, sort?: getSupervisorTableSortingType, direction?: sortingDirectionEnum, period?: Period }):
     Promise<tableResponse<supervisorTableItemType[]>> => {
     try {
         const skip = (page || 0) * DEFAULT_TAKE
@@ -49,7 +50,13 @@ export const getSupervisorTableAction = async ({ page, sort, direction = sorting
             const groupMap = new Map(paginatedGroups.map(g => [g.EventId, g]))
 
             const events = await prisma.event.findMany({
-                where: { id: { in: eventIds } },
+                where: {
+                    AND: [
+                        { id: { in: eventIds } },
+                        { ...(period === Period.Week ? { date: { gte: new Date(Date.now() - convertDayToSecond(7)) } } : null) },
+                        { ...(period === Period.Month ? { date: { gte: new Date(Date.now() - convertDayToSecond(30)) } } : null) }
+                    ]
+                },
                 select: { name: true, id: true, date: true, SupervisorId: true }
             })
 
@@ -70,6 +77,12 @@ export const getSupervisorTableAction = async ({ page, sort, direction = sorting
                 select: { name: true, id: true, date: true, SupervisorId: true },
                 take: DEFAULT_TAKE,
                 skip,
+                where: {
+                    AND: [
+                        { ...(period === Period.Week ? { date: { gte: new Date(Date.now() - convertDayToSecond(7)) } } : null) },
+                        { ...(period === Period.Month ? { date: { gte: new Date(Date.now() - convertDayToSecond(30)) } } : null) }
+                    ]
+                },
                 orderBy: { date: direction }
             })
             const avgAndCount = await prisma.estimationEvent.groupBy({

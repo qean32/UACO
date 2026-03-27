@@ -1,11 +1,13 @@
 'use client'
 
 import { useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useOnInView } from "react-intersection-observer"
 import { useMountEvent } from "./use-mount-event"
 import { tableResponse } from "@/@types"
 import { useBoolean } from "./use-boolean"
+import { toast } from "sonner"
+import { toastConfig } from "@/config"
 
 export type useDynamicPaginationType = {
     fillQueries?: boolean
@@ -29,6 +31,10 @@ export const useDynamicPagination = <T,>(
     const queries = useSearchParams()
     const [page, setPage] = useState(1)
     const [end, _, on, off] = useBoolean(initEnd)
+    const clearItems = items.length == 0
+    useEffect(() => {
+        if (clearItems) { toast("По параметрам ничего не найдено!", toastConfig) }
+    }, [clearItems])
 
     if (fillQueries) {
         useMountEvent(() => {

@@ -2,7 +2,7 @@
 
 import { tableResponse, generalTableItem } from "@/@types"
 import { DEFAULT_TAKE } from "@/config"
-import { Event } from "@root/prisma/generated/prisma/browser"
+import { Event, Role } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
 type generalTableFilters = {
@@ -22,6 +22,7 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
     try {
         const skip = (page || 0) * DEFAULT_TAKE
         const filter = {
+            role: Role.STUDENT,
             AND: [
                 {
                     ...(course ? {
@@ -34,7 +35,7 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
                 { ...(department ? { Group: { Department: { name: department } } } : null) },
                 { ...(group ? { GroupCode: group } : null) },
                 // @ts-ignore
-                { ...(EventId && EventId != "null" ? { estimationsEvents: { some: { EventId: Number(EventId) } } } : null) }
+                { ...(EventId && EventId != "null" ? { estimationsEvents: { some: { EventId: Number(EventId) } } } : null) },
             ],
         }
         const events = await prisma.event.findMany({

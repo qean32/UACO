@@ -1,17 +1,17 @@
-'use server'
+'use client'
 
 import { StudentTableItem } from './item'
 import { StudentColumn } from './column'
 import { Table } from './table'
 import { DynamicPagination } from '@/component/master'
 import { getStudentTableAction } from '@/app/(root)/profile/actions'
+import { studentTableItem, tableResponse } from '@/@types'
 
 interface Props {
     id: number
 }
 
-export async function StudentTable({ id }: Props) {
-    const { items, end } = await getStudentTableAction({ userId: id, page: 0 })
+export function StudentTable({ id, end, items }: tableResponse<studentTableItem[]> & { id: number }) {
 
     return (
         <Table>
@@ -22,7 +22,7 @@ export async function StudentTable({ id }: Props) {
                 initEnd={end}
                 staticParam={{ userId: id }}
                 _fetch={getStudentTableAction}
-                RenderItem={StudentTableItem}
+                renderItem={(item) => <StudentTableItem {...item} />}
             />
         </Table>
     )

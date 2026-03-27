@@ -21,7 +21,7 @@ export function GeneralTable({ column, items, end }: {
                 initEnd={end}
                 _fetch={getGeneralTableAction}
                 fillQueries
-                RenderItem={GeneralTableItem}
+                renderItem={(item) => <GeneralTableItem {...item} />}
             />
         </Table>
     )

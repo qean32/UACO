@@ -5,10 +5,10 @@ import { QueryDrop } from '@/component/shared/button';
 import { FilterEvent } from '@/component/shared/modal'
 import { GeneralTable } from '@/component/shared/table';
 import { Button } from '@/component/ui/button';
-import React from 'react';
 import { getGeneralTableAction } from '../actions';
+import dynamic from 'next/dynamic';
 
-const Analytics = React.lazy(() => import("@/component/shared/analytics"))
+const Analytics = dynamic(() => import("@/component/shared/analytics"));
 
 
 export default async function Page({ searchParams }: any) {

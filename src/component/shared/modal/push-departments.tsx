@@ -38,13 +38,13 @@ export function PushDepartments() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant={'primary'}>Добавить отделение</Button>
+                <Button variant={'primary'}>Добавить отделения</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <FormProvider {...form}>
                     <form onSubmit={submitHandler}>
                         <DialogHeader className="pb-5">
-                            <DialogTitle><Title>Добавить отделение</Title></DialogTitle>
+                            <DialogTitle><Title>Добавить отделения</Title></DialogTitle>
                             <DialogDescription>Для добавления новых отделений в систему набходим файл формата &quot;.json&quot; с данными формата</DialogDescription>
                             <InsertCode className="max-w-[375px]">{guidePushDepartments}</InsertCode>
                         </DialogHeader>

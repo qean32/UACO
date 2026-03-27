@@ -1,7 +1,7 @@
 'use server'
 
 
-import { SupervisorContentPage } from '@/component/shared';
+import { GroupsAndDepartments } from '@/component/shared';
 import { PushDepartments, PushGroups, PushStudents } from '@/component/shared/modal';
 
 export default async function Page() {
@@ -9,13 +9,13 @@ export default async function Page() {
     return (
         <div className='flex-1 px-15'>
             <div className="flex justify-between pt-10">
-                <div className="flex flex-col gap-2">
+                <div className="flex gap-2">
                     <PushStudents />
                     <PushGroups />
                     <PushDepartments />
                 </div>
-                <SupervisorContentPage />
             </div>
+            <GroupsAndDepartments />
         </div>
     );
 }

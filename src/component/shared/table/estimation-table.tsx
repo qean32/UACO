@@ -1,17 +1,13 @@
-'use server'
+'use client'
 
 import { EstimationTableItem } from './item'
 import { EstimationColumn } from './column'
 import { Table } from './table'
 import { DynamicPagination } from '@/component/master'
 import { getEstimationTableAction } from '@/app/(root)/estimation/actions'
+import { estimationTableItem, tableResponse } from '@/@types'
 
-type Props = {
-    id: number
-}
-
-export async function EstimationTable({ id }: Props) {
-    const { items, end } = await getEstimationTableAction({ page: 0, userId: id })
+export function EstimationTable({ end, items, id }: tableResponse<estimationTableItem[]> & { id: number }) {
 
     return (
         <Table>
@@ -21,7 +17,7 @@ export async function EstimationTable({ id }: Props) {
                 initEnd={end}
                 staticParam={{ userId: id }}
                 _fetch={getEstimationTableAction}
-                RenderItem={EstimationTableItem}
+                renderItem={(item) => <EstimationTableItem {...item} />}
             />
         </Table>
     )

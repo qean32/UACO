@@ -1,14 +1,15 @@
-'use server'
+'use client'
 
 import { SupervisorTableItem } from './item'
 import { SupervisorColumn } from './column'
 import { Table } from './table'
 import { DynamicPagination } from '@/component/master'
 import { getSupervisorTableAction } from '@/app/(root)/admin/actions'
+import { tableResponse } from '@/@types'
+import { supervisorTableItem } from '@/@types/supervisor-table-item.type'
 
 
-export async function SupervisorTable() {
-    const { items, end } = await getSupervisorTableAction({ page: 0 })
+export function SupervisorTable({ end, items }: tableResponse<supervisorTableItem[]>) {
 
     return (
         <Table>
@@ -18,7 +19,7 @@ export async function SupervisorTable() {
                 initialState={items}
                 initEnd={end}
                 _fetch={getSupervisorTableAction}
-                RenderItem={SupervisorTableItem}
+                renderItem={(item) => <SupervisorTableItem {...item} />}
             />
         </Table>
     )

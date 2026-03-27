@@ -4,9 +4,9 @@ import Page from '@/app/(root)/page'
 import 'intersection-observer';
 
 describe('main page', () => {
-    it('renders a heading', async () => {
-        await act(async () => {
-            render()
-        });
+  it('renders a heading', async () => {
+    await act(async () => {
+      render(<Page searchParams={{}} />)
     });
+  });
 });

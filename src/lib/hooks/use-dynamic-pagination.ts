@@ -31,7 +31,7 @@ export const useDynamicPagination = <T,>(
     const queries = useSearchParams()
     const [page, setPage] = useState(1)
     const [end, _, on, off] = useBoolean(initEnd)
-    const clearItems = items.length == 0
+    const clearItems = items.length == 0 && queries.size
     useEffect(() => {
         if (clearItems) { toast("По параметрам ничего не найдено!", toastConfig) }
     }, [clearItems])

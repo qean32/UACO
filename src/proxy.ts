@@ -14,15 +14,15 @@ export default async function middleware(req: NextRequest) {
 
     if (splitPath.at(-1) == "admin") {
         if (session?.role != "ADMIN") {
-            return NextResponse.redirect(new URL('/auth', req.url))
+            return NextResponse.redirect(new URL('/forbidden', req.url))
         }
 
         return NextResponse.next()
     }
 
     // @ts-ignore
-    if (splitPath.at(-1) != session?.id) {
-        return NextResponse.redirect(new URL('/404', req.url))
+    if (splitPath.at(-1) != session?.id && session.role == "STUDENT") {
+        return NextResponse.redirect(new URL('/forbidden', req.url))
     }
 
     return NextResponse.next()

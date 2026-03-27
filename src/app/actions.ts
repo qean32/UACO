@@ -2,7 +2,7 @@
 
 import { tableResponse, generalTableItem } from "@/@types"
 import { DEFAULT_TAKE } from "@/config"
-import { Event, Role } from "@root/prisma/generated/prisma/browser"
+import { Event, Role, User } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
 type generalTableFilters = {
@@ -72,6 +72,32 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
         return { items, column: events, end: skip + DEFAULT_TAKE >= await prisma.user.count({ where: filter }) }
     } catch (error) {
         console.log('[getGeneralTableAction] Server error', error);
+        throw (error)
+    }
+}
+
+export const searchStudentsAction = async ({ search }: { search: string }): Promise<Pick<User, "firstName" | "lastName" | "sureName" | "id">[]> => {
+    try {
+        const students = await prisma.user.findMany({
+            take: 6,
+            select: { firstName: true, lastName: true, sureName: true, id: true },
+            where: {
+                AND: [
+                    { role: Role.STUDENT },
+                    {
+                        OR: [
+                            { firstName: { contains: search } },
+                            { lastName: { contains: search } },
+                            { sureName: { contains: search } },
+                        ]
+                    },
+                ]
+            }
+        })
+
+        return students
+    } catch (error) {
+        console.log('[searchStudentsAction] Server error', error);
         throw (error)
     }
 }

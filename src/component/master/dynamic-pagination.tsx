@@ -15,13 +15,12 @@ export const DynamicPagination: React.FC<Props> = ({ _fetch, fillQueries, initia
 
     return (
         <>
-            <tbody className="min-h-[100vh]">
+            <tbody className="min-h-screen">
                 {!!items.length && items.map(item => {
                     return <Fragment key={item?.User?.id ? item?.User?.id : item.id}>{renderItem(item)}</Fragment>
                 })}
-                <tr ref={inViewRef} className="h-[100px]"></tr>
+                <tr ref={inViewRef} className="h-screen"></tr>
             </tbody>
-            {/* <Portal>{!items.length && <p className="fixed top-5 left-1/2 -translate-x-1/2 bg-gray-100 p-3 px-5 rounded-sm">По заданным параметрам ничего не найденно</p>}</Portal> */}
         </>
     )
 }

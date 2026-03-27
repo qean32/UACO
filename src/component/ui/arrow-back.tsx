@@ -14,12 +14,8 @@ export const ArrowBack: React.FC<Props> = ({ className }: Props) => {
     const router = useRouter()
 
     return (
-        <div
-            onClick={() => router.back()}
-            className={cn(
-                "rounded-2xl aspect-square cursor-pointer bg-gray-200 p-3 transition-all duration-300",
-                className)}
-        >
+        <div onClick={() => router.back()}
+            className={cn("rounded-xl aspect-square cursor-pointer bg-gray-200 hover:opacity-80 p-3 transition-all duration-300", className)}>
             <ArrowBigLeft stroke={'white'} fill={'white'} />
         </div>
     )

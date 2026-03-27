@@ -7,3 +7,4 @@ export { GroupsAndDepartments } from './groups&departments'
 
 export { StudentContentPage } from './student-content-page'
 export { SupervisorContentPage } from './suprevisor-content-page'
+export { Search } from './search'

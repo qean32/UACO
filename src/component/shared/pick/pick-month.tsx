@@ -12,7 +12,7 @@ import { pick_months } from "@/config"
 export function PickMounth() {
     return (
         <Select>
-            <SelectTrigger className="h-[40px] bg-white cursor-pointer">
+            <SelectTrigger className="h-10 bg-white cursor-pointer">
                 <SelectValue placeholder="Месяц" />
             </SelectTrigger>
             <SelectContent>

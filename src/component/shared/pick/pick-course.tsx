@@ -13,7 +13,7 @@ import { pick_courses } from "@/config"
 export function PickCourse({ setValue }: setValueFormProps<TformFilterSchema>) {
     return (
         <Select name="date" onValueChange={(e) => { setValue('course', e.toString()) }}>
-            <SelectTrigger className="w-full h-[40px] cursor-pointer">
+            <SelectTrigger className="w-full h-10 cursor-pointer">
                 <SelectValue placeholder="Курс" />
             </SelectTrigger>
             <SelectContent>

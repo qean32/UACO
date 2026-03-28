@@ -25,7 +25,7 @@ export function PickGroup({ setValue }: setValueFormProps<TformFilterSchema>) {
 
     return (
         <Select onValueChange={(e) => setValue("group", e.toString())}>
-            <SelectTrigger className="w-full h-[40px] cursor-pointer">
+            <SelectTrigger className="w-full h-10 cursor-pointer">
                 <SelectValue placeholder="Группа" />
             </SelectTrigger>
             <SelectContent>

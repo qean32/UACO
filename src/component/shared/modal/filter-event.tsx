@@ -32,7 +32,7 @@ export function FilterEvent() {
             <DialogTrigger asChild>
                 <Button variant={'default'}>Фильтр</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-110">
                 <FormProvider {...form}>
                     <form onSubmit={submitHandler}>
                         <DialogHeader className="pb-5">

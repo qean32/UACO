@@ -17,7 +17,7 @@ export const Header: React.FC<Props> = ({ }: Props) => {
     const user = useUser()
 
     return (
-        <header className="flex justify-between px-15 items-center py-2">
+        <header className="flex justify-between px-25 items-center py-2">
             <div className="flex items-center gap-4">
                 <Link className='pr-3' href={'/'}><Logo /></Link>
                 <Link href={'/'}>

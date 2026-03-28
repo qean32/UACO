@@ -22,7 +22,7 @@ export function PickEstimation(props: { estimation: number, id: number }) {
         <Select onValueChange={changeHandler}
             {...props?.estimation && { defaultValue: props?.estimation?.toString() }}
         >
-            <SelectTrigger className="w-full h-[40px] cursor-pointer bg-gray-50">
+            <SelectTrigger className="w-full h-10 cursor-pointer bg-gray-50">
                 <SelectValue placeholder="Оценить" />
             </SelectTrigger>
             <SelectContent>

@@ -14,11 +14,12 @@ type generalTableFilters = {
 }
 type generaltableProps = {
     EventId: number
+    all: boolean
 } & generalTableFilters
 type getGeneralTableResponse = {
     column: Pick<Event, "name" | "id">[]
 } & tableResponse<generalTableItem[]>
-export const getGeneralTableAction = async ({ course, date, department, group, page, EventId }: generaltableProps): Promise<getGeneralTableResponse> => {
+export const getGeneralTableAction = async ({ course, date, department, group, page, EventId, all }: generaltableProps): Promise<getGeneralTableResponse> => {
     try {
         const skip = (page || 0) * DEFAULT_TAKE
         const filter = {
@@ -52,7 +53,7 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
                 firstName: true, lastName: true, sureName: true,
                 id: true
             },
-            take: DEFAULT_TAKE,
+            take: !all ? DEFAULT_TAKE : undefined,
             skip,
             where: filter,
             orderBy: { firstName: "asc" }
@@ -100,4 +101,10 @@ export const searchStudentsAction = async ({ search }: { search: string }): Prom
         console.log('[searchStudentsAction] Server error', error);
         throw (error)
     }
+}
+
+const Excel = async (q: generaltableProps) => {
+    const { column, items } = await getGeneralTableAction(q)
+
+
 }

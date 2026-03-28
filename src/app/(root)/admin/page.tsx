@@ -2,7 +2,8 @@
 
 
 import { GroupsAndDepartments } from '@/component/shared';
-import { PushDepartments, PushGroups, PushStudents } from '@/component/shared/modal';
+import { ActionSemester } from '@/component/shared/button';
+import { CreateSupervisor, PushDepartments, PushGroups, PushStudents } from '@/component/shared/modal';
 
 export default async function Page() {
 
@@ -13,6 +14,19 @@ export default async function Page() {
                     <PushStudents />
                     <PushGroups />
                     <PushDepartments />
+                    <CreateSupervisor />
+                    <ActionSemester
+                        action={1}
+                        alert=''
+                        description=''>
+                        Перевести группы на следующий семестр
+                    </ActionSemester>
+                    <ActionSemester
+                        action={-1}
+                        alert=''
+                        description=''>
+                        Откатить семетр групп
+                    </ActionSemester>
                 </div>
             </div>
             <GroupsAndDepartments />

@@ -12,21 +12,15 @@ import {
     DialogTrigger,
 } from "@/component/ui/dialog"
 import { FormInput, Title } from "../../ui"
-import { PickSupervisor, DatePicker } from "@/component/shared/pick"
+import { DatePicker } from "@/component/shared/pick"
 import { useMyForm } from "@/lib/hooks"
-import { formCreateEvent, TformCreateEvent } from "@/@types/schema"
+import { formCreateSupervisor, TformCreateSupervisor } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
-import { handleAccess, handleCatch } from "@/lib/helpers"
-import { createEventAction } from "@/app/(root)/admin/actions"
 
-export function CreateEvent() {
-    const { form, setValue, submitHandler } = useMyForm<TformCreateEvent>(
-        formCreateEvent,
-        (data: TformCreateEvent) => {
-            // @ts-ignore
-            createEventAction(data)
-                .then(res => handleAccess(res, { title: "Мероприятие добавлено!", description: "Вы добавили мероприятие" }))
-                .catch(handleCatch)
+export function CreateSupervisor() {
+    const { form, setValue, submitHandler } = useMyForm<TformCreateSupervisor>(
+        formCreateSupervisor,
+        (data: TformCreateSupervisor) => {
         })
 
     return (
@@ -42,9 +36,10 @@ export function CreateEvent() {
                             <DialogDescription>Введите название, дату и организатора</DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4">
-                            <FormInput placeholder="Название" className="h-10" name="name" />
+                            <FormInput placeholder="Фамилия" className="h-10" name="name" />
+                            <FormInput placeholder="Име" className="h-10" name="name" />
+                            <FormInput placeholder="Отчество" className="h-10" name="name" />
                             <DatePicker setValue={setValue} />
-                            <PickSupervisor setValue={setValue} />
                         </div>
                         <DialogFooter className="pt-8">
                             <DialogClose asChild>

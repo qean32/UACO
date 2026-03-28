@@ -17,7 +17,7 @@ export function PickPeriod() {
 
     return (
         <Select onValueChange={(e) => { push({ period: e }) }}>
-            <SelectTrigger className="h-[40px] bg-white cursor-pointer mr-5">
+            <SelectTrigger className="h-10 bg-white cursor-pointer mr-5">
                 <SelectValue placeholder="Период" />
             </SelectTrigger>
             <SelectContent>

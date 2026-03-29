@@ -2,21 +2,26 @@ import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
-export async function GET(_: NextRequest, { params }: any) {
-    const _params = await params
-
+export async function GET(_: NextRequest, { params }: { params: Promise<{ file: string }> }) {
+    const { file } = await params
     const userIsAuthorized = true
 
     if (!userIsAuthorized) {
         return NextResponse.json({ message: 'Доступ запрещен' })
     }
-    const filePath = path.join(process.cwd(), 'private', _params.file)
+    const filePath = path.join(process.cwd(), 'private', file)
 
     if (!fs.existsSync(filePath)) {
         return NextResponse.json({ message: 'Файл не найден' })
     }
-    // setHeader('Content-Type', 'application/octet-stream')
+    const fileBuffer = fs.readFileSync(filePath)
 
-    const fileStream = fs.readFileSync(filePath)
-    return NextResponse.json(fileStream)
+    return new Response(fileBuffer, {
+        status: 200,
+        headers: {
+            'Content-Type': 'application/octet-stream',
+            'Content-Disposition': `attachment; filename="${path.basename(filePath)}"`,
+            'Content-Length': fileBuffer.length.toString(),
+        },
+    })
 }

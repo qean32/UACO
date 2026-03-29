@@ -15,6 +15,11 @@ export const GeneralTableUI: React.FC<{}> = () => {
     return <div className='flex gap-3 items-center'>
         <QueryDrop />
         <FilterEvent />
-        {user?.role != Role.STUDENT && <Button onClick={() => xlsxAction(Object.fromEntries(search))} variant={'primary'}>Экспорт в Excel</Button>}
+        {user?.role != Role.STUDENT &&
+            <Button variant={'primary'}
+                onClick={() => xlsxAction(Object.fromEntries(search)).then(res => window.open("api/download/" + res)?.focus())}>
+                Экспорт в Excel
+            </Button>
+        }
     </div>
 }

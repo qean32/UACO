@@ -34,6 +34,7 @@
     "clsx": "^2.1.1",
     "cross-fetch": "^4.1.0",
     "date-fns": "^4.1.0",
+    "docx": "^9.6.1",
     "dotenv": "^17.2.3",
     "embla-carousel-react": "^8.6.0",
     "generate-password": "^1.7.1",
@@ -53,6 +54,7 @@
     "redux": "^5.0.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
+    "write-excel-file": "^3.0.6",
     "zod": "^4.3.6"
   },
   "devDependencies": {

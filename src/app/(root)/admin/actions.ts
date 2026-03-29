@@ -3,7 +3,8 @@
 import { sortingDirectionEnum, tableResponse, supervisorTableItemType } from "@/@types";
 import { DEFAULT_TAKE, Period } from "@/config";
 import { convertDayToSecond } from "@/lib/helpers";
-import { Department, Event, Group, Role, User } from "@root/prisma/generated/prisma/browser";
+import { convertUserToString, docx } from "@/lib/helpers/file";
+import { Department, Event, Group, Role, Sex, User } from "@root/prisma/generated/prisma/browser";
 import { prisma } from "@root/prisma/prisma";
 var randomEmail = require('random-email');
 var randomPassword = require('generate-password');
@@ -110,9 +111,10 @@ export const createStudentsAction = async (data: Pick<User, "GroupCode" | "dateO
         const addedPasswordAndEmail = data.map(item => {
             return { ...item, email: randomEmail("yaviak.mck"), password: randomPassword.generate({ length: 10 }), dateOfBirth: new Date(item.dateOfBirth) }
         })
-        const students = await prisma.user.createMany({ data: addedPasswordAndEmail })
+        await prisma.user.createMany({ data: addedPasswordAndEmail })
+        const path = docx(convertUserToString(addedPasswordAndEmail))
 
-        return students
+        return path
     } catch (error) {
         console.log('[createEvent] Server error', error);
         throw (error)
@@ -121,17 +123,21 @@ export const createStudentsAction = async (data: Pick<User, "GroupCode" | "dateO
 
 export const createSupervisorAction = async (item: Pick<User, "firstName" | "lastName" | "sureName" | "sex" | "dateOfBirth">) => {
     try {
-        const supervisor = await prisma.user.create({
-            data: {
-                ...item,
-                email: randomEmail("yaviak.mck"),
-                password: randomPassword.generate({ length: 10 }),
-                dateOfBirth: new Date(item.dateOfBirth),
-                role: Role.SUPERVISOR
-            }
+        const addedPasswordAndEmail = {
+            ...item,
+            email: randomEmail("yaviak.mck"),
+            password: randomPassword.generate({ length: 10 }),
+            dateOfBirth: new Date(),
+            role: Role.SUPERVISOR,
+            // @ts-ignore
+            sex: (item.sex == "M") ? Sex.MALE : Sex.FEMALE
+        }
+        await prisma.user.create({
+            data: addedPasswordAndEmail
         })
+        const path = docx(convertUserToString([addedPasswordAndEmail]))
 
-        return supervisor
+        return path
     } catch (error) {
         console.log('[createSupervisor] Server error', error);
         throw (error)
@@ -141,26 +147,23 @@ export const createSupervisorAction = async (item: Pick<User, "firstName" | "las
 export const semesterMoveAction = async (move: 1 | -1) => {
     try {
         const groups = await prisma.group.findMany()
-        const collapsed = []
 
         groups.forEach(async item => {
             if (move) {
                 if (item.semester == 10) {
-                    collapsed.push(item)
                     return
                 }
                 await prisma.group.update({ data: { semester: { increment: move } }, where: { code: item.code } })
             }
             if (!move) {
                 if (item.semester == 1) {
-                    collapsed.push(item)
                     return
                 }
                 await prisma.group.update({ data: { semester: { increment: move } }, where: { code: item.code } })
             }
         })
 
-        return
+        return true
     } catch (error) {
         console.log('[semesterMoveAction] Server error', error);
         throw (error)
@@ -169,6 +172,9 @@ export const semesterMoveAction = async (move: 1 | -1) => {
 
 export const updateGroupAction = async (data: Omit<Group, "createdAt" | "updateadAt">) => {
     try {
+        console.log(data.semester)
+        await prisma.group.update({ data: { ...data, semester: Number(data.semester) }, where: { code: data.code } })
+        return true
     } catch (error) {
         console.log('[updateGroupAction] Server error', error);
         throw (error)
@@ -177,6 +183,8 @@ export const updateGroupAction = async (data: Omit<Group, "createdAt" | "updatea
 
 export const updateDepartmentAction = async (data: Department) => {
     try {
+        await prisma.department.update({ data, where: { code: data.code } })
+        return true
     } catch (error) {
         console.log('[updateDepartmentAction] Server error', error);
         throw (error)

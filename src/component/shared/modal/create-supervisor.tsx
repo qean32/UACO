@@ -10,35 +10,41 @@ import {
     DialogTrigger,
 } from "@/component/ui/dialog"
 import { FormInput, Title } from "../../ui"
-import { DatePicker } from "@/component/shared/pick"
 import { useMyForm } from "@/lib/hooks"
 import { formCreateSupervisor, TformCreateSupervisor } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
 import { DefaultFooter } from "./default-footer"
+import { createSupervisorAction } from "@/app/(root)/admin/actions"
+import { handleAccess, handleCatch } from "@/lib/helpers"
 
 export function CreateSupervisor() {
-    const { form, setValue, submitHandler } = useMyForm<TformCreateSupervisor>(
+    const { form, submitHandler } = useMyForm<TformCreateSupervisor>(
         formCreateSupervisor,
         (data: TformCreateSupervisor) => {
+            // @ts-ignore
+            createSupervisorAction(data)
+                .then(res => handleAccess(res, {}))
+                .catch(handleCatch)
         })
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant={'primary'}>Добавить мероприятие</Button>
+                <Button variant={'primary'}>Добавить организатора</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-110">
                 <FormProvider {...form}>
                     <form onSubmit={submitHandler}>
                         <DialogHeader className="pb-5">
-                            <DialogTitle><Title>Добавить мероприятие</Title></DialogTitle>
-                            <DialogDescription>Введите название, дату и организатора</DialogDescription>
+                            <DialogTitle><Title>Добавить организатора</Title></DialogTitle>
+                            <DialogDescription>Введите ФИО и дату рождения</DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4">
-                            <FormInput placeholder="Фамилия" className="h-10" name="name" />
-                            <FormInput placeholder="Име" className="h-10" name="name" />
-                            <FormInput placeholder="Отчество" className="h-10" name="name" />
-                            <DatePicker setValue={setValue} />
+                            <FormInput placeholder="Фамилия" className="h-10" name="firstName" />
+                            <FormInput placeholder="Имя" className="h-10" name="lastName" />
+                            <FormInput placeholder="Отчество" className="h-10" name="sureName" />
+                            <FormInput placeholder="Пол: М | Ж" className="h-10" name="sex" />
+                            <FormInput placeholder="Дата рождения: 20.05.2006" className="h-10" name="dateOfBirth" />
                         </div>
                         <DefaultFooter>
                             <Button variant="outline" className="text-dark">Отмена</Button>

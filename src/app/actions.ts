@@ -2,6 +2,7 @@
 
 import { tableResponse, generalTableItem } from "@/@types"
 import { DEFAULT_TAKE } from "@/config"
+import { xlsx } from "@/lib/helpers/file"
 import { Event, Role, User } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
@@ -13,8 +14,8 @@ type generalTableFilters = {
     page?: number
 }
 type generaltableProps = {
-    EventId: number
-    all: boolean
+    EventId?: number
+    all?: boolean
 } & generalTableFilters
 type getGeneralTableResponse = {
     column: Pick<Event, "name" | "id">[]
@@ -103,8 +104,16 @@ export const searchStudentsAction = async ({ search }: { search: string }): Prom
     }
 }
 
-const Excel = async (q: generaltableProps) => {
-    const { column, items } = await getGeneralTableAction(q)
+export const xlsxAction = async (q: generaltableProps) => {
+    try {
+        const { column, items } = await getGeneralTableAction({ ...q, all: true, page: 0 })
+        const name = xlsx([["Студент", ...column.map(item => item.name)],
+        ...items.map(item => [`${item.User.firstName} ${item.User.lastName} ${item.User.sureName}`, ...item.estimationsEvent.map(item => item.estimation ? "Да" : "Нет")]
+        )])
 
-
+        return name
+    } catch (error) {
+        console.log('[xlsxAction] Server error', error);
+        throw (error)
+    }
 }

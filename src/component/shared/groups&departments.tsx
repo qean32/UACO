@@ -5,7 +5,7 @@ import { useGetDepartmentsQuery } from "@/store/department";
 import { useGetGroupsQuery } from "@/store/group";
 import { Table } from "./table";
 import { Button } from "../ui";
-import { AccessAction, UpdateGroup } from "./modal";
+import { AccessAction, UpdateDepartment, UpdateGroup } from "./modal";
 
 export const GroupsAndDepartments: React.FC<{}> = ({ }: {}) => {
     const { data: department } = useGetDepartmentsQuery(RTKQKEY.getDepartments);
@@ -35,7 +35,7 @@ export const GroupsAndDepartments: React.FC<{}> = ({ }: {}) => {
                                 >
                                     <Button variant='danger'>Удалить</Button>
                                 </AccessAction></td>
-                            <td><UpdateGroup code={item.code} /></td>
+                            <td><UpdateDepartment code={item.code} /></td>
                         </tr>
                     })}
                 </tbody>
@@ -47,6 +47,7 @@ export const GroupsAndDepartments: React.FC<{}> = ({ }: {}) => {
                     <tr>
                         <th className="w-1/2">Группа</th>
                         <th className="w-1/10">Отделение</th>
+                        <th className="w-1/10">Семестр</th>
                         <th className="w-1/10">Действие</th>
                         <th className="w-1/10">Действие</th>
                     </tr>
@@ -56,6 +57,7 @@ export const GroupsAndDepartments: React.FC<{}> = ({ }: {}) => {
                         return <tr className="" key={item.code}>
                             <td>{item.code}</td>
                             <td>{item.DepartmentCode}</td>
+                            <td>{item.semester}</td>
                             <td>
                                 <AccessAction
                                     action={() => { }}

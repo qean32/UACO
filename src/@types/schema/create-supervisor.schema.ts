@@ -1,4 +1,3 @@
-import { Sex } from "@root/prisma/generated/prisma/enums";
 import z from "zod";
 
 export const formCreateSupervisor = z.object({
@@ -6,7 +5,7 @@ export const formCreateSupervisor = z.object({
     lastName: z.string(),
     sureName: z.string(),
     dateOfBirth: z.string(),
-    sex: Sex,
+    sex: z.string(),
 })
 
 export type TformCreateSupervisor = z.infer<typeof formCreateSupervisor>

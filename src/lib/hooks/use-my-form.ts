@@ -4,18 +4,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler, useForm, SubmitErrorHandler } from "react-hook-form";
 import z from "zod";
 import React from "react";
+import { axiosInstance } from "@/service";
 
 export const useMyForm = <T extends FieldValues,>(
     schema: z.ZodObject<T> | any,
     submitCallBack: Function,
     submitErrorCallBack?: Function,
-    defaultValues?: any
+    _default?: any
 ) => {
     const form = useForm<T>({
         mode: 'onChange',
         resolver: zodResolver(schema),
-        defaultValues,
-        shouldUnregister: false
+        defaultValues: _default ? _default : {}
     })
 
     const onSubmit: SubmitHandler<T> = (data: T) => {

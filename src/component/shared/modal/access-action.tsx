@@ -22,7 +22,6 @@ export function AccessAction({ action, alert, description, children }
         children: ReactNode
     }
 ) {
-
     return (
         <Dialog>
             <DialogTrigger asChild>

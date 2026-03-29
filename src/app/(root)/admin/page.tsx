@@ -17,14 +17,14 @@ export default async function Page() {
                     <CreateSupervisor />
                     <ActionSemester
                         action={1}
-                        alert=''
-                        description=''>
+                        alert='Вы собираетесь перевести группы на следующий семестр'
+                        description='Это может привести к коллапсу семестров групп'>
                         Перевести группы на следующий семестр
                     </ActionSemester>
                     <ActionSemester
                         action={-1}
-                        alert=''
-                        description=''>
+                        alert='Вы собираетесь откатить семетр групп'
+                        description='Это может привести к коллапсу семестров групп'>
                         Откатить семетр групп
                     </ActionSemester>
                 </div>

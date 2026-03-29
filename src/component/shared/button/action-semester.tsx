@@ -3,6 +3,7 @@
 import { Button } from "@/component/ui"
 import { AccessAction } from "../modal"
 import { semesterMoveAction } from "@/app/(root)/admin/actions"
+import { handleAccess, handleCatch } from "@/lib/helpers"
 
 interface Props {
     action: -1 | 1
@@ -12,9 +13,14 @@ interface Props {
 }
 
 export const ActionSemester: React.FC<Props> = ({ action, alert, description, children }: Props) => {
+    const move = () => {
+        semesterMoveAction(action)
+            .then(res => handleAccess(res, {}))
+            .catch(handleCatch)
+    }
 
     return <AccessAction
-        action={async () => { }}
+        action={move}
         alert={alert}
         description={description}
     >

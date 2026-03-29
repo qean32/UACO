@@ -7,5 +7,4 @@ export { GroupsAndDepartments } from './groups&departments'
 
 export { StudentContentPage } from './student-content-page'
 export { SupervisorContentPage } from './suprevisor-content-page'
-export { Search } from './search'
-export { GeneralTableUI } from './general-table-ui'
+export { SearchStudents } from './search-students'

@@ -3,7 +3,7 @@
 import { sortingDirectionEnum, tableResponse, supervisorTableItemType } from "@/@types";
 import { DEFAULT_TAKE, Period } from "@/config";
 import { convertDayToSecond } from "@/lib/helpers";
-import { Event, User } from "@root/prisma/generated/prisma/browser";
+import { Department, Event, Group, Role, User } from "@root/prisma/generated/prisma/browser";
 import { prisma } from "@root/prisma/prisma";
 var randomEmail = require('random-email');
 var randomPassword = require('generate-password');
@@ -111,9 +111,74 @@ export const createStudentsAction = async (data: Pick<User, "GroupCode" | "dateO
             return { ...item, email: randomEmail("yaviak.mck"), password: randomPassword.generate({ length: 10 }), dateOfBirth: new Date(item.dateOfBirth) }
         })
         const students = await prisma.user.createMany({ data: addedPasswordAndEmail })
+
         return students
     } catch (error) {
         console.log('[createEvent] Server error', error);
+        throw (error)
+    }
+}
+
+export const createSupervisorAction = async (item: Pick<User, "firstName" | "lastName" | "sureName" | "sex" | "dateOfBirth">) => {
+    try {
+        const supervisor = await prisma.user.create({
+            data: {
+                ...item,
+                email: randomEmail("yaviak.mck"),
+                password: randomPassword.generate({ length: 10 }),
+                dateOfBirth: new Date(item.dateOfBirth),
+                role: Role.SUPERVISOR
+            }
+        })
+
+        return supervisor
+    } catch (error) {
+        console.log('[createSupervisor] Server error', error);
+        throw (error)
+    }
+}
+
+export const semesterMoveAction = async (move: 1 | -1) => {
+    try {
+        const groups = await prisma.group.findMany()
+        const collapsed = []
+
+        groups.forEach(async item => {
+            if (move) {
+                if (item.semester == 10) {
+                    collapsed.push(item)
+                    return
+                }
+                await prisma.group.update({ data: { semester: { increment: move } }, where: { code: item.code } })
+            }
+            if (!move) {
+                if (item.semester == 1) {
+                    collapsed.push(item)
+                    return
+                }
+                await prisma.group.update({ data: { semester: { increment: move } }, where: { code: item.code } })
+            }
+        })
+
+        return
+    } catch (error) {
+        console.log('[semesterMoveAction] Server error', error);
+        throw (error)
+    }
+}
+
+export const updateGroupAction = async (data: Omit<Group, "createdAt" | "updateadAt">) => {
+    try {
+    } catch (error) {
+        console.log('[updateGroupAction] Server error', error);
+        throw (error)
+    }
+}
+
+export const updateDepartmentAction = async (data: Department) => {
+    try {
+    } catch (error) {
+        console.log('[updateDepartmentAction] Server error', error);
         throw (error)
     }
 }

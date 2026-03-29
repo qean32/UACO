@@ -6,7 +6,7 @@ import { CustomAvatar, Logo, Title } from '@/component/ui';
 import { usePathname } from 'next/navigation'
 import { useUser } from '@/lib/hooks';
 import { Role } from '@root/prisma/generated/prisma/enums';
-import { Search } from '.';
+import { SearchStudents } from '.';
 
 
 interface Props {
@@ -33,7 +33,7 @@ export const Header: React.FC<Props> = ({ }: Props) => {
                         <Title size='text-xl' color={!(pathname == '/admin') ? '' : 'primary-color'}>
                             Админ</Title>
                     </Link>}
-                <Search />
+                <SearchStudents />
             </div>
             <CustomAvatar user={user} />
         </header>

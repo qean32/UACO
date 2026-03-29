@@ -3,10 +3,8 @@
 import { Button } from "@/component/ui/button"
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -18,6 +16,7 @@ import { FormProvider } from "react-hook-form"
 import { handleAccess, handleCatch, readJson } from "@/lib/helpers"
 import { guidePushGroups } from "@/config"
 import { createStudentsAction } from "@/app/(root)/admin/actions"
+import { DefaultFooter } from "./default-footer"
 
 export function PushGroups() {
     const { form, submitHandler } = useMyForm<TformPushFile>(
@@ -46,19 +45,15 @@ export function PushGroups() {
                         <DialogHeader className="pb-5">
                             <DialogTitle><Title>Добавить группы</Title></DialogTitle>
                             <DialogDescription>Для добавления новых групп в систему набходим файл формата &quot;.json&quot; с данными формата</DialogDescription>
-                            <InsertCode className="max-w-[375px]">{guidePushGroups}</InsertCode>
+                            <InsertCode className="max-w-94">{guidePushGroups}</InsertCode>
                         </DialogHeader>
                         <div className="grid gap-4">
                             <InputFile />
                         </div>
-                        <DialogFooter className="pt-8">
-                            <DialogClose asChild>
-                                <Button variant="outline" className="text-dark">Отмена</Button>
-                            </DialogClose>
-                            <DialogClose asChild>
-                                <Button type="submit" variant={'primary'}>Добавить</Button>
-                            </DialogClose>
-                        </DialogFooter>
+                        <DefaultFooter>
+                            <Button variant="outline" className="text-dark">Отмена</Button>
+                            <Button type="submit" variant={'primary'}>Добавить</Button>
+                        </DefaultFooter>
                     </form>
                 </FormProvider>
             </DialogContent>

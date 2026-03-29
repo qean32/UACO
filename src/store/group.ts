@@ -8,7 +8,10 @@ export const groupApi = createApi({
         getGroups: build.query<Group[], string>({
             query: () => `groups`,
         }),
+        getGroup: build.query<Group, string>({
+            query: (id: string) => `groups/${id}`,
+        }),
     }),
 })
 
-export const { useGetGroupsQuery } = groupApi
+export const { useGetGroupsQuery, useGetGroupQuery } = groupApi

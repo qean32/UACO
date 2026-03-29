@@ -15,7 +15,7 @@ export const BestGroups: React.FC = () => {
             {isLoading && <Skeleton count={5} height={26} width={'70%'} className="mt-3" />}
             {!!data?.length && data.map(item => {
                 return <div key={item.GroupCode} className='grid' style={{ gridTemplateColumns: '1fr 2fr' }}>
-                    <Title className='w-[100px]'>{item.GroupCode}</Title>
+                    <Title className='w-25'>{item.GroupCode}</Title>
                 </div>
             })}
         </ol>

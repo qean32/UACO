@@ -2,6 +2,7 @@
 
 import { Button } from "@/component/ui"
 import { AccessAction } from "../modal"
+import { semesterMoveAction } from "@/app/(root)/admin/actions"
 
 interface Props {
     action: -1 | 1
@@ -13,7 +14,7 @@ interface Props {
 export const ActionSemester: React.FC<Props> = ({ action, alert, description, children }: Props) => {
 
     return <AccessAction
-        action={() => { }}
+        action={async () => { }}
         alert={alert}
         description={description}
     >

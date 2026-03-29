@@ -3,10 +3,8 @@
 import { Button } from "@/component/ui/button"
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -18,6 +16,7 @@ import { formCreateEvent, TformCreateEvent } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
 import { handleAccess, handleCatch } from "@/lib/helpers"
 import { createEventAction } from "@/app/(root)/admin/actions"
+import { DefaultFooter } from "./default-footer"
 
 export function CreateEvent() {
     const { form, setValue, submitHandler } = useMyForm<TformCreateEvent>(
@@ -46,14 +45,10 @@ export function CreateEvent() {
                             <DatePicker setValue={setValue} />
                             <PickSupervisor setValue={setValue} />
                         </div>
-                        <DialogFooter className="pt-8">
-                            <DialogClose asChild>
-                                <Button variant="outline" className="text-dark">Отмена</Button>
-                            </DialogClose>
-                            <DialogClose asChild>
-                                <Button type="submit" variant={'primary'}>Добавить</Button>
-                            </DialogClose>
-                        </DialogFooter>
+                        <DefaultFooter>
+                            <Button variant="outline" className="text-dark">Отмена</Button>
+                            <Button type="submit" variant={'primary'}>Добавить</Button>
+                        </DefaultFooter>
                     </form>
                 </FormProvider>
             </DialogContent>

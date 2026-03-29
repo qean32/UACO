@@ -9,10 +9,13 @@ export const useMyForm = <T extends FieldValues,>(
     schema: z.ZodObject<T> | any,
     submitCallBack: Function,
     submitErrorCallBack?: Function,
+    defaultValues?: any
 ) => {
     const form = useForm<T>({
         mode: 'onChange',
-        resolver: zodResolver(schema)
+        resolver: zodResolver(schema),
+        defaultValues,
+        shouldUnregister: false
     })
 
     const onSubmit: SubmitHandler<T> = (data: T) => {
@@ -26,7 +29,7 @@ export const useMyForm = <T extends FieldValues,>(
 
             submitErrorCallBack && submitErrorCallBack(data)
         }
-        console.log('АП:', data);
+        console.log('error', data);
     }, [])
     const submitHandler = form.handleSubmit(onSubmit, onError)
 

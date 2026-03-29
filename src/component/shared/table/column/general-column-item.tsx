@@ -7,7 +7,7 @@ interface Props extends Pick<Event, "name" | "id"> {
 
 export const GeneralColumnItem: React.FC<Props> = ({ id, name, isSort }: Props) => {
     return <th data-id={id}
-        className='hover-th relative max-w-[100px] hover:max-w-[500px] transition-all duration-300 cursor-pointer'
+        className='hover-th relative max-w-25 hover:max-w-125 transition-all duration-300 cursor-pointer'
     >
         <div className="overflow-hidden px-2 w-full hover:px-5 flex gap-2">
             <p className="flex gap-1 items-center">

@@ -13,7 +13,7 @@ interface Props {
     className?: string;
 }
 
-export const Search: React.FC<Props> = ({ className }) => {
+export const SearchStudents: React.FC<Props> = ({ className }) => {
     const [search, setSearch] = useState('');
     const [focused, _, onFocused, offFocused] = useBoolean(false)
     const [students, setStudents] = React.useState<Pick<User, "firstName" | "lastName" | "sureName" | "id">[]>([]);

@@ -1,12 +1,10 @@
 'use server'
 
-import { AboutFilter, GeneralTableUI } from '@/component/shared';
-import { QueryDrop } from '@/component/shared/button';
-import { FilterEvent } from '@/component/shared/modal'
+import { AboutFilter } from '@/component/shared';
 import { GeneralTable } from '@/component/shared/table';
-import { Button } from '@/component/ui/button';
 import { getGeneralTableAction } from '../actions';
 import dynamic from 'next/dynamic';
+import { GeneralTableUI } from '@/component/shared/button/pack';
 
 const Analytics = dynamic(() => import("@/component/shared/analytics"));
 

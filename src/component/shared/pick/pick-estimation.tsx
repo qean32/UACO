@@ -8,7 +8,7 @@ import {
 } from "@/component/ui/select"
 import { pick_estimations } from "@/config"
 import { useUser } from "@/lib/hooks"
-import { usePostEstimationMutation } from "@/store/estimation"
+import { usePostEstimationMutation } from "@/redux/api/estimation"
 
 export function PickEstimation(props: { estimation: number, id: number }) {
     const user = useUser()

@@ -4,6 +4,7 @@ import React from 'react'
 import { cn } from '@/lib/helpers'
 import { useRouter } from 'next/navigation'
 import { ArrowBigLeft } from 'lucide-react'
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
 
 interface Props {
     className?: string
@@ -11,6 +12,7 @@ interface Props {
 
 
 export const ArrowBack: React.FC<Props> = ({ className }: Props) => {
+    const { } = useAppSelector(state => state.action)
     const router = useRouter()
 
     return (

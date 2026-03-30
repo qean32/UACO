@@ -1,8 +1,8 @@
 'use client'
 
 import { RTKQKEY } from "@/config";
-import { useGetDepartmentsQuery } from "@/store/department";
-import { useGetGroupsQuery } from "@/store/group";
+import { useGetDepartmentsQuery } from "@/redux/api/department";
+import { useGetGroupsQuery } from "@/redux/api/group";
 import { Table } from "./table";
 import { Button } from "../ui";
 import { AccessAction, UpdateDepartment, UpdateGroup } from "./modal";

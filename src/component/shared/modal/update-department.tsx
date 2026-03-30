@@ -14,7 +14,7 @@ import { useMyForm } from "@/lib/hooks"
 import { formUpdateDepartment, TformUpdateDepartment } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
 import { DefaultFooter } from "./default-footer"
-import { axiosInstance } from "@/service"
+import { axiosInstance } from "@/redux/api"
 import { updateDepartmentAction, updateGroupAction } from "@/app/(root)/admin/actions"
 import { handleAccess, handleCatch } from "@/lib/helpers"
 

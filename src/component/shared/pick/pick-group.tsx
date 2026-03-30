@@ -12,7 +12,7 @@ import {
 } from "@/component/ui/select"
 import { Input } from "@/component/ui/input"
 import { RTKQKEY } from "@/config";
-import { useGetGroupsQuery } from "@/store/group";
+import { useGetGroupsQuery } from "@/redux/api/group";
 import { setValueFormProps, TformFilterSchema } from "@/@types/schema";
 
 export function PickGroup({ setValue }: setValueFormProps<TformFilterSchema>) {

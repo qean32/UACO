@@ -9,7 +9,7 @@ import {
     SelectValue,
 } from "@/component/ui/select"
 import { RTKQKEY } from "@/config";
-import { useGetDepartmentsQuery } from "@/store/department";
+import { useGetDepartmentsQuery } from "@/redux/api/department";
 
 export function PickDepartment({ setValue }: setValueFormProps<TformFilterSchema>) {
     const { data } = useGetDepartmentsQuery(RTKQKEY.getDepartments);

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler, useForm, SubmitErrorHandler } from "react-hook-form";
 import z from "zod";
 import React from "react";
-import { axiosInstance } from "@/service";
+import { axiosInstance } from "@/redux/api";
 
 export const useMyForm = <T extends FieldValues,>(
     schema: z.ZodObject<T> | any,

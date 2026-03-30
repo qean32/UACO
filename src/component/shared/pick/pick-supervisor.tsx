@@ -10,7 +10,7 @@ import {
 } from "@/component/ui/select"
 import { RTKQKEY } from "@/config";
 import { formatFio } from "@/lib/helpers";
-import { useGetSupervisorsQuery } from "@/store/supervisor";
+import { useGetSupervisorsQuery } from "@/redux/api/supervisor";
 
 export function PickSupervisor({ setValue }: setValueFormProps<any>) {
     const { data } = useGetSupervisorsQuery(RTKQKEY.getSupervisors);

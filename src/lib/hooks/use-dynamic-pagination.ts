@@ -8,6 +8,8 @@ import { tableResponse } from "@/@types"
 import { useBoolean } from "./use-boolean"
 import { toast } from "sonner"
 import { toastConfig } from "@/config"
+import { useHandleAction } from "./use-handle-action"
+import { number } from "zod"
 
 export type useDynamicPaginationType = {
     fillQueries?: boolean
@@ -17,7 +19,7 @@ export type useDynamicPaginationType = {
     initEnd: boolean
 }
 
-export const useDynamicPagination = <T,>(
+export const useDynamicPagination = <T extends { id: string },>(
     {
         fillQueries = false,
         initialState,
@@ -33,8 +35,12 @@ export const useDynamicPagination = <T,>(
     const [end, _, on, off] = useBoolean(initEnd)
     const clearItems = items.length == 0 && queries.size
     useEffect(() => {
-        if (clearItems) { toast("По параметрам ничего не найдено!", toastConfig) }
+        if (clearItems) toast("По параметрам ничего не найдено!", toastConfig)
     }, [clearItems])
+    useHandleAction({
+        delete: (payload) => setItems(curr => curr.filter(item => item.id != payload.id)),
+        push: (payload) => setItems(curr => [payload, ...curr])
+    })
 
     if (fillQueries) {
         useMountEvent(() => {

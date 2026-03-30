@@ -1,5 +1,5 @@
-import { departmentApi } from '@/store/department';
-import { groupApi } from '@/store/group';
+import { departmentApi } from '@/redux/api/department';
+import { groupApi } from '@/redux/api/group';
 
 export async function fetchMultipleData() {
     try {

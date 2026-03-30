@@ -5,16 +5,18 @@ import { SupervisorColumn } from './column'
 import { Table } from './table'
 import { DynamicPagination } from '@/component/master'
 import { deleteEventAction, getSupervisorTableAction } from '@/app/(root)/admin/actions'
-import { tableResponse } from '@/@types'
+import { actionEnum, tableResponse } from '@/@types'
 import { supervisorTableItem } from '@/@types/supervisor-table-item.type'
 import { handleAccess, handleCatch } from '@/lib/helpers'
 import { useRef } from 'react'
+import { useAction } from '@/lib/hooks'
 
 
 export function SupervisorTable({ end, items }: tableResponse<supervisorTableItem[]>) {
+    const [_, setAction] = useAction()
     const deleteEvent = (id: number) => {
         deleteEventAction({ id })
-            .then(res => handleAccess(res, { title: "Мероприятие удалено!", description: "Вы удалили мероприятие" }))
+            .then(res => { handleAccess(res, { title: "Мероприятие удалено!", description: "Вы удалили мероприятие" }); setAction({ action: actionEnum.delete, payload: { id: res.id } }) })
             .catch(handleCatch)
     }
     const ref = useRef<HTMLDivElement | null>(null)

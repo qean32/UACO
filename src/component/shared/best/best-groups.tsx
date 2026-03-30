@@ -1,6 +1,6 @@
 'use client'
 
-import { useGetBestGroupsQuery } from "@/store/best";
+import { useGetBestGroupsQuery } from "@/redux/api/best";
 import { RTKQKEY } from "@/config";
 import { Title } from "@/component/ui";
 import Skeleton from 'react-loading-skeleton'

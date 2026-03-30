@@ -1,6 +1,6 @@
 'use client'
 
-import { useGetBestSupervisorsQuery } from "@/store/best";
+import { useGetBestSupervisorsQuery } from "@/redux/api/best";
 import { RTKQKEY } from "@/config";
 import { Title } from "@/component/ui";
 import { formatFio } from "@/lib/helpers";

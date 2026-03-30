@@ -43,8 +43,8 @@ const Form = ({ code }: { code: string }) => {
         },
         () => { },
         async () => {
-            const data = await axiosInstance.get(`groups/${code}`)
-            return data.data
+            const data = (await axiosInstance.get(`groups/${code}`)).data
+            return { ...data, primaryCode: data.code }
         }
     )
 
@@ -56,6 +56,7 @@ const Form = ({ code }: { code: string }) => {
             </DialogHeader>
             <div className="grid gap-4">
                 <FormInput placeholder="Код" className="h-10" name="code" />
+                <FormInput hidden name="primaryCode" />
                 <FormInput placeholder="Отделение" className="h-10" name="DepartmentCode" />
                 <FormInput placeholder="Семестр" className="h-10" name="semester" />
             </div>

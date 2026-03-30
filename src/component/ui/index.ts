@@ -5,6 +5,7 @@ export { ArrowBack } from './arrow-back'
 export { Logo } from './logo'
 export { DangerText } from './danger-text'
 export { InsertCode } from './insert-code'
+export { NoFindData } from './no-find-data'
 
 export * as Dialog from './alert-dialog'
 export { Avatar, AvatarFallback, AvatarImage } from './avatar'

@@ -16,10 +16,10 @@ export const GroupsAndDepartments: React.FC<{}> = ({ }: {}) => {
             <Table className="mt-10">
                 <thead className="py-3 bg-gray-200">
                     <tr>
-                        <th className="w-1/2">Ниаменование</th>
+                        <th className="w-1/2">Отделение</th>
                         <th className="w-1/10">Код</th>
-                        <th className="w-1/10">Действие</th>
-                        <th className="w-1/10">Действие</th>
+                        <th className="w-1/10"></th>
+                        <th className="w-1/10"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,9 +47,10 @@ export const GroupsAndDepartments: React.FC<{}> = ({ }: {}) => {
                     <tr>
                         <th className="w-1/2">Группа</th>
                         <th className="w-1/10">Отделение</th>
+                        <th className="w-1/10">Курс</th>
                         <th className="w-1/10">Семестр</th>
-                        <th className="w-1/10">Действие</th>
-                        <th className="w-1/10">Действие</th>
+                        <th className="w-1/10"></th>
+                        <th className="w-1/10"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,6 +58,7 @@ export const GroupsAndDepartments: React.FC<{}> = ({ }: {}) => {
                         return <tr className="" key={item.code}>
                             <td>{item.code}</td>
                             <td>{item.DepartmentCode}</td>
+                            <td>{Math.round(item.semester / 2)}</td>
                             <td>{item.semester}</td>
                             <td>
                                 <AccessAction

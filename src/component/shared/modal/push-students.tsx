@@ -13,7 +13,7 @@ import { InputFile, InsertCode, Title } from "@/component/ui"
 import { useMyForm } from "@/lib/hooks"
 import { formPushFile, TformPushFile } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
-import { handleAccess, handleCatch, readJson } from "@/lib/helpers"
+import { handleAccess, handleCatch, openDownloadFile, readJson } from "@/lib/helpers"
 import { guidePushStudents } from "@/config"
 import { createStudentsAction } from "@/app/(root)/admin/actions"
 import { DefaultFooter } from "./default-footer"
@@ -29,7 +29,7 @@ export function PushStudents() {
             if (res) {
                 // @ts-ignore
                 createStudentsAction(JSON.parse(res))
-                    .then(res => handleAccess(res, { title: "Студенты добавлены!", description: "Вы успешно добавили студентов" }))
+                    .then(res => { handleAccess(res, { title: "Студенты добавлены!", description: "Вы успешно добавили студентов" }); openDownloadFile(res) })
                     .catch(handleCatch)
             }
         })

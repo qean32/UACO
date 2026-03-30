@@ -8,6 +8,7 @@ import { deleteEventAction, getSupervisorTableAction } from '@/app/(root)/admin/
 import { tableResponse } from '@/@types'
 import { supervisorTableItem } from '@/@types/supervisor-table-item.type'
 import { handleAccess, handleCatch } from '@/lib/helpers'
+import { useRef } from 'react'
 
 
 export function SupervisorTable({ end, items }: tableResponse<supervisorTableItem[]>) {
@@ -16,17 +17,22 @@ export function SupervisorTable({ end, items }: tableResponse<supervisorTableIte
             .then(res => handleAccess(res, { title: "Мероприятие удалено!", description: "Вы удалили мероприятие" }))
             .catch(handleCatch)
     }
+    const ref = useRef<HTMLDivElement | null>(null)
 
     return (
-        <Table>
-            <SupervisorColumn />
-            <DynamicPagination
-                fillQueries={true}
-                initialState={items}
-                initEnd={end}
-                _fetch={getSupervisorTableAction}
-                renderItem={(item) => <SupervisorTableItem action={deleteEvent} {...item} />}
-            />
-        </Table>
+        <>
+            <Table>
+                <SupervisorColumn />
+                <DynamicPagination
+                    fillQueries={true}
+                    ref={ref}
+                    initialState={items}
+                    initEnd={end}
+                    _fetch={getSupervisorTableAction}
+                    renderItem={(item) => <SupervisorTableItem action={deleteEvent} {...item} />}
+                />
+            </Table>
+            <div ref={ref}></div>
+        </>
     )
 }

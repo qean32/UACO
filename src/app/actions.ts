@@ -46,7 +46,7 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
                 name: true
             },
             where: { ...(date ? { date } : null) },
-            orderBy: { date: "desc" }
+            orderBy: { id: "desc" }
         })
         const students = await prisma.user.findMany({
             select: {
@@ -57,7 +57,7 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
             take: !all ? DEFAULT_TAKE : undefined,
             skip,
             where: filter,
-            orderBy: { firstName: "asc" }
+            orderBy: { firstName: "desc" }
         })
         let items: generalTableItem[] = students.map(student_item => {
             return {
@@ -67,9 +67,23 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
                     ...events.map(event_item => {
                         return { EventId: event_item.id, estimation: 0 }
                     }).filter(filter_item => !student_item.estimationsEvents.some(some_item => some_item.EventId == filter_item.EventId))
-                ]
+                ].sort((a, b) => b.EventId - a.EventId)
             }
         })
+
+        // // @ts-ignore
+        // if (EventId && EventId != "null") {
+        //     const filtered = items.filter(filter_item => {
+        //         return filter_item.estimationsEvent.some(some_filter => some_filter.EventId == EventId && some_filter.estimation != 0)
+        //     })
+
+        //     const primeItems = [
+        //         ...filtered,
+        //         ...items.filter(item => !filtered.some(some_item => some_item.User.id == item.User.id))
+        //     ]
+
+        //     return { items: primeItems, column: events, end: skip + DEFAULT_TAKE >= await prisma.user.count({ where: filter }) }
+        // }
 
         return { items, column: events, end: skip + DEFAULT_TAKE >= await prisma.user.count({ where: filter }) }
     } catch (error) {

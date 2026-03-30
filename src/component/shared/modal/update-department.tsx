@@ -36,14 +36,15 @@ const Form = ({ code }: { code: string }) => {
     const { form, submitHandler } = useMyForm<TformUpdateDepartment>(
         formUpdateDepartment,
         async (data: TformUpdateDepartment) => {
+            // @ts-ignore
             updateDepartmentAction(data)
                 .then(res => handleAccess(res, {}))
                 .catch(handleCatch)
         },
         () => { },
         async () => {
-            const data = await axiosInstance.get(`departments/${code}`)
-            return data.data
+            const data = (await axiosInstance.get(`departments/${code}`)).data
+            return { ...data, primaryCode: data.code }
         }
     )
 
@@ -55,6 +56,7 @@ const Form = ({ code }: { code: string }) => {
             </DialogHeader>
             <div className="grid gap-4">
                 <FormInput placeholder="Код" className="h-10" name="code" />
+                <FormInput hidden name="primaryCode" />
                 <FormInput placeholder="Название" className="h-10" name="name" />
             </div>
             <DefaultFooter>

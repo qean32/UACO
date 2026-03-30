@@ -2,12 +2,11 @@
 
 import { sortingDirectionEnum, tableResponse, supervisorTableItemType } from "@/@types";
 import { DEFAULT_TAKE, Period } from "@/config";
-import { convertDayToSecond } from "@/lib/helpers";
+import { addFieldToUser, convertDayToSecond } from "@/lib/helpers";
 import { convertUserToString, docx } from "@/lib/helpers/file";
-import { Department, Event, Group, Role, Sex, User } from "@root/prisma/generated/prisma/browser";
+import { Department, Event, Group, Role, User } from "@root/prisma/generated/prisma/browser";
 import { prisma } from "@root/prisma/prisma";
-var randomEmail = require('random-email');
-var randomPassword = require('generate-password');
+import { hashSync } from "bcrypt";
 
 export const createEventAction = async (data: Pick<Event, "SupervisorId" | "date" | "name">) => {
     try {
@@ -109,9 +108,9 @@ export const getSupervisorTableAction = async ({ page, sort, direction = sorting
 export const createStudentsAction = async (data: Pick<User, "GroupCode" | "dateOfBirth" | "firstName" | "lastName" | "sureName" | "sex">[]) => {
     try {
         const addedPasswordAndEmail = data.map(item => {
-            return { ...item, email: randomEmail("yaviak.mck"), password: randomPassword.generate({ length: 10 }), dateOfBirth: new Date(item.dateOfBirth) }
+            return addFieldToUser(item)
         })
-        await prisma.user.createMany({ data: addedPasswordAndEmail })
+        await prisma.user.createMany({ data: addedPasswordAndEmail.map(item => { return { ...item, password: hashSync(item.password, 6) } }) })
         const path = docx(convertUserToString(addedPasswordAndEmail))
 
         return path
@@ -123,57 +122,40 @@ export const createStudentsAction = async (data: Pick<User, "GroupCode" | "dateO
 
 export const createSupervisorAction = async (item: Pick<User, "firstName" | "lastName" | "sureName" | "sex" | "dateOfBirth">) => {
     try {
-        const addedPasswordAndEmail = {
-            ...item,
-            email: randomEmail("yaviak.mck"),
-            password: randomPassword.generate({ length: 10 }),
-            dateOfBirth: new Date(),
-            role: Role.SUPERVISOR,
-            // @ts-ignore
-            sex: (item.sex == "M") ? Sex.MALE : Sex.FEMALE
-        }
+        const addedPasswordAndEmail = addFieldToUser(item)
         await prisma.user.create({
-            data: addedPasswordAndEmail
+            data: { ...addedPasswordAndEmail, password: hashSync(addedPasswordAndEmail.password, 6), role: Role.SUPERVISOR }
         })
         const path = docx(convertUserToString([addedPasswordAndEmail]))
 
         return path
     } catch (error) {
-        console.log('[createSupervisor] Server error', error);
+        console.log('[createSupervisorAction] Server error', error);
         throw (error)
     }
 }
 
 export const semesterMoveAction = async (move: 1 | -1) => {
     try {
-        const groups = await prisma.group.findMany()
-
-        groups.forEach(async item => {
-            if (move) {
-                if (item.semester == 10) {
-                    return
-                }
-                await prisma.group.update({ data: { semester: { increment: move } }, where: { code: item.code } })
-            }
-            if (!move) {
-                if (item.semester == 1) {
-                    return
-                }
-                await prisma.group.update({ data: { semester: { increment: move } }, where: { code: item.code } })
-            }
-        })
-
-        return true
+        if (move == 1) {
+            await prisma.group.updateMany({ data: { semester: { increment: move } }, where: { semester: { not: 8 } } })
+            return true
+        }
+        if (move == -1) {
+            await prisma.group.updateMany({ data: { semester: { increment: move } }, where: { semester: { not: 1 } } })
+            return true
+        }
     } catch (error) {
         console.log('[semesterMoveAction] Server error', error);
         throw (error)
     }
 }
 
-export const updateGroupAction = async (data: Omit<Group, "createdAt" | "updateadAt">) => {
+type primaryCode = { primaryCode: string }
+type updateGroupActionProps = Omit<Group, "createdAt" | "updateadAt"> & primaryCode
+export const updateGroupAction = async ({ DepartmentCode, code, semester, primaryCode }: updateGroupActionProps) => {
     try {
-        console.log(data.semester)
-        await prisma.group.update({ data: { ...data, semester: Number(data.semester) }, where: { code: data.code } })
+        await prisma.group.update({ data: { code, DepartmentCode, semester: Number(semester) }, where: { code: primaryCode } })
         return true
     } catch (error) {
         console.log('[updateGroupAction] Server error', error);
@@ -181,9 +163,10 @@ export const updateGroupAction = async (data: Omit<Group, "createdAt" | "updatea
     }
 }
 
-export const updateDepartmentAction = async (data: Department) => {
+type updateDepartmentActionProps = Omit<Department, "createdAt" | "updateadAt"> & primaryCode
+export const updateDepartmentAction = async ({ name, code, primaryCode }: updateDepartmentActionProps) => {
     try {
-        await prisma.department.update({ data, where: { code: data.code } })
+        await prisma.department.update({ data: { code, name }, where: { code: primaryCode } })
         return true
     } catch (error) {
         console.log('[updateDepartmentAction] Server error', error);

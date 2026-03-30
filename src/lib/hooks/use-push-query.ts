@@ -10,7 +10,7 @@ export const usePushQuery = <T,>() => {
     const search = useSearchParams()
 
     const push = async (data: any, prev: boolean = true) => {
-        router.push(`?${objectToUrlSearch(prev ? { ...Object.fromEntries(search), ...data } : data)}`)
+        router.push(`?${objectToUrlSearch(prev ? { ...Object.fromEntries(search), ...data } : data)}`, { scroll: false })
     }
 
     const clear = () => { router.push(pathname) }

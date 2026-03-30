@@ -15,7 +15,7 @@ import { formCreateSupervisor, TformCreateSupervisor } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
 import { DefaultFooter } from "./default-footer"
 import { createSupervisorAction } from "@/app/(root)/admin/actions"
-import { handleAccess, handleCatch } from "@/lib/helpers"
+import { handleAccess, handleCatch, openDownloadFile } from "@/lib/helpers"
 
 export function CreateSupervisor() {
     const { form, submitHandler } = useMyForm<TformCreateSupervisor>(
@@ -23,7 +23,7 @@ export function CreateSupervisor() {
         (data: TformCreateSupervisor) => {
             // @ts-ignore
             createSupervisorAction(data)
-                .then(res => handleAccess(res, {}))
+                .then(res => { handleAccess(res, {}); openDownloadFile(res) })
                 .catch(handleCatch)
         })
 

@@ -10,7 +10,7 @@ datasource db {
 
 model Group {
   code     String @id @unique
-  semester Int?   @default(1)
+  semester Int   @default(1)
 
   createdAt  DateTime @default(now())
   updateadAt DateTime @updatedAt

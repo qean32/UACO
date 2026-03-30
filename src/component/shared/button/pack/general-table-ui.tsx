@@ -7,6 +7,7 @@ import { useUser } from "@/lib/hooks"
 import { Role } from "@root/prisma/generated/prisma/enums"
 import { xlsxAction } from "@/app/actions"
 import { useSearchParams } from "next/navigation"
+import { openDownloadFile } from "@/lib/helpers"
 
 export const GeneralTableUI: React.FC<{}> = () => {
     const user = useUser()
@@ -17,7 +18,7 @@ export const GeneralTableUI: React.FC<{}> = () => {
         <FilterEvent />
         {user?.role != Role.STUDENT &&
             <Button variant={'primary'}
-                onClick={() => xlsxAction(Object.fromEntries(search)).then(res => window.open("api/download/" + res)?.focus())}>
+                onClick={() => xlsxAction(Object.fromEntries(search)).then(openDownloadFile)}>
                 Экспорт в Excel
             </Button>
         }

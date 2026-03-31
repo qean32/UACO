@@ -10,13 +10,17 @@ import { supervisorTableItem } from '@/@types/supervisor-table-item.type'
 import { handleAccess, handleCatch } from '@/lib/helpers'
 import { useRef } from 'react'
 import { useAction } from '@/lib/hooks'
+import { actionTypeEnum } from '@/@types/action.enum'
 
 
 export function SupervisorTable({ end, items }: tableResponse<supervisorTableItem[]>) {
-    const [_, setAction] = useAction()
+    const [setAction] = useAction()
     const deleteEvent = (id: number) => {
         deleteEventAction({ id })
-            .then(res => { handleAccess(res, { title: "Мероприятие удалено!", description: "Вы удалили мероприятие" }); setAction({ action: actionEnum.delete, payload: { id: res.id } }) })
+            .then(res => {
+                handleAccess(res, { title: "Мероприятие удалено!", description: "Вы удалили мероприятие" })
+                setAction({ action: actionEnum.delete, payload: { id: res.id }, type: actionTypeEnum.event })
+            })
             .catch(handleCatch)
     }
     const ref = useRef<HTMLDivElement | null>(null)
@@ -28,6 +32,7 @@ export function SupervisorTable({ end, items }: tableResponse<supervisorTableIte
                 <DynamicPagination
                     fillQueries={true}
                     ref={ref}
+                    typeAction={actionTypeEnum.event}
                     initialState={items}
                     initEnd={end}
                     _fetch={getSupervisorTableAction}

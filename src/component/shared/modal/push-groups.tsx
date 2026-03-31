@@ -10,26 +10,31 @@ import {
     DialogTrigger,
 } from "@/component/ui/dialog"
 import { InputFile, InsertCode, Title } from "@/component/ui"
-import { useMyForm } from "@/lib/hooks"
+import { useAction, useMyForm } from "@/lib/hooks"
 import { formPushFile, TformPushFile } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
 import { handleAccess, handleCatch, readJson } from "@/lib/helpers"
 import { guidePushGroups } from "@/config"
-import { createStudentsAction } from "@/app/(root)/admin/actions"
+import { createGroupsAction } from "@/app/(root)/admin/actions"
 import { DefaultFooter } from "./default-footer"
+import { actionEnum } from "@/@types"
+import { actionTypeEnum } from "@/@types/action.enum"
 
 export function PushGroups() {
+    const [setAction] = useAction()
     const { form, submitHandler } = useMyForm<TformPushFile>(
         formPushFile,
         async (data: TformPushFile) => {
             const file = data.file[0]
-
             const res = await readJson(file)
 
             if (res) {
                 // @ts-ignore
-                createStudentsAction(JSON.parse(res))
-                    .then(res => handleAccess(res, { title: "Студенты добавлены!", description: "Вы успешно добавили студентов" }))
+                createGroupsAction(JSON.parse(res))
+                    .then(res => {
+                        handleAccess(res, { title: "Студенты добавлены!", description: "Вы успешно добавили студентов" })
+                        setAction({ action: actionEnum.push, payload: res, type: actionTypeEnum.group })
+                    })
                     .catch(handleCatch)
             }
         })

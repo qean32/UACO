@@ -23,13 +23,15 @@ export function PushStudents() {
         formPushFile,
         async (data: TformPushFile) => {
             const file = data.file[0]
-
             const res = await readJson(file)
 
             if (res) {
                 // @ts-ignore
                 createStudentsAction(JSON.parse(res))
-                    .then(res => { handleAccess(res, { title: "Студенты добавлены!", description: "Вы успешно добавили студентов" }); openDownloadFile(res) })
+                    .then(res => {
+                        handleAccess(res, { title: "Студенты добавлены!", description: "Вы успешно добавили студентов" })
+                        openDownloadFile(res)
+                    })
                     .catch(handleCatch)
             }
         })

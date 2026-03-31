@@ -10,13 +10,15 @@ import {
     DialogTrigger,
 } from "@/component/ui/dialog"
 import { FormInput, Title } from "@/component/ui"
-import { useMyForm } from "@/lib/hooks"
+import { useAction, useMyForm } from "@/lib/hooks"
 import { formUpdateGroup, TformUpdateGroup } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
 import { DefaultFooter } from "./default-footer"
 import { axiosInstance } from "@/redux/api"
 import { updateGroupAction } from "@/app/(root)/admin/actions"
 import { handleAccess, handleCatch } from "@/lib/helpers"
+import { actionEnum } from "@/@types"
+import { actionTypeEnum } from "@/@types/action.enum"
 
 export function UpdateGroup({ code }: { code: string }) {
 
@@ -33,12 +35,16 @@ export function UpdateGroup({ code }: { code: string }) {
 }
 
 const Form = ({ code }: { code: string }) => {
+    const [setAction] = useAction()
     const { form, submitHandler } = useMyForm<TformUpdateGroup>(
         formUpdateGroup,
         async (data: TformUpdateGroup) => {
             // @ts-ignore
             updateGroupAction(data)
-                .then(res => handleAccess(res, {}))
+                .then(res => {
+                    handleAccess(res, {})
+                    setAction({ action: actionEnum.edit, payload: res, type: actionTypeEnum.group })
+                })
                 .catch(handleCatch)
         },
         () => { },

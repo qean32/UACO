@@ -1,7 +1,7 @@
 'use server'
 
 
-import { GroupsAndDepartments } from '@/component/shared';
+import { GroupsAndDepartments } from '@/component/shared/groups&departments';
 import { ActionSemester } from '@/component/shared/button';
 import { CreateSupervisor, PushDepartments, PushGroups, PushStudents } from '@/component/shared/modal';
 

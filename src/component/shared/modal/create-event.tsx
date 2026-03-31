@@ -11,20 +11,26 @@ import {
 } from "@/component/ui/dialog"
 import { FormInput, Title } from "../../ui"
 import { PickSupervisor, DatePicker } from "@/component/shared/pick"
-import { useMyForm } from "@/lib/hooks"
+import { useAction, useMyForm } from "@/lib/hooks"
 import { formCreateEvent, TformCreateEvent } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
-import { handleAccess, handleCatch } from "@/lib/helpers"
+import { formatDate, handleAccess, handleCatch } from "@/lib/helpers"
 import { createEventAction } from "@/app/(root)/admin/actions"
 import { DefaultFooter } from "./default-footer"
+import { actionEnum } from "@/@types"
+import { actionTypeEnum } from "@/@types/action.enum"
 
 export function CreateEvent() {
+    const [setAction] = useAction()
     const { form, setValue, submitHandler } = useMyForm<TformCreateEvent>(
         formCreateEvent,
         (data: TformCreateEvent) => {
             // @ts-ignore
             createEventAction(data)
-                .then(res => handleAccess(res, { title: "Мероприятие добавлено!", description: "Вы добавили мероприятие" }))
+                .then(res => {
+                    handleAccess(res, { title: "Мероприятие добавлено!", description: "Вы добавили мероприятие" });
+                    setAction({ action: actionEnum.push, payload: { ...res, date: formatDate(res?.date) }, type: actionTypeEnum.event })
+                })
                 .catch(handleCatch)
         })
 

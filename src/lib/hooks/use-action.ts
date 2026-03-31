@@ -1,14 +1,17 @@
-import { actionEnum } from "@/@types"
 import { useAppDispatch, useAppSelector } from "./redux"
 import { setAction, stateActionType } from "@/redux/store/action"
 
-export const useAction = (): [stateActionType, (payload: { action: actionEnum, payload: any }) => void] => {
-    const { action, payload } = useAppSelector(state => state.action)
+export const useAction = (): [(payload: stateActionType) => void, stateActionType, () => void] => {
+    const state = useAppSelector(state => state.action)
     const dispath = useAppDispatch()
 
-    const set = (payload: { action: actionEnum, payload: any }) => {
+    const set = (payload: stateActionType) => {
         dispath(setAction(payload))
     }
 
-    return [{ action, payload }, set]
+    const clear = () => {
+        dispath(setAction({ action: null, payload: null, type: null }))
+    }
+
+    return [set, state, clear]
 }

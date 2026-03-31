@@ -12,8 +12,8 @@ interface Props extends useDynamicPaginationType {
     ref: RefObject<HTMLDivElement | null>
 }
 
-export const DynamicPagination: React.FC<Props> = ({ _fetch, fillQueries, initialState, renderItem, staticParam, initEnd, ref }: Props) => {
-    const { inViewRef, items } = useDynamicPagination<any>({ _fetch, fillQueries, initialState, staticParam, initEnd })
+export const DynamicPagination: React.FC<Props> = ({ _fetch, fillQueries, initialState, renderItem, staticParam, initEnd, ref, typeAction }: Props) => {
+    const { inViewRef, items } = useDynamicPagination<any>({ _fetch, fillQueries, initialState, staticParam, initEnd, typeAction })
 
     return (
         <>
@@ -21,7 +21,7 @@ export const DynamicPagination: React.FC<Props> = ({ _fetch, fillQueries, initia
                 {!!items.length && items.map(item => {
                     return <Fragment key={item?.User?.id ? item?.User?.id : item.id}>{renderItem(item)}</Fragment>
                 })}
-                <tr ref={inViewRef} className="h-screen"></tr>
+                <tr ref={inViewRef} className="h-25"></tr>
             </tbody>
             {!items.length && ref.current && <Portal endpoint={ref.current}><NoFindData /></Portal>}
         </>

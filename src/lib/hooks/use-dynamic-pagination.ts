@@ -10,6 +10,7 @@ import { toast } from "sonner"
 import { toastConfig } from "@/config"
 import { useHandleAction } from "./use-handle-action"
 import { number } from "zod"
+import { actionTypeEnum } from "@/@types/action.enum"
 
 export type useDynamicPaginationType = {
     fillQueries?: boolean
@@ -17,15 +18,17 @@ export type useDynamicPaginationType = {
     _fetch: Function
     staticParam?: any
     initEnd: boolean
+    typeAction?: actionTypeEnum
 }
 
-export const useDynamicPagination = <T extends { id: string },>(
+export const useDynamicPagination = <T extends { id: string, code: string },>(
     {
         fillQueries = false,
         initialState,
         _fetch,
         staticParam,
         initEnd,
+        typeAction
     }:
         useDynamicPaginationType
 ) => {
@@ -37,9 +40,10 @@ export const useDynamicPagination = <T extends { id: string },>(
     useEffect(() => {
         if (clearItems) toast("По параметрам ничего не найдено!", toastConfig)
     }, [clearItems])
-    useHandleAction({
-        delete: (payload) => setItems(curr => curr.filter(item => item.id != payload.id)),
-        push: (payload) => setItems(curr => [payload, ...curr])
+    !!typeAction?.toString() && useHandleAction({
+        typeAction,
+        delete: payload => setItems(curr => curr.filter(item => item?.id != payload?.id || item?.code != payload?.code)),
+        push: payload => setItems(curr => [payload, ...curr])
     })
 
     if (fillQueries) {

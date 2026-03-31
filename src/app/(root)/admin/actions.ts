@@ -10,8 +10,8 @@ import { hashSync } from "bcrypt";
 
 export const createEventAction = async (data: Pick<Event, "SupervisorId" | "date" | "name">) => {
     try {
-        const event = await prisma.event.create({ data: { ...data, SupervisorId: Number(data.SupervisorId) } })
-        return event
+        const event = await prisma.event.create({ data: { ...data, SupervisorId: Number(data.SupervisorId) }, omit: { createdAt: true } })
+        return { ...event, avg: 0, count: 0 }
     } catch (error) {
         console.log('[createEvent] Server error', error);
         throw (error)
@@ -115,7 +115,27 @@ export const createStudentsAction = async (data: Pick<User, "GroupCode" | "dateO
 
         return path
     } catch (error) {
-        console.log('[createEvent] Server error', error);
+        console.log('[createStudentsAction] Server error', error);
+        throw (error)
+    }
+}
+
+export const createGroupsAction = async (data: Pick<Group, "DepartmentCode" | "code">[]) => {
+    try {
+        await prisma.group.createMany({ data })
+        return data.map(item => { return { ...item, semester: 1 } })
+    } catch (error) {
+        console.log('[createGroupsAction] Server error', error);
+        throw (error)
+    }
+}
+
+export const createDepartmentsAction = async (data: Pick<Department, "code" | "name">[]) => {
+    try {
+        await prisma.department.createMany({ data })
+        return data
+    } catch (error) {
+        console.log('[createDepartmentsAction] Server error', error);
         throw (error)
     }
 }
@@ -155,8 +175,8 @@ type primaryCode = { primaryCode: string }
 type updateGroupActionProps = Omit<Group, "createdAt" | "updateadAt"> & primaryCode
 export const updateGroupAction = async ({ DepartmentCode, code, semester, primaryCode }: updateGroupActionProps) => {
     try {
-        await prisma.group.update({ data: { code, DepartmentCode, semester: Number(semester) }, where: { code: primaryCode } })
-        return true
+        const group = await prisma.group.update({ data: { code, DepartmentCode, semester: Number(semester) }, where: { code: primaryCode }, omit: { createdAt: true, updateadAt: true } })
+        return group
     } catch (error) {
         console.log('[updateGroupAction] Server error', error);
         throw (error)
@@ -166,10 +186,30 @@ export const updateGroupAction = async ({ DepartmentCode, code, semester, primar
 type updateDepartmentActionProps = Omit<Department, "createdAt" | "updateadAt"> & primaryCode
 export const updateDepartmentAction = async ({ name, code, primaryCode }: updateDepartmentActionProps) => {
     try {
-        await prisma.department.update({ data: { code, name }, where: { code: primaryCode } })
-        return true
+        const department = await prisma.department.update({ data: { code, name }, where: { code: primaryCode } })
+        return department
     } catch (error) {
         console.log('[updateDepartmentAction] Server error', error);
+        throw (error)
+    }
+}
+
+export const deleteDepartmentAction = async ({ code }: { code: string }) => {
+    try {
+        await prisma.department.delete({ where: { code } })
+        return true
+    } catch (error) {
+        console.log('[deleteDepartmentAction] Server error', error);
+        throw (error)
+    }
+}
+
+export const deleteGroupAction = async ({ code }: { code: string }) => {
+    try {
+        await prisma.group.delete({ where: { code } })
+        return true
+    } catch (error) {
+        console.log('[deleteGroupAction] Server error', error);
         throw (error)
     }
 }

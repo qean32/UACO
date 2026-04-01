@@ -17,7 +17,7 @@ export const GeneralTableItem: React.FC<Props> = ({ User, estimationsEvent }: Pr
             {!!estimationsEvent.length &&
                 estimationsEvent.map(item =>
 
-                    <td key={item.EventId} className='font-mono'>
+                    <td key={item.EventId}>
                         {toBoolean(!!item.estimation)}
                     </td>
                 )

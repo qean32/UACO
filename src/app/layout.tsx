@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./style/app.css";
-import Link from "next/link";
 import { Root } from "@/component/master";
 import 'react-loading-skeleton/dist/skeleton.css'
 import { Toaster } from "@/component/ui";
@@ -29,15 +28,8 @@ export default function RootLayout({
 
         <body className={`antialiased text-lg`}>
           <Toaster />
-          <div className="fixed bottom-0 right-0 z-50 flex gap-4 text-sm p-5">
-            <Link href='/'><p>главная</p></Link>
-            <Link href='/profile/5'><p>профиль</p></Link>
-            <Link href='/admin'><p>admin</p></Link>
-            <Link href='/supervisor'><p>supervisor</p></Link>
-            <Link href='/auth'><p>auth</p></Link>
-          </div>
 
-          <main className="min-h-[100vh] flex flex-col bg-gray-50">
+          <main className="min-h-screen flex flex-col bg-gray-50">
             {children}
           </main>
 

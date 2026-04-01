@@ -1,8 +1,9 @@
 'use server'
 
-import { tableResponse, generalTableItem, studentTableItem, } from "@/@types"
+import { tableResponse, generalTableItem } from "@/@types"
 import { DEFAULT_TAKE } from "@/config"
-import { Event } from "@root/prisma/generated/prisma/browser"
+import { xlsx } from "@/lib/helpers/file"
+import { Event, Role, User } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
 type generalTableFilters = {
@@ -13,15 +14,17 @@ type generalTableFilters = {
     page?: number
 }
 type generaltableProps = {
-    EventId: number
+    EventId?: number
+    all?: boolean
 } & generalTableFilters
 type getGeneralTableResponse = {
     column: Pick<Event, "name" | "id">[]
 } & tableResponse<generalTableItem[]>
-export const getGeneralTableAction = async ({ course, date, department, group, page, EventId }: generaltableProps): Promise<getGeneralTableResponse> => {
+export const getGeneralTableAction = async ({ course, date, department, group, page, EventId, all }: generaltableProps): Promise<getGeneralTableResponse> => {
     try {
         const skip = (page || 0) * DEFAULT_TAKE
         const filter = {
+            role: Role.STUDENT,
             AND: [
                 {
                     ...(course ? {
@@ -33,7 +36,8 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
                 },
                 { ...(department ? { Group: { Department: { name: department } } } : null) },
                 { ...(group ? { GroupCode: group } : null) },
-                { ...(EventId ? { estimationsEvents: { some: { EventId: Number(EventId) } } } : null) }
+                // @ts-ignore
+                { ...(EventId && EventId != "null" ? { estimationsEvents: { some: { EventId: Number(EventId) } } } : null) },
             ],
         }
         const events = await prisma.event.findMany({
@@ -42,7 +46,7 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
                 name: true
             },
             where: { ...(date ? { date } : null) },
-            orderBy: { date: "desc" }
+            orderBy: { id: "desc" }
         })
         const students = await prisma.user.findMany({
             select: {
@@ -50,10 +54,10 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
                 firstName: true, lastName: true, sureName: true,
                 id: true
             },
-            take: DEFAULT_TAKE,
+            take: !all ? DEFAULT_TAKE : undefined,
             skip,
             where: filter,
-            orderBy: { firstName: "asc" }
+            orderBy: { firstName: "desc" }
         })
         let items: generalTableItem[] = students.map(student_item => {
             return {
@@ -63,13 +67,53 @@ export const getGeneralTableAction = async ({ course, date, department, group, p
                     ...events.map(event_item => {
                         return { EventId: event_item.id, estimation: 0 }
                     }).filter(filter_item => !student_item.estimationsEvents.some(some_item => some_item.EventId == filter_item.EventId))
-                ]
+                ].sort((a, b) => b.EventId - a.EventId)
             }
         })
 
         return { items, column: events, end: skip + DEFAULT_TAKE >= await prisma.user.count({ where: filter }) }
     } catch (error) {
         console.log('[getGeneralTableAction] Server error', error);
+        throw (error)
+    }
+}
+
+export const searchStudentsAction = async ({ search }: { search: string }): Promise<Pick<User, "firstName" | "lastName" | "sureName" | "id">[]> => {
+    try {
+        const students = await prisma.user.findMany({
+            take: 6,
+            select: { firstName: true, lastName: true, sureName: true, id: true },
+            where: {
+                AND: [
+                    { role: Role.STUDENT },
+                    {
+                        OR: [
+                            { firstName: { contains: search } },
+                            { lastName: { contains: search } },
+                            { sureName: { contains: search } },
+                        ]
+                    },
+                ]
+            }
+        })
+
+        return students
+    } catch (error) {
+        console.log('[searchStudentsAction] Server error', error);
+        throw (error)
+    }
+}
+
+export const xlsxAction = async (q: generaltableProps) => {
+    try {
+        const { column, items } = await getGeneralTableAction({ ...q, all: true, page: 0 })
+        const name = xlsx([["Студент", ...column.map(item => item.name)],
+        ...items.map(item => [`${item.User.firstName} ${item.User.lastName} ${item.User.sureName}`, ...item.estimationsEvent.map(item => item.estimation ? "Да" : "Нет")]
+        )])
+
+        return name
+    } catch (error) {
+        console.log('[xlsxAction] Server error', error);
         throw (error)
     }
 }

@@ -19,7 +19,7 @@ export const authOptions: AuthOptions = {
 
                 const findUser = await prisma.user.findFirst({
                     where: {
-                        email: credentials.email,
+                        email: credentials.email.trim(),
                     },
                 });
 
@@ -27,7 +27,7 @@ export const authOptions: AuthOptions = {
                     throw new Error('Неверный пароль или логин')
                 }
 
-                const isPasswordValid = await compare(credentials.password, findUser.password);
+                const isPasswordValid = await compare(credentials.password.trim(), findUser.password);
 
                 if (!isPasswordValid) {
                     throw new Error('Неверный пароль или логин')

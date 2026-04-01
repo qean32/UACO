@@ -32,8 +32,8 @@ export function PushGroups() {
                 // @ts-ignore
                 createGroupsAction(JSON.parse(res))
                     .then(res => {
-                        handleAccess(res, { title: "Студенты добавлены!", description: "Вы успешно добавили студентов" })
-                        setAction({ action: actionEnum.push, payload: res, type: actionTypeEnum.group })
+                        handleAccess(res)
+                        setAction({ action: actionEnum.push, payload: res.data, type: actionTypeEnum.group })
                     })
                     .catch(handleCatch)
             }

@@ -29,7 +29,7 @@ export function PushStudents() {
                 // @ts-ignore
                 createStudentsAction(JSON.parse(res))
                     .then(res => {
-                        handleAccess(res, { title: "Студенты добавлены!", description: "Вы успешно добавили студентов" })
+                        handleAccess(res)
                         openDownloadFile(res)
                     })
                     .catch(handleCatch)

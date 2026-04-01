@@ -28,8 +28,8 @@ export function CreateEvent() {
             // @ts-ignore
             createEventAction(data)
                 .then(res => {
-                    handleAccess(res, { title: "Мероприятие добавлено!", description: "Вы добавили мероприятие" });
-                    setAction({ action: actionEnum.push, payload: { ...res, date: formatDate(res?.date) }, type: actionTypeEnum.event })
+                    handleAccess(res);
+                    setAction({ action: actionEnum.push, payload: { ...res.data, date: formatDate(res?.data.date) }, type: actionTypeEnum.event })
                 })
                 .catch(handleCatch)
         })

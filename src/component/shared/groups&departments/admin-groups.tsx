@@ -24,8 +24,8 @@ export const AdminGroups: React.FC<{}> = ({ }: {}) => {
     const deleteGroup = (code: string) => {
         deleteGroupAction({ code })
             .then(res => {
-                handleAccess(res, {})
-                setAction({ action: actionEnum.delete, payload: res, type: actionTypeEnum.group })
+                handleAccess(res)
+                setAction({ action: actionEnum.delete, payload: { code }, type: actionTypeEnum.group })
             })
     }
 

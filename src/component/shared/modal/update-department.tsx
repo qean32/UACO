@@ -42,8 +42,8 @@ const Form = ({ code }: { code: string }) => {
             // @ts-ignore
             updateDepartmentAction(data)
                 .then(res => {
-                    handleAccess(res, {})
-                    setAction({ action: actionEnum.edit, payload: res, type: actionTypeEnum.department })
+                    handleAccess(res)
+                    setAction({ action: actionEnum.edit, payload: res.data, type: actionTypeEnum.department })
                 })
                 .catch(handleCatch)
         },

@@ -18,8 +18,8 @@ export function SupervisorTable({ end, items }: tableResponse<supervisorTableIte
     const deleteEvent = (id: number) => {
         deleteEventAction({ id })
             .then(res => {
-                handleAccess(res, { title: "Мероприятие удалено!", description: "Вы удалили мероприятие" })
-                setAction({ action: actionEnum.delete, payload: { id: res.id }, type: actionTypeEnum.event })
+                handleAccess(res)
+                setAction({ action: actionEnum.delete, payload: { id: res.data.id }, type: actionTypeEnum.event })
             })
             .catch(handleCatch)
     }

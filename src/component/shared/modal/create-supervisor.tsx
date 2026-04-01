@@ -23,7 +23,7 @@ export function CreateSupervisor() {
         (data: TformCreateSupervisor) => {
             // @ts-ignore
             createSupervisorAction(data)
-                .then(res => { handleAccess(res, {}); openDownloadFile(res) })
+                .then(res => { handleAccess(res); openDownloadFile(res) })
                 .catch(handleCatch)
         })
 

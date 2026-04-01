@@ -1,7 +1,7 @@
 'use server'
 
 import { sortingDirectionEnum, tableResponse, supervisorTableItemType } from "@/@types";
-import { DEFAULT_TAKE, Period } from "@/config";
+import { DEFAULT_TAKE, PASSWORD_HASH_LENGTH, Period } from "@/config";
 import { addFieldToUser, convertDayToSecond } from "@/lib/helpers";
 import { convertUserToString, docx } from "@/lib/helpers/file";
 import { Department, Event, Group, Role, User } from "@root/prisma/generated/prisma/browser";
@@ -110,7 +110,7 @@ export const createStudentsAction = async (data: Pick<User, "GroupCode" | "dateO
         const addedPasswordAndEmail = data.map(item => {
             return addFieldToUser(item)
         })
-        await prisma.user.createMany({ data: addedPasswordAndEmail.map(item => { return { ...item, password: hashSync(item.password, 6) } }) })
+        await prisma.user.createMany({ data: addedPasswordAndEmail.map(item => { return { ...item, password: hashSync(item.password, PASSWORD_HASH_LENGTH) } }) })
         const path = docx(convertUserToString(addedPasswordAndEmail))
 
         return path
@@ -144,7 +144,7 @@ export const createSupervisorAction = async (item: Pick<User, "firstName" | "las
     try {
         const addedPasswordAndEmail = addFieldToUser(item)
         await prisma.user.create({
-            data: { ...addedPasswordAndEmail, password: hashSync(addedPasswordAndEmail.password, 6), role: Role.SUPERVISOR }
+            data: { ...addedPasswordAndEmail, password: hashSync(addedPasswordAndEmail.password, PASSWORD_HASH_LENGTH), role: Role.SUPERVISOR }
         })
         const path = docx(convertUserToString([addedPasswordAndEmail]))
 

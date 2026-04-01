@@ -23,7 +23,7 @@ export const Header: React.FC<Props> = ({ }: Props) => {
                 <div className="flex items-center">
                     <Link className='pr-3' href={'/'}><Logo /></Link>
                     <LinkPack className='xl:flex min-[320px]:hidden mx-5' />
-                    <SearchStudents className='md:flex min-[320px]:hidden mr-5 w-120' />
+                    <SearchStudents className='md:flex min-[320px]:hidden mr-5 w-100' />
                 </div>
                 <CustomAvatar user={user} />
             </div>

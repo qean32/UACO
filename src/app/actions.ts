@@ -6,6 +6,7 @@ import { xlsx } from "@/lib/helpers/file"
 import { Event, Role, User } from "@root/prisma/generated/prisma/browser"
 import { prisma } from "@root/prisma/prisma"
 
+
 type generalTableFilters = {
     date?: string,
     group?: string

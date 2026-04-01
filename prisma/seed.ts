@@ -1,6 +1,7 @@
 import { prisma } from "@root/prisma/prisma";
 import { hashSync } from 'bcrypt';
 import * as data from './data'
+import { PASSWORD_HASH_LENGTH } from "@/config";
 
 const create = async () => {
     await prisma.department.createMany({
@@ -22,7 +23,7 @@ const create = async () => {
     })
     await prisma.user.createMany({
         data: {
-            "password": hashSync('admin', 6),
+            "password": hashSync('admin', PASSWORD_HASH_LENGTH),
             "dateOfBirth": "1985-10-26T00:00:00Z",
             "firstName": "Админ",
             "lastName": "Админ",

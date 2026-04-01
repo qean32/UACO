@@ -8,7 +8,7 @@ export const StudentContentPage: React.FC<{ id: number }> = async ({ id }: { id:
     const data = await getStudentTableAction({ userId: id, page: 0 })
 
     return (
-        <div className="flex flex-col px-5 rounded-md w-full ml-5">
+        <div className="flex flex-col rounded-md w-full">
             <div className='flex gap-4 py-4'>
                 <p className='font-medium'>Период</p>
                 <PickPeriod />

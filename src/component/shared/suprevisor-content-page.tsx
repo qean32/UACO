@@ -1,10 +1,7 @@
 'use server'
 
 import { Suspense } from "react"
-import { QueryDrop } from "./button/query-drop"
-import { CreateEvent } from "./modal"
 import { SupervisorTable } from "./table"
-import { PickPeriod } from "./pick"
 import { getSupervisorTableAction } from "@/app/(root)/admin/actions"
 import { SupervisorTableUI } from "./button/pack"
 
@@ -13,7 +10,7 @@ export const SupervisorContentPage: React.FC<{}> = async ({ }: {}) => {
 
     return (
         <Suspense>
-            <div className="flex flex-col px-5 rounded-md w-full ml-5">
+            <div className="flex flex-col rounded-md w-full">
                 <SupervisorTableUI />
                 <SupervisorTable {...data} />
             </div>

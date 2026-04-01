@@ -11,7 +11,7 @@ import { SignOut } from '../button';
 export const Student: React.FC<userInfo> = ({ dateOfBirth, firstName, lastName, sex, sureName, GroupCode, Group }: userInfo) => {
 
     return (
-        <div className="flex h-fit flex-col rounded-md w-1/6 min-w-75 bg-gray-100 p-5">
+        <div className="flex flex-col rounded-md bg-gray-100 p-5 md:min-w-70 md:mr-10 h-fit">
             <p className='pb-5 text-lg font-bold'>Информация</p>
             <InfoItem title='ФИО' value={`${firstName} ${lastName} ${sureName}`} />
             <InfoItem title='Группа' value={GroupCode?.toString() ?? "Организатор"} />

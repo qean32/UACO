@@ -13,7 +13,7 @@ export const GeneralTableUI: React.FC<{}> = () => {
     const user = useUser()
     const search = useSearchParams()
 
-    return <div className='flex gap-3 items-center'>
+    return <div className='flex md:flex-row min-[320px]:flex-col gap-2 min-[320px]:pt-5 md:pt-0'>
         <QueryDrop />
         <FilterEvent />
         {user?.role != Role.STUDENT &&

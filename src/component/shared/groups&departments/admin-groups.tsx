@@ -31,7 +31,7 @@ export const AdminGroups: React.FC<{}> = ({ }: {}) => {
 
     return (
         <>
-            <Table className="mt-10">
+            <Table>
                 <thead className="py-3 bg-gray-200">
                     <tr>
                         <th className="w-1/2">Группа</th>

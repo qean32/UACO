@@ -9,15 +9,11 @@ import Skeleton from "react-loading-skeleton";
 export const BestSupervisors: React.FC = () => {
     const { data, isLoading } = useGetBestSupervisorsQuery(RTKQKEY.bestSupervisors);
 
-    return <div className='flex flex-col w-2/3'>
+    return <div className=''>
         <Title size='text-2xl'>Активные организаторы</Title>
-        <ol className='pt-5'>
+        <ol className='min-[320px]:pt-2 md:pt-5'>
             {isLoading && <Skeleton count={5} height={26} width={'60%'} className="mt-3" />}
-            {!!data?.length && data.map(({ firstName, lastName, sureName, id }) => {
-                return <div key={id} className='grid' style={{ gridTemplateColumns: '1fr 2fr' }}>
-                    <Title className='w-[200px]'>{formatFio({ firstName, lastName, sureName })}</Title>
-                </div>
-            })}
+            {!!data?.length && data.map((item) => <Title key={item.id} size="text-md" >{formatFio(item)}</Title>)}
         </ol>
     </div>
 }

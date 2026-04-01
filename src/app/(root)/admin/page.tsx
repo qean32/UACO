@@ -8,9 +8,9 @@ import { CreateSupervisor, PushDepartments, PushGroups, PushStudents } from '@/c
 export default async function Page() {
 
     return (
-        <div className='flex-1 px-15'>
-            <div className="flex justify-between pt-10">
-                <div className="flex gap-2">
+        <div className='flex-1 md:px-15 min-[320px]:px-5'>
+            <div className="pt-10">
+                <div className="flex gap-2 flex-col">
                     <PushStudents />
                     <PushGroups />
                     <PushDepartments />

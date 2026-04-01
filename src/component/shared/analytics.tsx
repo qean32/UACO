@@ -9,10 +9,8 @@ interface Props {
 const Analytics: React.FC<Props> = ({ }: Props) => {
 
     return (
-        <div className='w-full flex max-h-125 gap-5 bg-gray-200 pt-15 px-15 overflow-hidden'>
-            <div className='w-2/3 -translate-y-1/3 h-100'>
-            </div>
-            <div className='flex w-2/4 justify-around gap-5'>
+        <div className='w-full flex max-h-125 gap-5 bg-gray-200 pt-10 md:md:px-15 min-[320px]:px-5 min-[320px]:px-5 overflow-hidden pb-5'>
+            <div className='flex gap-5 flex-col'>
                 <BestGroups />
                 <BestSupervisors />
             </div>

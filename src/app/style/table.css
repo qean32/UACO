@@ -65,3 +65,8 @@
 .table tbody tr:nth-child(odd) {
     background-color: var(--color-gray-200);
 }
+
+.table td,
+.table th {
+    min-width: 60px;
+}

@@ -40,11 +40,9 @@ export const SearchStudents: React.FC<Props> = ({ className }) => {
             <div onClick={onClickItem} className={cn("fixed top-0 left-0 bottom-0 right-0 bg-black/50 z-30 transition-opacity duration-200",
                 focused ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")} />
 
-            <div className={cn('relative z-30 h-11 flex flex-1', className)}>
-
+            <div className={cn('relative z-30', className)}>
                 <SearchIcon className="absolute top-1/2 -translate-y-1/2 left-3 h-5 text-gray-400" />
-
-                <input className="rounded-sm outline-none bg-gray-100 pl-12 min-w-160"
+                <input className="rounded-sm h-11 outline-none bg-gray-100 pl-12 w-full"
                     type="text"
                     placeholder="Найти студента..."
                     onFocus={() => onFocused()}

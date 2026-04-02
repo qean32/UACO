@@ -1,11 +1,10 @@
-export const DEFAULT_TAKE = 20
-
 export const dataTimeOption = {
     year: "numeric",
     month: "numeric",
     day: "numeric",
     timezone: "UTC",
 }
+export var datePattern = /(\d{2})\.(\d{2})\.(\d{4})/;
 
 export const pick_courses = [
     "1", "2", "3", "4"

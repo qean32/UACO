@@ -24,8 +24,8 @@ export const AdminDepartments: React.FC<{}> = () => {
     const deleteDepartment = (code: string) => {
         deleteDepartmentAction({ code })
             .then(res => {
-                handleAccess(res, {})
-                setAction({ action: actionEnum.delete, payload: res, type: actionTypeEnum.department })
+                handleAccess(res)
+                setAction({ action: actionEnum.delete, payload: { code }, type: actionTypeEnum.department })
             })
     }
 
@@ -58,7 +58,7 @@ export const AdminDepartments: React.FC<{}> = () => {
                     })}
                 </tbody>
             </Table>
-            {loading && <Skeleton count={5} height={70} className="mt-3" />}
+            {loading && <Skeleton count={5} height={70} className="mt-3 mb-3" />}
             {!items?.length && !loading && <NoFindData />}
         </>
     );

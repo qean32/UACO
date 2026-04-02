@@ -2,6 +2,7 @@ import { AuthOptions } from 'next-auth';
 import { prisma } from '@root/prisma/prisma';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { hashSync, compare } from 'bcrypt';
+import { PASSWORD_HASH_LENGTH } from './project';
 
 export const authOptions: AuthOptions = {
     providers: [
@@ -68,7 +69,7 @@ export const authOptions: AuthOptions = {
                         role: "STUDENT",
                         sex: "FEMALE",
                         ...user,
-                        password: hashSync(user.id.toString(), 6),
+                        password: hashSync(user.id.toString(), PASSWORD_HASH_LENGTH),
                     },
                 });
 

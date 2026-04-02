@@ -42,8 +42,8 @@ const Form = ({ code }: { code: string }) => {
             // @ts-ignore
             updateGroupAction(data)
                 .then(res => {
-                    handleAccess(res, {})
-                    setAction({ action: actionEnum.edit, payload: res, type: actionTypeEnum.group })
+                    handleAccess(res)
+                    setAction({ action: actionEnum.edit, payload: res.data, type: actionTypeEnum.group })
                 })
                 .catch(handleCatch)
         },

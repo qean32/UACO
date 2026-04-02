@@ -10,7 +10,7 @@ export default async function Page() {
     return (
         <div className='flex-1 md:px-15 min-[320px]:px-5'>
             <div className="pt-10">
-                <div className="flex gap-2 flex-col">
+                <div className="flex gap-2 min-[320px]:flex-col xl:flex-row">
                     <PushStudents />
                     <PushGroups />
                     <PushDepartments />

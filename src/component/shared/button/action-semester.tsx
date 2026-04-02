@@ -15,7 +15,7 @@ interface Props {
 export const ActionSemester: React.FC<Props> = ({ action, alert, description, children }: Props) => {
     const move = () => {
         semesterMoveAction(action)
-            .then(res => handleAccess(res, {}))
+            .then(handleAccess)
             .catch(handleCatch)
     }
 

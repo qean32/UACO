@@ -10,10 +10,10 @@ export const BestGroups: React.FC = () => {
     const { data, isLoading } = useGetBestGroupsQuery(RTKQKEY.bestGroups);
 
     return <div className=''>
-        <Title size='text-2xl'>Активные группы</Title>
+        <Title size='text-2xl' className="md:text-3xl">Активные группы</Title>
         <ol className='min-[320px]:pt-2 md:pt-5'>
             {isLoading && <Skeleton count={5} height={26} width={'70%'} className="mt-3" />}
-            {!!data?.length && data.map(item => <Title size="text-md" key={item.GroupCode}>{item.GroupCode}</Title>)}
+            {!!data?.length && data.map(item => <Title size="text-md" className="md:text-xl" key={item.GroupCode}>{item.GroupCode}</Title>)}
         </ol>
     </div>
 }

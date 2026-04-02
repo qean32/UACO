@@ -56,7 +56,7 @@ export const getStudentTableAction = async ({ page, userId, period }: { userId: 
                 },
                 take: DEFAULT_TAKE,
                 skip,
-                orderBy: { createdAt: "desc" }
+                orderBy: { Event: { date: "desc" } }
             },
         )
 

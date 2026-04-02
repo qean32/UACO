@@ -23,11 +23,14 @@ export const useEditableRequest = <T extends { id: string, code: string }>({
 
     useHandleAction({
         typeAction: type,
-        delete: payload => setItems(curr => curr.filter(item => { console.log(item?.id ? item?.id != payload?.id : item?.code != payload?.code); item?.id ? item?.id != payload?.id : item?.code != payload?.code })),
+        delete: payload => setItems(curr => curr.filter(item => item?.id ? item?.id != payload?.id : item?.code != payload?.code)),
         push: payload => setItems(curr => [...payload, ...curr]),
         edit: payload => setItems(curr => {
-            const index = curr.findIndex(item => item?.id == payload?.id || item?.code == payload?.code)
-            return [...curr.slice(index + 1, curr.length).reverse(), payload, ...curr.slice(0, index)].reverse()
+            const index = curr.findIndex(item => item?.id ? item?.id == payload?.id : item?.code == payload?.primaryCode)
+            if (index != -1) {
+                return [...curr.slice(index + 1, curr.length).reverse(), payload, ...curr.slice(0, index)].reverse()
+            }
+            return curr
         })
     })
 

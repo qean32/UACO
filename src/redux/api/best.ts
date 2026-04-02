@@ -8,7 +8,7 @@ export const bestApi = createApi({
         getBestSupervisors: build.query<User[], string>({
             query: () => `best/supervisors`,
         }),
-        getBestGroups: build.query<{ GroupCode: string }[], string>({
+        getBestGroups: build.query<{ GroupCode: string, _count: { estimationsEvents: number } }[], string>({
             query: () => `best/groups`,
         }),
     }),

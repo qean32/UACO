@@ -32,8 +32,8 @@ export function PushDepartments() {
                 // @ts-ignore
                 createDepartmentsAction(JSON.parse(res))
                     .then(res => {
-                        handleAccess(res, { title: "Студенты добавлены!", description: "Вы успешно добавили студентов" })
-                        setAction({ action: actionEnum.push, payload: res, type: actionTypeEnum.department })
+                        handleAccess(res)
+                        setAction({ action: actionEnum.push, payload: res.data, type: actionTypeEnum.department })
                     })
                     .catch(handleCatch)
             }

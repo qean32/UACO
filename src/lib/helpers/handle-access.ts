@@ -1,11 +1,11 @@
 import { toastConfig } from "@/config"
 import { toast } from "sonner"
 
-export const handleAccess = (res: any, { title = "Успешно!", description = "Дело сделано!" }: { title?: string, description?: string }) => {
+export const handleAccess = (res: any) => {
     if (res) {
-        toast(title, {
+        toast(res.message, {
             ...toastConfig,
-            description
+            description: res.description
         })
     }
 }

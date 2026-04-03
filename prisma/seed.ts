@@ -4,23 +4,23 @@ import * as data from './data'
 import { PASSWORD_HASH_LENGTH } from "@/config";
 
 const create = async () => {
-    await prisma.department.createMany({
-        data: data.departmens
-    })
-    await prisma.group.createMany({
-        data: data.groups
-    })
-    await prisma.user.createMany({
-        // @ts-ignore
-        data: data.students
-    })
-    await prisma.user.createMany({
-        // @ts-ignore
-        data: data.supervisors
-    })
-    await prisma.event.createMany({
-        data: data.events
-    })
+    // await prisma.department.createMany({
+    //     data: data.departmens
+    // })
+    // await prisma.group.createMany({
+    //     data: data.groups
+    // })
+    // await prisma.user.createMany({
+    //     // @ts-ignore
+    //     data: data.students
+    // })
+    // await prisma.user.createMany({
+    //     // @ts-ignore
+    //     data: data.supervisors
+    // })
+    // await prisma.event.createMany({
+    //     data: data.events
+    // })
     await prisma.user.createMany({
         data: {
             "password": hashSync('admin', PASSWORD_HASH_LENGTH),

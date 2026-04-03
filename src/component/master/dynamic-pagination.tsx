@@ -15,15 +15,13 @@ interface Props extends useDynamicPaginationType {
 export const DynamicPagination: React.FC<Props> = ({ _fetch, fillQueries, initialState, renderItem, staticParam, initEnd, ref, typeAction }: Props) => {
     const { inViewRef, items } = useDynamicPagination<any>({ _fetch, fillQueries, initialState, staticParam, initEnd, typeAction })
 
-    return (
-        <>
-            <tbody className="min-h-screen">
-                {!!items.length && items.map(item => {
-                    return <Fragment key={item?.User?.id ? item?.User?.id : item.id}>{renderItem(item)}</Fragment>
-                })}
-                <tr ref={inViewRef} className="h-25"></tr>
-            </tbody>
-            {!items.length && ref.current && <Portal endpoint={ref.current}><NoFindData /></Portal>}
-        </>
-    )
+    return <>
+        <tbody className="min-h-screen">
+            {!!items.length && items.map(item => {
+                return <Fragment key={item?.User?.id ? item?.User?.id : item.id}>{renderItem(item)}</Fragment>
+            })}
+            <tr ref={inViewRef} className="h-25"></tr>
+        </tbody>
+        {!items.length && ref.current && <Portal endpoint={ref.current}><NoFindData /></Portal>}
+    </>
 }

@@ -70,3 +70,10 @@
 .table th {
     min-width: 60px;
 }
+
+@media screen and (max-width: 1024px) {
+    th,
+    td {
+        padding-inline: 20px;
+    }
+}

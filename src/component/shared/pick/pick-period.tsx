@@ -17,14 +17,14 @@ export function PickPeriod() {
 
     return (
         <Select onValueChange={(e) => { push({ period: e }) }}>
-            <SelectTrigger className="h-[40px] bg-white cursor-pointer mr-5">
+            <SelectTrigger className="h-10 bg-white cursor-pointer mr-5">
                 <SelectValue placeholder="Период" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Период</SelectLabel>
-                    {pick_periods.map(item => {
-                        return <SelectItem key={item.value} value={item.title}>{item.title}</SelectItem>
+                    {pick_periods.map(({ ru, value }) => {
+                        return <SelectItem key={ru} value={value}>{ru}</SelectItem>
                     })}
                 </SelectGroup>
             </SelectContent>

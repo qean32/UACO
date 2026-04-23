@@ -1,22 +1,13 @@
-export const fakeGrapch = [
-    { name: '22ис-2', value: 4 },
-    { name: '25аэп-1', value: 3 },
-    { name: '24св-2', value: 3 },
-    { name: '23-тэп-1', value: 7 },
-    { name: '22п-2', value: 7 },
-]
-
-export const DEFAULT_TAKE = 20
-
 export const dataTimeOption = {
     year: "numeric",
     month: "numeric",
     day: "numeric",
     timezone: "UTC",
 }
+export var datePattern = /(\d{2})\.(\d{2})\.(\d{4})/;
 
 export const pick_courses = [
-    "1", "2", "3", "4", "5"
+    "1", "2", "3", "4"
 ]
 
 export const pick_estimations = [
@@ -39,9 +30,13 @@ export const pick_months = [
 
 ]
 
+export enum Period {
+    Month = "Month",
+    Week = "Week"
+}
+
 export const pick_periods = [
-    { value: "1", title: "Неделя" },
-    { value: "2", title: "Месяц" },
-    { value: "3", title: "Год" },
-    { value: "4", title: "Все время" },
+    { value: Period.Week, ru: "Неделя" },
+    { value: Period.Month, ru: "Месяц" },
+    { value: " ", ru: "Все время" },
 ]

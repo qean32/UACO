@@ -3,10 +3,8 @@
 import { Button } from "@/component/ui/button"
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -16,6 +14,7 @@ import { PickCourse, PickGroup, PickDepartment } from "@/component/shared/pick"
 import { FormProvider } from "react-hook-form"
 import { useMyForm, usePushQuery } from "@/lib/hooks"
 import { formFilterSchema, TformFilterSchema } from "@/@types/schema"
+import { DefaultFooter } from "./default-footer"
 
 export function FilterEvent() {
     const { push } = usePushQuery()
@@ -32,7 +31,7 @@ export function FilterEvent() {
             <DialogTrigger asChild>
                 <Button variant={'default'}>Фильтр</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-110">
                 <FormProvider {...form}>
                     <form onSubmit={submitHandler}>
                         <DialogHeader className="pb-5">
@@ -45,14 +44,10 @@ export function FilterEvent() {
                             <PickGroup setValue={setValue} />
                             <DatePicker setValue={setValue} />
                         </div>
-                        <DialogFooter className="pt-8 justify-start">
-                            <DialogClose asChild>
-                                <Button variant="outline" className="text-dark">Отмена</Button>
-                            </DialogClose>
-                            <DialogClose asChild>
-                                <Button type="submit" variant={'primary'}>Фильтр</Button>
-                            </DialogClose>
-                        </DialogFooter>
+                        <DefaultFooter>
+                            <Button variant="outline" className="text-dark">Отмена</Button>
+                            <Button type="submit" variant={'primary'}>Фильтр</Button>
+                        </DefaultFooter>
                     </form>
                 </FormProvider>
             </DialogContent>

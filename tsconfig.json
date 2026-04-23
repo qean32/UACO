@@ -31,6 +31,9 @@
       ],
       "@prisma": [
         "./prisma/generated/prisma/browser"
+      ],
+      "@/app/*": [
+        "./src/app/*"
       ]
     }
   },

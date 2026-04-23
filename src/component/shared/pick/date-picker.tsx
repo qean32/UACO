@@ -30,7 +30,7 @@ export function DatePicker({ setValue }: setValueFormProps<any>) {
                     isDefault={false}
                     variant="outline"
                     data-empty={!date}
-                    className="data-[empty=true]:text-muted-foreground w-full h-[40px] justify-start text-left font-normal cursor-pointer"
+                    className="data-[empty=true]:text-muted-foreground w-full h-10 justify-start text-left font-normal cursor-pointer"
                 >
                     <CalendarIcon />
                     {date ? format(date, "PPP", { locale: ru }) : <span>Дата</span>}

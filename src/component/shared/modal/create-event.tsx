@@ -3,29 +3,34 @@
 import { Button } from "@/component/ui/button"
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/component/ui/dialog"
 import { FormInput, Title } from "../../ui"
 import { PickSupervisor, DatePicker } from "@/component/shared/pick"
-import { useMyForm } from "@/lib/hooks"
+import { useAction, useMyForm } from "@/lib/hooks"
 import { formCreateEvent, TformCreateEvent } from "@/@types/schema"
 import { FormProvider } from "react-hook-form"
-import { handleAccess, handleCatch } from "@/lib/helpers"
+import { formatDate, handleAccess, handleCatch } from "@/lib/helpers"
 import { createEventAction } from "@/app/(root)/admin/actions"
+import { DefaultFooter } from "./default-footer"
+import { actionEnum } from "@/@types"
+import { actionTypeEnum } from "@/@types/action.enum"
 
 export function CreateEvent() {
+    const [setAction] = useAction()
     const { form, setValue, submitHandler } = useMyForm<TformCreateEvent>(
         formCreateEvent,
         (data: TformCreateEvent) => {
             // @ts-ignore
             createEventAction(data)
-                .then(res => handleAccess(res, { title: "Мероприятие добавлено!", description: "Вы добавили мероприятие" }))
+                .then(res => {
+                    handleAccess(res);
+                    setAction({ action: actionEnum.push, payload: { ...res.data, date: formatDate(res?.data.date) }, type: actionTypeEnum.event })
+                })
                 .catch(handleCatch)
         })
 
@@ -34,7 +39,7 @@ export function CreateEvent() {
             <DialogTrigger asChild>
                 <Button variant={'primary'}>Добавить мероприятие</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-110">
                 <FormProvider {...form}>
                     <form onSubmit={submitHandler}>
                         <DialogHeader className="pb-5">
@@ -42,18 +47,14 @@ export function CreateEvent() {
                             <DialogDescription>Введите название, дату и организатора</DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4">
-                            <FormInput placeholder="Название" className="h-[40px]" name="name" />
+                            <FormInput placeholder="Название" className="h-10" name="name" />
                             <DatePicker setValue={setValue} />
                             <PickSupervisor setValue={setValue} />
                         </div>
-                        <DialogFooter className="pt-8">
-                            <DialogClose asChild>
-                                <Button variant="outline" className="text-dark">Отмена</Button>
-                            </DialogClose>
-                            <DialogClose asChild>
-                                <Button type="submit" variant={'primary'}>Добавить</Button>
-                            </DialogClose>
-                        </DialogFooter>
+                        <DefaultFooter>
+                            <Button variant="outline" className="text-dark">Отмена</Button>
+                            <Button type="submit" variant={'primary'}>Добавить</Button>
+                        </DefaultFooter>
                     </form>
                 </FormProvider>
             </DialogContent>

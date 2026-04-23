@@ -2,6 +2,7 @@ import { AuthOptions } from 'next-auth';
 import { prisma } from '@root/prisma/prisma';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { hashSync, compare } from 'bcrypt';
+import { PASSWORD_HASH_LENGTH } from './project';
 
 export const authOptions: AuthOptions = {
     providers: [
@@ -19,7 +20,7 @@ export const authOptions: AuthOptions = {
 
                 const findUser = await prisma.user.findFirst({
                     where: {
-                        email: credentials.email,
+                        email: credentials.email.trim(),
                     },
                 });
 
@@ -27,7 +28,7 @@ export const authOptions: AuthOptions = {
                     throw new Error('Неверный пароль или логин')
                 }
 
-                const isPasswordValid = await compare(credentials.password, findUser.password);
+                const isPasswordValid = await compare(credentials.password.trim(), findUser.password);
 
                 if (!isPasswordValid) {
                     throw new Error('Неверный пароль или логин')
@@ -68,7 +69,7 @@ export const authOptions: AuthOptions = {
                         role: "STUDENT",
                         sex: "FEMALE",
                         ...user,
-                        password: hashSync(user.id.toString(), 6),
+                        password: hashSync(user.id.toString(), PASSWORD_HASH_LENGTH),
                     },
                 });
 

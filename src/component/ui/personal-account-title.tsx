@@ -20,9 +20,9 @@ export const PersonalAccountTitle: React.FC<Props> = async ({ id }: Props) => {
     const role = await getRoleAction(id)
 
     return (
-        <div className='flex h-[200px] items-center justify-around'>
+        <div className='flex h-50 min-[320px]:flex-col md:flex-row items-center justify-around'>
             <ArrowBack />
-            <p className='w-full text-center text-4xl font-bold primary-color'>
+            <p className='w-full text-center md:text-4xl min-[320px]:text-3xl font-bold primary-color'>
                 {role && map.get(role.role)}
             </p>
         </div>

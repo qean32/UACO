@@ -4,15 +4,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler, useForm, SubmitErrorHandler } from "react-hook-form";
 import z from "zod";
 import React from "react";
+import { axiosInstance } from "@/redux/api";
 
 export const useMyForm = <T extends FieldValues,>(
     schema: z.ZodObject<T> | any,
     submitCallBack: Function,
     submitErrorCallBack?: Function,
+    _default?: any
 ) => {
     const form = useForm<T>({
         mode: 'onChange',
-        resolver: zodResolver(schema)
+        resolver: zodResolver(schema),
+        defaultValues: _default ? _default : {}
     })
 
     const onSubmit: SubmitHandler<T> = (data: T) => {
@@ -26,7 +29,7 @@ export const useMyForm = <T extends FieldValues,>(
 
             submitErrorCallBack && submitErrorCallBack(data)
         }
-        console.log('АП:', data);
+        console.log('error', data);
     }, [])
     const submitHandler = form.handleSubmit(onSubmit, onError)
 

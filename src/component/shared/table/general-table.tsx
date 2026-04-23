@@ -1,27 +1,34 @@
-'use server'
+'use client'
 
 import { GeneralColumn } from './column'
 import { Table } from './table'
-import { TformFilterSchema } from '@/@types/schema'
 import { DynamicPagination } from '@/component/master'
 import { GeneralTableItem } from './item'
 import { getGeneralTableAction } from '@/app/actions'
+import { tableResponse, generalTableItem } from '@/@types'
+import { Event } from '@root/prisma/generated/prisma/browser'
+import { useRef } from 'react'
 
 
-export async function GeneralTable({ queries }: { queries: TformFilterSchema }) {
-    // @ts-ignore
-    const { column, items, end } = await getGeneralTableAction(queries)
+export function GeneralTable({ column, items, end }: {
+    column: Pick<Event, "name" | "id">[]
+} & tableResponse<generalTableItem[]>) {
+    const ref = useRef<HTMLDivElement | null>(null)
 
     return (
-        <Table>
-            <GeneralColumn events={column} />
-            <DynamicPagination
-                initialState={items}
-                initEnd={end}
-                _fetch={getGeneralTableAction}
-                fillQueries
-                RenderItem={GeneralTableItem}
-            />
-        </Table>
+        <>
+            <Table>
+                <GeneralColumn events={column} />
+                <DynamicPagination
+                    initialState={items}
+                    ref={ref}
+                    initEnd={end}
+                    _fetch={getGeneralTableAction}
+                    fillQueries
+                    renderItem={(item) => <GeneralTableItem {...item} />}
+                />
+            </Table>
+            <div ref={ref}></div>
+        </>
     )
 }

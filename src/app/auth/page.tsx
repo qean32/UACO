@@ -37,11 +37,12 @@ export default function Page() {
     return (
         <FormProvider {...form}>
             <div className='flex-1 flex justify-center items-center'>
-                <form className="flex flex-col gap-3 bg-white -translate-y-1/2 py-5 px-5 rounded-lg items-center border border-gray-100" onSubmit={submitHandler}>
+                <form onSubmit={submitHandler}
+                    className="flex flex-col gap-3 bg-white -translate-y-1/2 py-5 px-5 rounded-lg items-center border border-gray-100 md:w-90 min-[320px]:w-screen">
                     <Title className='pb-2'>Авторизация</Title>
                     <Logo className='mb-3' />
-                    <FormInput placeholder='Почта' className='w-[350px] h-[40px]' name='email' />
-                    <FormInput placeholder='Пароль' className='w-[350px] h-[40px]' type='password' name='password' />
+                    <FormInput placeholder='Почта' className='w-full h-10' name='email' />
+                    <FormInput placeholder='Пароль' className='w-full h-10' type='password' name='password' />
                     {error && <DangerText>{error}</DangerText>}
                     <Button variant='primary' className='w-full mt-3' type='submit'>Войти</Button>
                 </form>

@@ -15,7 +15,7 @@ interface Props {
 export const GeneralColumn: React.FC<Props> = ({ events }: Props) => {
     const { push } = usePushQuery()
     const searchParams = useSearchParams()
-    const EventId = searchParams.get("EventId")
+    const EventId = searchParams?.get("EventId")
 
     const filter = (e: React.MouseEvent<HTMLDivElement>) => {
         push({ EventId: getGataId(e) })

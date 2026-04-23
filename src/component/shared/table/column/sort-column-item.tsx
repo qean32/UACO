@@ -1,5 +1,5 @@
 import { sortingDirectionEnum } from "@/@types"
-import { BookmarkCheck } from "lucide-react"
+import { SortAsc, SortDesc } from "lucide-react"
 import { ReactNode } from "react"
 
 interface Props {
@@ -13,11 +13,11 @@ interface Props {
 export const SortColumnItem: React.FC<Props> = ({ children, isCurrent, sort, push, direction }: Props) => {
     return (
         <th className='w-1/12  cursor-pointer' onClick={() => push({
-            sort, direction: !direction ? sortingDirectionEnum.desc : sortingDirectionEnum.asc
+            sort, direction: ((direction && isCurrent)) ? sortingDirectionEnum.asc : sortingDirectionEnum.desc
         })}
         >
             <div className="flex items-center gap-1 justify-center">
-                {isCurrent && <BookmarkCheck />}
+                {isCurrent && (direction ? <SortDesc /> : <SortAsc />)}
                 {children}
             </div>
         </th>

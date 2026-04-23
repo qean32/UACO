@@ -2,7 +2,7 @@
 <div>
   <img src="https://github.com/qean32/qean32/blob/main/icon/ts.svg" />
   <img width="6" />
-  <img src="https://github.com/qean32/qean32/blob/main/icon/next.svg" />
+  <img src="https://github.com/qean32/qean32/blob/main/icon/nextjs.svg" />
   <img width="6" />
   <img src="https://github.com/qean32/qean32/blob/main/icon/redux.svg" />
   <img width="6" />
@@ -18,9 +18,9 @@
   <img width="6" />
   <img src="https://github.com/qean32/qean32/blob/main/icon/prisma.svg" />
   <img width="6" />
-  <img src="https://github.com/qean32/qean32/blob/main/icon/lucide.svg" />
+  <img src="https://github.com/qean32/qean32/blob/main/icon/lucide.svg" width="50" />
   <img width="6" />
-  <img src="https://github.com/qean32/qean32/blob/main/icon/radix.svg" />
+  <img src="https://github.com/qean32/qean32/blob/main/icon/radix.svg" width="45" />
 </div>
 
 ### The application is designed as a non-commercial platform for to evaluate and organize college events

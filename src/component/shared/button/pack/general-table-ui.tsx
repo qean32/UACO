@@ -16,7 +16,7 @@ export const GeneralTableUI: React.FC<{}> = () => {
     return <div className='flex md:flex-row min-[320px]:flex-col gap-2 min-[320px]:pt-5 md:pt-0'>
         <QueryDrop />
         <FilterEvent />
-        {user?.role != Role.STUDENT &&
+        {user?.id && user?.role != Role.STUDENT &&
             <Button variant={'primary'}
                 onClick={() => xlsxAction(Object.fromEntries(search)).then(openDownloadFile)}>
                 Экспорт в Excel

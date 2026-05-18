@@ -29,7 +29,7 @@ export const useMyForm = <T extends FieldValues,>(
 
             submitErrorCallBack && submitErrorCallBack(data)
         }
-        console.log('error', data);
+        // console.log('error', data);
     }, [])
     const submitHandler = form.handleSubmit(onSubmit, onError)
 

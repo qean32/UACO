@@ -36,8 +36,20 @@ export const getSupervisorTableAction = async ({ page, sort, direction = sorting
         const skip = (page || 0) * DEFAULT_TAKE
 
         if (sort == "avg" || sort == "countEstimations") {
+            const events = await prisma.event.findMany({
+                where: {
+                    AND: [
+                        { ...(period === Period.Week ? { date: { gte: new Date(Date.now() - convertDayToSecond(7)) } } : null) },
+                        { ...(period === Period.Month ? { date: { gte: new Date(Date.now() - convertDayToSecond(30)) } } : null) }
+                    ]
+                },
+                select: { name: true, id: true, date: true, SupervisorId: true }
+            })
+            const zoneEvents = events.map(item => item.id)
+
             const groupBy = await prisma.estimationEvent.groupBy({
                 by: ['EventId'],
+                where: { id: { in: zoneEvents } },
                 _avg: { estimation: true },
                 _count: true,
                 orderBy: sort == "avg"
@@ -48,17 +60,6 @@ export const getSupervisorTableAction = async ({ page, sort, direction = sorting
             const paginatedGroups = groupBy.slice(skip, skip + DEFAULT_TAKE)
             const eventIds = paginatedGroups.map(g => g.EventId)
             const groupMap = new Map(paginatedGroups.map(g => [g.EventId, g]))
-
-            const events = await prisma.event.findMany({
-                where: {
-                    AND: [
-                        { id: { in: eventIds } },
-                        { ...(period === Period.Week ? { date: { gte: new Date(Date.now() - convertDayToSecond(7)) } } : null) },
-                        { ...(period === Period.Month ? { date: { gte: new Date(Date.now() - convertDayToSecond(30)) } } : null) }
-                    ]
-                },
-                select: { name: true, id: true, date: true, SupervisorId: true }
-            })
 
             const eventMap = new Map(events.map(item => [item.id, item]))
 
